@@ -31,5 +31,10 @@
     "astrofetch": {
         "home": "/astrofetch",
         "nasaApi": "https://api.nasa.gov"
+    },
+    "external": {
+        "bootstrap": "https://getbootstrap.com/",
+        "fontAwesome": "https://fontawesome.com/",
+        "exifJs": "https://github.com/exif-js/exif-js"
     }
 }
