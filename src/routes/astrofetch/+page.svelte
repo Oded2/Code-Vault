@@ -2,6 +2,8 @@
   import Header from "../../components/Header.svelte";
   import nasaLogo from "../../images/svg/NASA.svg";
   import rocketImg from "../../images/svg/rocket.svg";
+  import loadingGif from "../../images/loading.gif";
+
   let today = new Date().toISOString().split("T")[0];
   let apiKey = "DEMO_KEY";
   let startDate = today;
@@ -15,11 +17,11 @@
   $: isData = data[0] != 0;
   $: currentUrl = current["url"];
   $: currentTitle = current["title"];
-  $: currentExplanation = current["explanation"];
+  $: currentExplanation = removeLineBreak(current["explanation"]);
   $: currentDate = current["date"];
-  $: currentCopyright = current["copyright"];
+  $: currentCopyright = removeLineBreak(current["copyright"]);
   $: youtubeUrl = showVideo(currentUrl);
-
+  $: isLoading = false;
   function showVideo(originalLink) {
     if (!isVideo) {
       return;
@@ -71,12 +73,14 @@
     return currentData;
   }
   async function insertImages() {
+    isLoading = true;
     const url = addParams(apiUrl, {
       api_key: apiKey,
       start_date: startDate,
       end_date: endDate,
     });
     data = await fetchData(url);
+    isLoading = false;
   }
   const submit = async () => {
     await insertImages();
@@ -92,6 +96,9 @@
     return link.toString();
   }
   function removeLineBreak(string) {
+    if (!string) {
+      return;
+    }
     string = string.replace(/\n/g, "");
     string = string.replace(/\r/g, "");
     return string;
@@ -313,7 +320,7 @@
   </section>
   <section>
     <div class="container-fluid">
-      {#if isData}
+      {#if isData && !isLoading}
         <h1 class="text-center vh-rsm-10">
           <em>{currentTitle}</em>
         </h1>
@@ -405,6 +412,20 @@
             </div>
           </div>
         </div>
+      {:else if isLoading}
+        <h1 class="text-center vh-rsm-10">
+          <em>Loading</em>
+        </h1>
+
+        <div class="vh-sm-75 vh-50">
+          <div class="h-100">
+            <img
+              src={loadingGif}
+              alt="Loading"
+              class="img-fluid object-fit-contain h-100 w-100"
+            />
+          </div>
+        </div>
       {:else}
         <h1 class="text-center vh-rsm-10">
           <em>Nasa Logo</em>
@@ -425,4 +446,7 @@
 </main>
 
 <style>
+  :global(body) {
+    background-color: rgba(33, 37, 41);
+  }
 </style>
