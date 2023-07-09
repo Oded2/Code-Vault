@@ -4,7 +4,7 @@
   const homeRef = hrefs["fun-projects"];
 </script>
 
-<Header page="fun-projects" title="Fun Projects" />
+<Header directory="fun-projects" title="Fun Projects" activePage="home" />
 <main class="bg-light text-dark vh-100">
   <section>
     <div class="container py-5">

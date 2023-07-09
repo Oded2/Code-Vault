@@ -2,8 +2,8 @@
   import Header from "../../../components/Header.svelte";
   let password = "";
   $: hash = hashPass(password);
-  let orignalMessage = "";
-  $: encryptedMessage = encryptAny(orignalMessage, hash);
+  let encryptedMessage = "";
+  $: decryptedMessage = decryptAny(encryptedMessage, hash);
   const abc = {
     a: 0,
     b: 1,
@@ -106,13 +106,13 @@
     }
     return null;
   }
-  const pasteToOrignal = async () => {
-    orignalMessage = await paste();
+  const pasteToEncrypted = async () => {
+    encryptedMessage = await paste();
   };
   const copytoClipboard = () => {
-    navigator.clipboard.writeText(encryptedMessage);
+    navigator.clipboard.writeText(decryptedMessage);
   };
-  const encryptAny = (message, code) => {
+  const decryptAny = (message, code) => {
     message = message.toString();
     code = code.toString();
     let final = "";
@@ -120,16 +120,17 @@
       const currentLetter = message[i];
       const currentIndex = i % code.length;
       const current_num = parseInt(code[currentIndex]);
-      final += shiftUp(currentLetter, current_num);
+      final += shiftDown(currentLetter, current_num);
     }
     return final;
   };
-  function shiftUp(letter, num) {
+  function shiftDown(letter, num) {
     if (letter.toLowerCase() in abc) {
       const isCap = letter.toUpperCase() === letter;
       const position = abc[letter.toLowerCase()];
+
       for (const i in abc) {
-        if (abc[i] == (position + num) % 26) {
+        if (abc[i] === (position - num + 26) % 26) {
           if (isCap) {
             return i.toUpperCase();
           } else {
@@ -141,12 +142,12 @@
       const position = charMap[letter];
       const length = Object.keys(charMap).length;
       for (const i in charMap) {
-        if (charMap[i] == (position + num) % length) {
+        if (charMap[i] === (position - num + length) % length) {
           return i;
         }
       }
     } else if (!isNaN(parseInt(letter))) {
-      const numShift = (parseInt(letter) + num) % 10;
+      const numShift = (parseInt(letter) - num + 10) % 10;
       return numShift.toString();
     } else {
       return letter;
@@ -154,13 +155,13 @@
   }
 </script>
 
-<Header title="Encrypt" directory="fun-projects" activePage="encrypt" />
+<Header title="Decrypt" directory="fun-projects" activePage="decrypt" />
 <main>
   <section>
     <div class="container">
       <div class="row">
         <div class="col-md-12 py-3">
-          <h1 class="font-google-work-sans text-sm-center fw-600">Encrypt</h1>
+          <h1 class="font-google-work-sans text-sm-center fw-600">Decrypt</h1>
         </div>
       </div>
       <div class="row">
@@ -179,28 +180,28 @@
       <div class="row mt-3">
         <div class="col-md-6">
           <h2 class="font-google-quicksand text-center fw-bold">
-            Original Message
+            Encrypted Message
           </h2>
           <textarea
-            bind:value={orignalMessage}
-            placeholder="Place your original message here"
+            bind:value={encryptedMessage}
+            placeholder="Place your encrypted message here"
             class="form-control"
             rows="15"
           />
           <button
             class="btn btn-outline-dark w-100 mt-2"
-            on:click={pasteToOrignal}
+            on:click={pasteToEncrypted}
           >
             Paste
           </button>
         </div>
         <div class="col-md-6 mt-4 mt-md-0">
           <h2 class="font-google-quicksand text-center fw-bold">
-            Encrypted Message
+            Decrypted Message
           </h2>
           <textarea
-            bind:value={encryptedMessage}
-            placeholder="Encrypted message will be displayed here"
+            bind:value={decryptedMessage}
+            placeholder="Decrypted message will be displayed here"
             class="form-control"
             rows="15"
             disabled
