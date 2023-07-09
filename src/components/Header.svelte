@@ -5,6 +5,7 @@
   export let activePage = null;
   export let title = "Code Vault";
   const funProjects = hrefs["fun-projects"];
+  const funGames = hrefs["fun-games"];
 </script>
 
 <svelte:head>
@@ -52,7 +53,8 @@
           <li>
             <a
               href={funProjects["ccvalidator"]}
-              class="nav-link class:active={activePage == 'ccvalidator'}"
+              class="nav-link"
+              class:active={activePage == "ccvalidator"}
               >Credit Card Validator</a
             >
           </li>
@@ -69,6 +71,30 @@
               href={funProjects["photodata"]}
               class="nav-link"
               class:active={activePage == "photodata"}>Metadata Viewer</a
+            >
+          </li>
+        </ul>
+      {:else if directory == "fun-games"}
+        <ul class="navbar-nav ms-xl-5">
+          <li>
+            <a
+              href={funGames["home"]}
+              class="nav-link"
+              class:active={activePage == "home"}>Fun Games</a
+            >
+          </li>
+          <li>
+            <a
+              href={funGames["wordguess"]}
+              class="nav-link"
+              class:active={activePage == "wordguess"}>Word Guess</a
+            >
+          </li>
+          <li>
+            <a
+              href={funGames["numberguess"]}
+              class="nav-link"
+              class:active={activePage == "numberguess"}>Number Guess</a
             >
           </li>
         </ul>

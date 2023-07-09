@@ -26,7 +26,9 @@
         "photodata": "/fun-projects/photodata"
     },
     "fun-games": {
-        "home": "/fun-games"
+        "home": "/fun-games",
+        "wordguess": "/fun-games/wordguess",
+        "numberguess": "/fun-games/numberguess"
     },
     "astrofetch": {
         "home": "/astrofetch",
