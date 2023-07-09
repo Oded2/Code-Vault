@@ -1,10 +1,11 @@
 <script>
   import Header from "../components/Header.svelte";
   import learningImg from "../images/svg/learning.svg";
+  import hrefs from "../data/hrefs.json";
 </script>
 
 <Header isHome={true} />
-<main>
+<main class="bg-light">
   <section class="bg-dark text-light p-5 p-lg-1 text-center text-sm-start">
     <div class="container">
       <div class="d-sm-flex align-items-center justify-content-between">
@@ -14,7 +15,7 @@
             Check out my coding projects as a learning developer.
           </p>
           <a
-            href="https://github.com/Oded2"
+            href={hrefs["github"]["profile"]}
             target="_blank"
             class="btn btn-primary btn-lg"
             ><i class="fa-solid fa-up-right-from-square" />&nbsp; Check out my
@@ -51,7 +52,9 @@
               </p>
             </div>
             <div class="container-fluid mt-auto">
-              <a href="fun-projects/" class="btn btn-primary fs-5 w-100"
+              <a
+                href={hrefs["fun-projects"]["home"]}
+                class="btn btn-primary fs-5 w-100"
                 ><i class="fa-regular fa-folder-open" />&nbsp; Show Me</a
               >
             </div>
@@ -75,7 +78,9 @@
               </p>
             </div>
             <div class="container-fluid mt-auto">
-              <a href="fun-games/" class="btn btn-primary fs-5 w-100"
+              <a
+                href={hrefs["fun-games"]["home"]}
+                class="btn btn-primary fs-5 w-100"
                 ><i class="fa-regular fa-folder-open" />&nbsp; Show Me</a
               >
             </div>
@@ -104,16 +109,18 @@
 
             <div class="container-fluid mt-auto">
               <a
-                href="https://github.com/Oded2/AstroFetch"
+                href={hrefs["github"]["astrofetch"]["source"]}
                 class="btn btn-outline-secondary my-2 text-white fs-5 w-100"
                 ><i class="fa-brands fa-github" />&nbsp; Source Code (Python)</a
               >
               <a
-                href="https://github.com/Oded2/AstroFetch/archive/refs/heads/main.zip"
+                href={hrefs["github"]["astrofetch"]["download"]}
                 class="btn btn-outline-primary fs-5 w-100"
                 ><i class="fa-brands fa-python" />&nbsp; Download Python Version</a
               >
-              <a href="/astrofetch" class="btn btn-primary fs-5 w-100 mt-2"
+              <a
+                href={hrefs["astrofetch"]["home"]}
+                class="btn btn-primary fs-5 w-100 mt-2"
                 ><i class="fa-regular fa-folder-open" />&nbsp; Show Me</a
               >
             </div>
@@ -141,12 +148,12 @@
 
             <div class="container-fluid mt-auto">
               <a
-                href="https://github.com/Oded2/Python-Encryption"
+                href={hrefs["github"]["python-encryption"]["source"]}
                 class="btn btn-outline-secondary my-2 text-white fs-5 w-100"
                 ><i class="fa-brands fa-github" />&nbsp; Source Code</a
               >
               <a
-                href="https://github.com/Oded2/Python-Encryption/archive/refs/heads/master.zip"
+                href={hrefs["github"]["python-encryption"]["download"]}
                 class="btn btn-primary fs-5 w-100"
                 ><i class="fa-solid fa-download" />&nbsp; Download</a
               >
@@ -177,12 +184,12 @@
 
             <div class="container-fluid mt-auto">
               <a
-                href="https://github.com/Oded2/Python-Hangman"
+                href={hrefs["github"]["python-hangman"]["source"]}
                 class="btn btn-outline-secondary my-2 text-white fs-5 w-100"
                 ><i class="fa-brands fa-github" />&nbsp; Source Code</a
               >
               <a
-                href="https://github.com/Oded2/Python-Hangman/archive/refs/heads/main.zip"
+                href={hrefs["github"]["python-hangman"]["download"]}
                 class="btn btn-primary fs-5 w-100"
                 ><i class="fa-solid fa-download" />&nbsp; Download</a
               >

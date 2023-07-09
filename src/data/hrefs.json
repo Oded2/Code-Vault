@@ -1,0 +1,35 @@
+{
+    "code vault": "/",
+    "about": "/about",
+    "contact": "mailto:odedconnect@gmail.com",
+    "github": {
+        "profile": "https://github.com/Oded2",
+        "astrofetch": {
+            "source": "https://github.com/Oded2/AstroFetch",
+            "download": "https://github.com/Oded2/AstroFetch/archive/refs/heads/main.zip"
+        },
+        "python-hangman": {
+            "source": "https://github.com/Oded2/Python-Hangman",
+            "download": "https://github.com/Oded2/Python-Hangman/archive/refs/heads/main.zip"
+        },
+        "python-encryption": {
+            "source": "https://github.com/Oded2/Python-Encryption",
+            "download": "https://github.com/Oded2/Python-Encryption/archive/refs/heads/master.zip"
+        }
+    },
+    "fun-projects": {
+        "home": "/fun-projects",
+        "encrypt": "/fun-projects/encrypt",
+        "decrypt": "/fun-projects/decrypt",
+        "ccvalidator": "/fun-projects/ccvalidator",
+        "ccgenerator": "/fun-projects/ccgenerator",
+        "photodata": "/fun-projects/photodata"
+    },
+    "fun-games": {
+        "home": "/fun-games"
+    },
+    "astrofetch": {
+        "home": "/astrofetch",
+        "nasaApi": "https://api.nasa.gov"
+    }
+}

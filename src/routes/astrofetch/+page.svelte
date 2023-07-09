@@ -1,9 +1,10 @@
 <script>
   import Header from "../../components/Header.svelte";
+  import hrefs from "../../data/hrefs.json";
   import nasaLogo from "../../images/svg/NASA.svg";
   import rocketImg from "../../images/svg/rocket.svg";
   import loadingGif from "../../images/loading.gif";
-
+  const astrofetchRef = hrefs["astrofetch"];
   let today = new Date().toISOString().split("T")[0];
   let apiKey = "DEMO_KEY";
   let startDate = today;
@@ -83,6 +84,11 @@
     isLoading = false;
   }
   const submit = async () => {
+    const validation = validateDates(startDate, endDate);
+    if (!validation["valid"]) {
+      alert(validation["message"]);
+      return;
+    }
     await insertImages();
   };
   function addParams(link, params) {
@@ -172,17 +178,17 @@
   }
 </script>
 
-<Header />
+<Header title="AstroFetch" />
 <main class="bg-dark text-light">
   <section class="p-lg-5 text-center text-lg-start">
     <div class="container">
       <div class="d-sm-flex align-items-center justify-content-between">
         <div>
           <h1>Astro <span class="text-primary">Fetch</span></h1>
-          <div class="container-fluid border border-info rounded">
+          <div class="container-fluid border-info custom-text">
             <p class="fs-5 text-start font-google-quicksand fw-500">
               AstroFetch is a powerful tool that utilizes the nasa api (<a
-                href="https://api.nasa.gov"
+                href={astrofetchRef["nasaApi"]}
                 class="link-light">api.nasa.gov</a
               >) and fetches the Astronomy Picture Of the Day (APOD) from your
               start date to your end date, allowing you to browse the pictures
@@ -192,7 +198,7 @@
           <div class="container-fluid">
             <p class="fs-6 text-start">
               Want to download images instead? Use the
-              <a href="https://github.com/Oded2/AstroFetch" class="link-light"
+              <a href={hrefs["github"]["astrofetch"]} class="link-light"
                 >python</a
               >
               version!
@@ -295,7 +301,9 @@
           />
           <span class="fs-6 fw-light"
             >Don't have an API key? Either leave it as "DEMO_KEY" or visit
-            <a href="https://api.nasa.gov" class="link-light">api.nava.gov</a>
+            <a href={astrofetchRef["nasaApi"]} class="link-light"
+              >api.nava.gov</a
+            >
             to obtain one.</span
           >
         </div>
@@ -362,7 +370,7 @@
                   <div class="col-auto">
                     <span class="fs-6 fw-light"
                       >Feel free to
-                      <a href="mailto:odedconnect@gmail.com" class="link-light"
+                      <a href={hrefs["contact"]} class="link-light"
                         >contact me</a
                       >
                       if you encounter this issue.</span
@@ -446,7 +454,7 @@
 </main>
 
 <style>
-  :global(body) {
-    background-color: rgba(33, 37, 41);
+  .custom-text {
+    border-left: 5px solid;
   }
 </style>
