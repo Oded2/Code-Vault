@@ -8,7 +8,7 @@
   import email from "../../images/svg/email.svg";
 </script>
 
-<Header />
+<Header title="About Code Vault" activePage="about" />
 
 <main>
   <section class="p-1 bg-dark text-light">

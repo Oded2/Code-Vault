@@ -101,7 +101,11 @@
       {/if}
       <ul class="navbar-nav ms-auto">
         <li>
-          <a href={hrefs["about"]} class="nav-link">About</a>
+          <a
+            href={hrefs["about"]}
+            class="nav-link"
+            class:active={activePage == "about"}>About</a
+          >
         </li>
         <li>
           <a href={hrefs["contact"]} class="nav-link"
