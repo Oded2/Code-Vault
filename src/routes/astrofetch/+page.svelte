@@ -6,11 +6,38 @@
   let apiKey = "DEMO_KEY";
   let startDate = today;
   let endDate = today;
-  let isImage = true;
-  let noImage = false;
-  let isVideo = false;
-  let data;
+  let data = [0];
   let currentImg = 0;
+  $: current = data[currentImg];
+  $: isImage = current["media_type"] == "image";
+  $: noImage = current["media_type"] == "other";
+  $: isVideo = current["media_type"] == "video";
+  $: isData = data[0] != 0;
+  $: currentUrl = current["url"];
+  $: currentTitle = current["title"];
+  $: currentExplanation = current["explanation"];
+  $: currentDate = current["date"];
+  $: currentCopyright = current["copyright"];
+  $: youtubeUrl = showVideo(currentUrl);
+
+  function showVideo(originalLink) {
+    if (!isVideo) {
+      return;
+    }
+    const youtubeParams = { autoplay: 1, mute: 1 };
+    const vimeoParams = { autoplay: 1, muted: 1, pip: 1 };
+
+    let newSrc = originalLink;
+    if (newSrc.includes("youtube.com")) {
+      newSrc = addParams(newSrc, youtubeParams).replace(
+        /youtube.com/g,
+        "youtube-nocookie.com"
+      );
+    } else if (newSrc.includes("vimeo.com")) {
+      newSrc = addParams(newSrc, vimeoParams);
+    }
+    return newSrc;
+  }
   const apiUrl = new URL("https://api.nasa.gov/planetary/apod");
   async function paste() {
     try {
@@ -22,6 +49,7 @@
     return null;
   }
   async function fetchData(url) {
+    console.log(url);
     let response;
     try {
       response = await fetch(url);
@@ -80,6 +108,7 @@
   }
   function formatDate(dateStr) {
     const date = new Date(dateStr);
+    const dateOptions = { month: "long", day: "numeric", year: "numeric" };
     const formatDate = date.toLocaleDateString("en-US", dateOptions);
     return formatDate;
   }
@@ -120,6 +149,22 @@
       endDate = final;
     }
   };
+  function changeImg(plus) {
+    if (plus == 1) {
+      if (currentImg + 1 < data.length) {
+        currentImg++;
+      } else {
+        currentImg = 0;
+      }
+    } else if (plus == 0) {
+      if (currentImg - 1 >= 0) {
+        currentImg--;
+      } else {
+        currentImg = data.length - 1;
+      }
+    }
+    console.log(current);
+  }
 </script>
 
 <Header />
@@ -270,95 +315,112 @@
   </section>
   <section>
     <div class="container-fluid">
-      <h1 class="text-center vh-rsm-10">
-        <em id="imageTitle">Nasa Logo</em>
-      </h1>
+      {#if isData}
+        <h1 class="text-center vh-rsm-10">
+          <em>{currentTitle}</em>
+        </h1>
 
-      <div class="vh-sm-75 vh-50">
-        <div class="h-100" hidden={!isImage}>
-          {#if data}
-            {#each data as current, index}
-              {#if current["media_type"] == "image"}
+        <div class="vh-sm-75 vh-50">
+          <div class="h-100" hidden={!isImage}>
+            {#each data as currentItem, index}
+              {#if isImage}
                 <img
-                  src={current["url"]}
-                  alt={current["title"]}
-                  hidden={index == currentImg}
+                  src={currentItem["url"]}
+                  alt={currentItem["title"]}
+                  hidden={index != currentImg}
+                  class="img-fluid object-fit-contain h-100 w-100"
                 />
               {/if}
             {/each}
-          {:else}
-            <img
-              src={nasaLogo}
-              alt="NASA logo"
-              class="img-fluid object-fit-contain h-100 w-100"
-              id="mainImage"
-            />
-          {/if}
-        </div>
-        <div hidden={!isVideo} class="container h-100">
-          <iframe
-            title="Video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            src=""
-            frameborder="0"
-            id="youtube"
-            class="h-100 w-100"
-          />
-        </div>
-        <div hidden={!noImage} class="container h-100">
-          <div class="d-flex align-items-center h-100">
-            <div class="row">
-              <div class="col-12">
-                <div class="border border-danger rounded px-3 w-100">
-                  <h1 class="text-center">
-                    Sorry! The astronomy picture of the day for the current date
-                    is unavailable.
-                  </h1>
+          </div>
+          <div hidden={!isVideo} class="container h-100">
+            {#if isVideo}
+              <iframe
+                src={youtubeUrl}
+                class="h-100 w-100"
+                title="YouTube video player"
+                frameborder="0"
+                allowfullscreen
+              />{/if}
+          </div>
+          <div hidden={!noImage} class="container h-100">
+            <div class="d-flex align-items-center h-100">
+              <div class="row">
+                <div class="col-12">
+                  <div class="border border-danger rounded px-3 w-100">
+                    <h1 class="text-center">
+                      Sorry! The astronomy picture of the day for the current
+                      date is unavailable.
+                    </h1>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <span class="fs-6 fw-light"
+                    >Feel free to
+                    <a href="mailto:odedconnect@gmail.com" class="link-light"
+                      >contact me</a
+                    >
+                    if you encounter this issue.</span
+                  >
                 </div>
               </div>
-              <div class="col-auto">
-                <span class="fs-6 fw-light"
-                  >Feel free to
-                  <a href="mailto:odedconnect@gmail.com" class="link-light"
-                    >contact me</a
-                  >
-                  if you encounter this issue.</span
-                >
-              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="container">
-        <div class="row my-4" id="buttonDiv" hidden>
-          <div class="col-12 mb-2">
-            <div class="row vh-rsm-10">
-              <div class="col-auto">
-                <h6>Date: <span id="dateTaken" /></h6>
-              </div>
-              <div class="col-auto" id="copyrightCol">
-                <h6>Copyright: <span id="copyright" /></h6>
+
+        <div class="container">
+          <div class="row my-4" id="buttonDiv">
+            <div class="col-12 mb-2">
+              <div class="row vh-rsm-10">
+                <div class="col-auto">
+                  <h6>Date: {formatDate(currentDate)}</h6>
+                </div>
+                {#if currentCopyright}
+                  <div class="col-auto">
+                    <h6>Copyright: {currentCopyright}</h6>
+                  </div>
+                {/if}
               </div>
             </div>
+            <div class="col-6">
+              <button
+                class="btn btn-primary w-100 fs-5"
+                on:click={() => changeImg(0)}
+              >
+                Back
+              </button>
+            </div>
+            <div class="col-6">
+              <button
+                class="btn btn-primary w-100 fs-5"
+                on:click={() => changeImg(1)}
+              >
+                Next
+              </button>
+            </div>
           </div>
-          <div class="col-6">
-            <button class="btn btn-primary w-100 fs-5" on:click={currentImg++}>
-              Back
-            </button>
-          </div>
-          <div class="col-6">
-            <button class="btn btn-primary w-100 fs-5" on:click={currentImg--}>
-              Next
-            </button>
+          <div class="row my-4">
+            <div class="col-md-12">
+              <h3 class="font-google-quicksand">Explanation</h3>
+              <p class="font-google-quicksand fs-5">{currentExplanation}</p>
+            </div>
           </div>
         </div>
-        <div class="row my-4">
-          <div class="col-md-12" id="explanationDiv" hidden>
-            <h3 class="font-google-quicksand">Explanation</h3>
-            <p id="explanation" class="font-google-quicksand fs-5" />
+      {:else}
+        <h1 class="text-center vh-rsm-10">
+          <em>Nasa Logo</em>
+        </h1>
+
+        <div class="vh-sm-75 vh-50">
+          <div class="h-100">
+            <img
+              src={nasaLogo}
+              alt="Nasa Logo"
+              class="img-fluid object-fit-contain h-100 w-100"
+            />
           </div>
         </div>
-      </div>
+      {/if}
     </div>
   </section>
 </main>
