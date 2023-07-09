@@ -80,7 +80,6 @@
   }
   const submit = async () => {
     await insertImages();
-    console.log("data", data);
   };
   function addParams(link, params) {
     link = new URL(link);
@@ -163,7 +162,6 @@
         currentImg = data.length - 1;
       }
     }
-    console.log(current);
   }
 </script>
 
@@ -321,51 +319,52 @@
         </h1>
 
         <div class="vh-sm-75 vh-50">
-          <div class="h-100" hidden={!isImage}>
-            {#each data as currentItem, index}
-              {#if isImage}
+          {#if isImage}
+            <div class="h-100">
+              {#each data as currentItem, index}
                 <img
                   src={currentItem["url"]}
                   alt={currentItem["title"]}
                   hidden={index != currentImg}
                   class="img-fluid object-fit-contain h-100 w-100"
                 />
-              {/if}
-            {/each}
-          </div>
-          <div hidden={!isVideo} class="container h-100">
-            {#if isVideo}
+              {/each}
+            </div>
+          {:else if isVideo}
+            <div hidden={!isVideo} class="container h-100">
               <iframe
                 src={youtubeUrl}
                 class="h-100 w-100"
                 title="YouTube video player"
                 frameborder="0"
                 allowfullscreen
-              />{/if}
-          </div>
-          <div hidden={!noImage} class="container h-100">
-            <div class="d-flex align-items-center h-100">
-              <div class="row">
-                <div class="col-12">
-                  <div class="border border-danger rounded px-3 w-100">
-                    <h1 class="text-center">
-                      Sorry! The astronomy picture of the day for the current
-                      date is unavailable.
-                    </h1>
+              />
+            </div>
+          {:else}
+            <div hidden={!noImage} class="container h-100">
+              <div class="d-flex align-items-center h-100">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="border border-danger rounded px-3 w-100">
+                      <h1 class="text-center">
+                        Sorry! The astronomy picture of the day for the current
+                        date is unavailable.
+                      </h1>
+                    </div>
                   </div>
-                </div>
-                <div class="col-auto">
-                  <span class="fs-6 fw-light"
-                    >Feel free to
-                    <a href="mailto:odedconnect@gmail.com" class="link-light"
-                      >contact me</a
+                  <div class="col-auto">
+                    <span class="fs-6 fw-light"
+                      >Feel free to
+                      <a href="mailto:odedconnect@gmail.com" class="link-light"
+                        >contact me</a
+                      >
+                      if you encounter this issue.</span
                     >
-                    if you encounter this issue.</span
-                  >
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          {/if}
         </div>
 
         <div class="container">
