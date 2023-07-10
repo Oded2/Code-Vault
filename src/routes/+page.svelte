@@ -33,13 +33,13 @@
   </section>
   <!-- Boxes -->
 
-  <div class="container py-5">
+  <div class="container pt-5">
     <div class="row">
       <HomeCard
         title="Fun Projects"
         description="This website offers various features, including a Text Encrypter,
       Text Decrypter, Credit Card Validator, Credit Card Generator,
-      and an Image Metadata Viewer. It uses HTML, CSS, and Javascript."
+      and an Image Metadata Viewer. All available in your web browser."
         icon="laptop"
         mainLink={hrefs["fun-projects"]["home"]}
       />

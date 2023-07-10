@@ -12,7 +12,7 @@
   const fullIcon = `fa-${iconType} fa-${icon}`;
 </script>
 
-<div class="col-xl-4 col-md-6 d-flex mt-md-0 mb-md-5 mt-5">
+<div class="col-xl-4 col-md-6 d-flex mb-5">
   <div class="card bg-dark text-light shadow-lg">
     <div class="card-body text-center d-md-flex flex-md-column px-0 px-md-3">
       <div class="h1 mb-5">
