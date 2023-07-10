@@ -2,7 +2,6 @@
   import Header from "../../components/Header.svelte";
   import FunGamesCard from "../../components/cards/FunGamesCard.svelte";
   import hrefs from "../../data/hrefs.json";
-  import gamingImg from "../../images/svg/gaming.svg";
   const funGames = hrefs["fun-games"];
 </script>
 
@@ -12,7 +11,14 @@
     <div class="container">
       <div class="py-4">
         <h1>Welcome to <span class="text-warning">Fun Games</span></h1>
-        <p class="font-google-quicksand fs-5 fw-500" />
+        <div class="border-start ps-3 w-75">
+          <p class="font-google-quicksand fs-5 fw-500">
+            Fun Games offers enjoyable browser-based experiences. With
+            user-friendly interfaces and straightforward gameplay, these
+            accessible games entertain players of all skill levels. Explore and
+            experience the joy of engaging browser-based entertainment.
+          </p>
+        </div>
       </div>
     </div>
     <div class="container">
