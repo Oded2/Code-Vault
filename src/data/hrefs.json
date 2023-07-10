@@ -34,6 +34,10 @@
         "home": "/astrofetch",
         "nasaApi": "https://api.nasa.gov"
     },
+    "email": {
+        "address": "odedconnect@gmail.com",
+        "mailto": "mailto:odedconnect@gmail.com"
+    },
     "external": {
         "bootstrap": "https://getbootstrap.com/",
         "fontAwesome": "https://fontawesome.com/",

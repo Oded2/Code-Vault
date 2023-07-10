@@ -43,10 +43,10 @@
         <div class="col-md">
           <h1 class="text-center">Development</h1>
           <p class="font-google-quicksand fs-5">
-            Code Vault is exclusively crafted using front-end technologies such
-            as HTML, CSS, and JavaScript, showcasing a commitment to building a
-            dynamic and engaging user experience without relying on complex
-            backend systems.
+            Code Vault is crafted using Svelte as a frontend framework while
+            using languages such as HTML, CSS, and JavaScript, showcasing a
+            commitment to building a dynamic and engaging user experience
+            without relying on complex backend systems.
           </p>
         </div>
         <div class="col-md d-md-block d-flex justify-content-center">
@@ -78,8 +78,8 @@
           <h1 class="text-center">Contact</h1>
           <p class="font-google-quicksand fs-5">
             Feel free to reach out to me at
-            <a class="text-white" href={hrefs["contact"]}
-              >odedconnect@gmail.com</a
+            <a class="text-white" href={hrefs["email"]["mailto"]}
+              >{hrefs["email"]["address"]}</a
             >
             or visit my
             <a href={hrefs["github"]["profile"]} class="text-white">GitHub</a>
