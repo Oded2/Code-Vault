@@ -2,7 +2,11 @@
 
 # This project is still a work in progress!
 
-This repository contains random projects created for fun. Each project is built using HTML, CSS, and JavaScript and offers unique features and functionalities, all made possible by Svelte. You can check out the website at https://code-vault-svelte.netlify.app.
+This repository contains multiple projects created for fun. Each project is built using HTML, CSS, and JavaScript and offers unique features and functionalities, all made possible by Svelte. You can check out the website at https://code-vault-svelte.netlify.app.
+
+## Requirements
+
+npm (https://www.npmjs.com/)
 
 ## Installation
 
@@ -11,6 +15,16 @@ To use any of the projects in this repository, you can clone the repository usin
 Alternatively, you can download the repository as a ZIP file by clicking on the "Code" button above and selecting "Download ZIP". Extract the contents to your desired location.
 
 Take your time to explore each project's unique features and functionalities.
+
+## Running
+
+Open a terminal.
+
+Go to the directory of this installation
+
+Run `npm install`.
+
+Once all the files are installed, run `npm run dev`. This will be open a localhost server that you can open in a web browser.
 
 ## Contributing
 
