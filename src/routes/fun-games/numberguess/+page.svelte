@@ -37,7 +37,7 @@
   }
 
   const checkNum = () => {
-    if (isNaN(userNum)) {
+    if (isNaN(userNum) || !userNum) {
       return;
     }
     attempts++;
