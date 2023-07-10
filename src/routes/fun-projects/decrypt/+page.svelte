@@ -67,7 +67,6 @@
     ";": 31,
     ":": 32,
   };
-  const isAlpha = /^[A-Za-z]+$/;
   const isUpper = /^[A-Z]+$/;
   const isNumeric = /^-?\d+(\.\d+)?$/;
   const hashPass = (pass) => {

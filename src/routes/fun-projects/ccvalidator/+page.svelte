@@ -7,7 +7,6 @@
   $: if (!cardNum) {
     cardNum = "";
   }
-  $: console.log(isValid);
   function reverseString(str) {
     str += "";
     let splitString = str.toString().split("");

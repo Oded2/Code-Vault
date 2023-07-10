@@ -43,9 +43,9 @@
     <h3 class="col-md-8 fs-4">
       <h4>
         This method is called the Luhn algorithm, here is a demonstration of how
-        it works
+        it works.
       </h4>
-      <h4>&nbsp;</h4>
+      <br />
       <h4>
         First, take all the digits of your credit card, and double every second
         digit from the right. If the digit is above 9, then you subtract 9 from
