@@ -34,6 +34,12 @@
   height: 25vh !important;
 }
 
+.dark-background {
+  position: fixed;
+  width: 100vw;
+  min-height: 100vh !important;
+}
+
 @media (min-width: 576px) {
   .vh-sm-75 {
     height: 75vh !important;

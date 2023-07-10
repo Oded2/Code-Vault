@@ -85,16 +85,16 @@
           </li>
           <li>
             <a
-              href={funGames["wordguess"]}
+              href={funGames["numberguess"]}
               class="nav-link"
-              class:active={activePage == "wordguess"}>Word Guess</a
+              class:active={activePage == "numberguess"}>Number Guess</a
             >
           </li>
           <li>
             <a
-              href={funGames["numberguess"]}
+              href={funGames["wordguess"]}
               class="nav-link"
-              class:active={activePage == "numberguess"}>Number Guess</a
+              class:active={activePage == "wordguess"}>Word Guess</a
             >
           </li>
         </ul>

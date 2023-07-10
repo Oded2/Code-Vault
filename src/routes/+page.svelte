@@ -2,12 +2,12 @@
   import Header from "../components/Header.svelte";
   import learningImg from "../images/svg/learning.svg";
   import hrefs from "../data/hrefs.json";
-  import HomeCard from "../components/home/HomeCard.svelte";
+  import HomeCard from "../components/cards/HomeCard.svelte";
 </script>
 
 <Header isHome={true} />
 <main class="bg-light">
-  <section class="bg-dark text-light p-5 p-lg-1 text-center text-sm-start">
+  <section class="text-bg-dark p-5 p-lg-1 text-center text-sm-start">
     <div class="container">
       <div class="d-sm-flex align-items-center justify-content-between">
         <div>

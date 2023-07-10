@@ -11,7 +11,7 @@
 <Header title="About Code Vault" activePage="about" />
 
 <main>
-  <section class="p-1 bg-dark text-light">
+  <section class="p-1 text-bg-dark">
     <div class="container">
       <div class="row p-3">
         <div class="col-md">

@@ -179,7 +179,7 @@
 </script>
 
 <Header title="AstroFetch" />
-<main class="bg-dark text-light">
+<main class="text-bg-dark">
   <section class="p-lg-5 text-center text-lg-start">
     <div class="container">
       <div class="d-sm-flex align-items-center justify-content-between">
