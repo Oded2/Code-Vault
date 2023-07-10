@@ -27,6 +27,7 @@
     }
   };
   function resetGame() {
+    numbersTried = [];
     userNum = null;
     attempts = 0;
     indicator = null;
