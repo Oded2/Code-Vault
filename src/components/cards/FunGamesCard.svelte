@@ -6,8 +6,8 @@
   export let description = "";
 </script>
 
-<div class="col-md-4 mb-5 mx-3">
-  <div class="card bg-secondary-subtle">
+<div class="col-lg-6 col-xxl-4 mb-5">
+  <div class="card bg-secondary-subtle h-100">
     <div class="card-body">
       <div class="border-bottom border-black">
         <h1>

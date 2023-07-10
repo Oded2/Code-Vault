@@ -6,13 +6,20 @@
   export let title = "Code Vault";
   const funProjects = hrefs["fun-projects"];
   const funGames = hrefs["fun-games"];
+  const isFunProjects = directory == "fun-projects";
+  const isFunGames = directory == "fun-games";
 </script>
 
 <svelte:head>
   <title>{title}</title>
 </svelte:head>
 
-<nav class="navbar navbar-expand-xl bg-dark navbar-dark">
+<nav
+  class="navbar bg-dark navbar-dark"
+  class:navbar-expand-xl={isFunProjects}
+  class:navbar-expand-md={isFunGames}
+  class:navbar-expand-sm={isHome}
+>
   <div class="container">
     <a href={hrefs["code vault"]} class="navbar-brand"
       >{#if isHome}Oded's Website
@@ -27,7 +34,7 @@
       <span class="navbar-toggler-icon" />
     </button>
     <div class="collapse navbar-collapse" id="navmenu">
-      {#if directory == "fun-projects"}
+      {#if isFunProjects}
         <ul class="navbar-nav ms-xl-5">
           <li>
             <a
@@ -74,8 +81,8 @@
             >
           </li>
         </ul>
-      {:else if directory == "fun-games"}
-        <ul class="navbar-nav ms-xl-5">
+      {:else if isFunGames}
+        <ul class="navbar-nav ms-md-5">
           <li>
             <a
               href={funGames["home"]}
