@@ -10,23 +10,18 @@
   let maxTries = 10;
   let showHints = true;
   let winningWord = "";
-
+  let lettersUsed = [];
   let attempts = 0;
   let userGuess = "";
   let indexes = [];
 
-  let lettersTried = [];
-  $: win = false;
   $: triesLeft = maxTries - attempts;
   let totalWords = [];
   fetchWords();
   let revealed = "";
-  $: if (winningWord.length > 0 && revealed.length == 0) {
-    revealed = getPlaceholderWord(winningWord, []);
-  }
-  $: if (winningWord != "" && revealed != "") {
-    win = winningWord == revealed;
-  }
+  $: win =
+    winningWord == revealed && winningWord != "" && revealed != "" && !lose;
+  $: lose = attempts >= maxTries;
   function findIndexes(word, letter) {
     let final = [];
     for (let i = 0; i < word.length; i++) {
@@ -49,16 +44,35 @@
     }
     return final;
   }
+  function capitalizeFirst(str) {
+    if (str.length == 0) {
+      return;
+    }
+    return str[0].toUpperCase() + str.slice(1);
+  }
   const startGame = () => {
+    lettersUsed = [];
+    attempts = 0;
+    indexes = [];
+    winningWord = chooseWord(minLen, maxLen);
+    revealed = getPlaceholderWord(winningWord, indexes);
     gameBefore = false;
     gameAfter = true;
-    winningWord = chooseWord(minLen, maxLen);
-    console.log("Winning word", winningWord);
   };
 
   const check = () => {
     indexes = indexes.concat(findIndexes(winningWord, userGuess));
     revealed = getPlaceholderWord(winningWord, indexes);
+    if (
+      !winningWord.includes(userGuess) &&
+      !win &&
+      !lettersUsed.includes(userGuess)
+    ) {
+      attempts++;
+      if (userGuess.length == 1) {
+        lettersUsed[lettersUsed.length] = userGuess;
+      }
+    }
     userGuess = "";
   };
 
@@ -112,7 +126,6 @@
   }
   function chooseWordNow() {
     let randomIndex = Math.floor(Math.random() * totalWords.length);
-
     let randomWord = totalWords[randomIndex];
     return randomWord;
   }
@@ -160,6 +173,7 @@
           </div>
           <div class="col-md-3">
             <button
+              disabled={totalWords.length == 0}
               type="submit"
               class="btn btn-primary fs-1 h-100 w-100 font-google-signika-negative my-md-0 my-2"
             >
@@ -259,10 +273,13 @@
           <h1 class="font-google-roboto-mono">Guess the Word</h1>
         </div>
         <div
-          class="div col-12 border border-info text-center rounded overflow-auto"
+          class="div col-12 border text-center rounded overflow-auto"
+          class:border-info={!win && !lose}
+          class:border-success={win}
+          class:border-danger={lose}
         >
           <p class="display-2 letter-spaced">
-            {revealed}
+            {capitalizeFirst(revealed)}
           </p>
         </div>
       </div>
@@ -293,7 +310,14 @@
             <h1 class="font-google-quicksand fw-bold">Letters Used:</h1>
           </div>
           <div class="col-md-8 text-start">
-            <p class="display-6" />
+            <p class="display-6">
+              {#each lettersUsed as letter, index}
+                {#if index != 0}
+                  ,
+                {/if}
+                {letter}
+              {/each}
+            </p>
           </div>
         </div>
         <div class="row py-3 bg-secondary-subtle">
@@ -301,7 +325,7 @@
             <h1 class="font-google-quicksand fw-bold">Tries Left:</h1>
           </div>
           <div class="col-md-6 text-start">
-            <progress value={triesLeft} max="10" class="w-100 h-100" />
+            <progress value={triesLeft} max={maxTries} class="w-100 h-100" />
           </div>
           <div class="col-md-2 text-center">
             <h1 class="font-google-quicksand">{triesLeft}</h1>
@@ -314,6 +338,7 @@
             <button
               class="btn btn-info fs-3 text-light w-50"
               on:click={revealLetter}
+              disabled={revealed == winningWord}
             >
               Reveal Letter
             </button>
