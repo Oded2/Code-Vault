@@ -5,7 +5,7 @@
   import HomeCard from "../components/cards/HomeCard.svelte";
 </script>
 
-<Header isHome={true} />
+<Header directory="home" />
 <main class="bg-light">
   <section class="text-bg-dark p-5 p-lg-1 text-center text-sm-start">
     <div class="container">

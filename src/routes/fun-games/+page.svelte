@@ -5,8 +5,8 @@
   const funGames = hrefs["fun-games"];
 </script>
 
-<Header directory="fun-games" activePage="home" title="Fun Games" />
 <main class="text-bg-dark dark-background">
+  <Header directory="fun-games" activePage="home" title="Fun Games" />
   <section>
     <div class="container">
       <div class="py-4">

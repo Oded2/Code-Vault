@@ -66,8 +66,8 @@
   }
 </script>
 
-<Header directory="fun-games" activePage="numberguess" title="Number Guess" />
 <main class="text-bg-dark dark-background">
+  <Header directory="fun-games" activePage="numberguess" title="Number Guess" />
   <section class="py-5">
     <div class="container">
       <div class="row gx-4 gx-lg-5">

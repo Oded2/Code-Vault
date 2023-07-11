@@ -1,11 +1,11 @@
 <script>
   import hrefs from "../data/hrefs.json";
-  export let isHome = false;
   export let directory = null;
   export let activePage = null;
   export let title = "Code Vault";
   const funProjects = hrefs["fun-projects"];
   const funGames = hrefs["fun-games"];
+  const isHome = directory == "home";
   const isFunProjects = directory == "fun-projects";
   const isFunGames = directory == "fun-games";
 </script>
@@ -18,7 +18,7 @@
   class="navbar bg-dark navbar-dark"
   class:navbar-expand-xl={isFunProjects}
   class:navbar-expand-md={isFunGames}
-  class:navbar-expand-sm={isHome}
+  class:navbar-expand-sm={isHome || !directory}
 >
   <div class="container">
     <a href={hrefs["code vault"]} class="navbar-brand"
