@@ -11,7 +11,7 @@
     <div class="container">
       <div class="py-4">
         <h1>Welcome to <span class="text-warning">Fun Games</span></h1>
-        <div class="border-start ps-3 w-75">
+        <div class="border-start ps-3 w-xxl-75">
           <p class="font-google-quicksand fs-5 fw-500">
             Fun Games offers enjoyable browser-based experiences. With
             user-friendly interfaces and straightforward gameplay, these

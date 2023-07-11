@@ -179,7 +179,7 @@
 </script>
 
 <Header title="AstroFetch" />
-<main class="text-bg-dark">
+<main class="text-bg-dark dark-background">
   <section class="p-lg-5 text-center text-lg-start">
     <div class="container">
       <div class="d-sm-flex align-items-center justify-content-between">
@@ -187,7 +187,7 @@
           <h1>Astro <span class="text-primary">Fetch</span></h1>
           <div class="container-fluid border-info custom-text">
             <p class="fs-5 text-start font-google-quicksand fw-500">
-              AstroFetch is a powerful tool that utilizes the nasa api (<a
+              AstroFetch is a powerful tool that utilizes the Nasa api (<a
                 href={astrofetchRef["nasaApi"]}
                 class="link-light">api.nasa.gov</a
               >) and fetches the Astronomy Picture Of the Day (APOD) from your

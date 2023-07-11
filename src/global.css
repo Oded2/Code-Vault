@@ -20,8 +20,10 @@
 .font-google-caveat {
   font-family: "Caveat", cursive;
 }
-.demo {
-  border: 5px dashed red;
+.dark-background {
+  position: fixed;
+  width: 100%;
+  min-height: 100vh !important;
 }
 
 .vh-75 {
@@ -34,15 +36,32 @@
   height: 25vh !important;
 }
 
-.dark-background {
-  position: fixed;
-  width: 100%;
-  min-height: 100vh !important;
+@media (min-width: 1400px) {
+  .w-xxl-75 {
+    width: 75% !important;
+  }
+}
+@media (min-width: 1200px) {
+  .w-xl-75 {
+    width: 75% !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .w-md-50 {
+    width: 50% !important;
+  }
+  .w-md-25 {
+    width: 25% !important;
+  }
 }
 
 @media (min-width: 576px) {
   .vh-sm-75 {
     height: 75vh !important;
+  }
+  .w-sm-50 {
+    width: 50% !important;
   }
 }
 @media (max-width: 576px) {

@@ -14,9 +14,7 @@
   const startGame = () => {
     gameBefore = false;
     gameAfter = true;
-    console.log(minNum, maxNum);
     winningNum = randomNum(minNum, maxNum);
-    console.log(winningNum);
   };
   const hint = () => {
     if (!win) {
@@ -48,9 +46,9 @@
     }
 
     if (userNum < winningNum) {
-      indicator = "low";
+      indicator = "Low";
     } else if (userNum > winningNum) {
-      indicator = "high";
+      indicator = "High";
     }
     userNum = null;
   };
@@ -106,7 +104,7 @@
             >
               <button
                 disabled={!gameBefore}
-                class="btn fs-5 w-25 my-md-0 my-2"
+                class="btn fs-5 w-100 w-sm-50 w-md-25 my-md-0 my-3 mb-md-3"
                 class:btn-primary={gameBefore}
                 class:btn-secondary={gameAfter}
                 on:click={startGame}
@@ -174,7 +172,7 @@
               >
                 <h1 class="font-google-work-sans">
                   {#if !win && gameAfter && indicator}
-                    Your number is too {indicator}
+                    Too {indicator}
                   {:else if win}
                     You win!
                   {:else}
