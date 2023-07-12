@@ -15,3 +15,5 @@ vite.config.ts.timestamp-*
 .vscode/
 
 .npmrc
+
+.netlify/
