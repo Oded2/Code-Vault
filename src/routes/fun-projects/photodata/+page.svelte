@@ -1,13 +1,65 @@
 <script>
   import Header from "../../../components/Header.svelte";
+  import transparentImg from "../../../images/Transparent.png";
   let userImg;
-  let imgSrc;
-  // $: img = URL.createObjectURL(userImg);
-  const createImage = (e) => {
-    let img = e.target.files[0];
-    imgSrc = URL.createObjectURL(img);
+  let imgSrc = transparentImg;
+
+  let tags = {};
+
+  let newTags = [];
+  let acceptableValues = ["Make", "Model", "Flash", "Software"];
+  $: for (let i in tags) {
+    if (acceptableValues.includes(i))
+      newTags[newTags.length] = `${i}: ${tags[i]}`;
+  }
+  $: finalLong = handleCord(tags["GPSLongitude"], tags["GPSLongitudeRef"]);
+  $: finalLat = handleCord(tags["GPSLatitude"], tags["GPSLatitudeRef"]);
+  $: finalMap = createMapEmbedLink(finalLat, finalLong);
+  const createImage = (event) => {
+    let file = event.target.files[0];
+    imgSrc = URL.createObjectURL(file);
+    EXIF.getData(file, processEXIF);
   };
-  $: console.log(imgSrc);
+
+  function handleCord(cord, ref) {
+    if (!cord) {
+      return;
+    }
+    let degree = cord[0];
+    let minute = cord[1];
+    let second = cord[2];
+    let final = ConvertDMSToDD(degree, minute, second, ref);
+    return final;
+  }
+  function processEXIF() {
+    tags = EXIF.getAllTags(this);
+  }
+  function ConvertDMSToDD(degrees, minutes, seconds, direction) {
+    let dd = degrees + minutes / 60 + seconds / 3600;
+
+    if (direction == "S" || direction == "W") {
+      dd = dd * -1;
+    }
+
+    return dd;
+  }
+  function createMapEmbedLink(latitude, longitude) {
+    if (!latitude || !longitude) {
+      return "https://www.openstreetmap.org/export/embed.html?bbox=-132.67089843750003%2C21.779905342529645%2C-59.28222656250001%2C51.781435604431195&amp;layer=mapnik";
+    }
+    const degrees = 30 / 111.32;
+    const bbox = [
+      longitude - degrees,
+      latitude - degrees,
+      longitude + degrees,
+      latitude + degrees,
+    ].join(",");
+
+    const marker = `${latitude},${longitude}`;
+
+    const embedLink = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&amp;layer=mapnik&marker=${marker}`;
+    return embedLink;
+  }
 </script>
 
 <Header
@@ -32,32 +84,29 @@
         />
       </div>
       <div class="row vh-50">
-        <div class="col-md-6 h-100">
+        <div class="col-md-6 h-100 d-flex justify-content-center">
           <img src={imgSrc} alt="Uploaded" class="img-fluid h-100" />
         </div>
 
         <div class="col-md-6 h-100">
-          <iframe
-            title="Open street map"
-            class="h-100 w-100"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=-132.67089843750003%2C21.779905342529645%2C-59.28222656250001%2C51.781435604431195&amp;layer=mapnik"
-          />
+          <iframe title="Open street map" class="h-100 w-100" src={finalMap} />
         </div>
       </div>
-      <div class="row g-5">
-        <div class="col-md-6">
-          <h2 class="text-body-emphasis">Image Metadata</h2>
+      <div>
+        <h2 class="text-body-emphasis">Image Metadata</h2>
 
-          <ul class="list-unstyled ps-0">
-            <li>
-              <h4 id="dataMake">&nbsp;</h4>
-              <h4 id="dataModel">&nbsp;</h4>
-              <h4 id="dataResolution">&nbsp;</h4>
-              <h4 id="dataMegapixel">&nbsp;</h4>
-              <h4 id="dataFlash">&nbsp;</h4>
-            </li>
-          </ul>
-        </div>
+        <ul class="list-unstyled">
+          <li>
+            {#each newTags as tag, index}
+              <div
+                class="w-100 py-2"
+                class:bg-secondary-subtle={index % 2 == 0}
+              >
+                <h4>{tag}</h4>
+              </div>
+            {/each}
+          </li>
+        </ul>
       </div>
     </main>
   </div>
