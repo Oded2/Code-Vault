@@ -115,7 +115,10 @@
           >
         </li>
         <li>
-          <a href={hrefs["contact"]} class="nav-link"
+          <a
+            href={hrefs["contact"]}
+            class="nav-link"
+            class:active={activePage == "contact"}
             ><i class="fa-solid fa-envelope" /> Contact</a
           >
         </li>
