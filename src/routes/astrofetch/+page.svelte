@@ -14,10 +14,10 @@
   const invalidDates = ["2014-08-11"];
 
   $: current = data[currentImg];
-  $: isBad = invalidDates.includes(currentDate);
-  $: isImage = current["media_type"] == "image" && !isBad;
-  $: noImage = current["media_type"] == "other" || isBad;
-  $: isVideo = current["media_type"] == "video" && !isBad;
+  $: isInvalid = invalidDates.includes(currentDate);
+  $: isImage = current["media_type"] == "image" && !isInvalid;
+  $: noImage = current["media_type"] == "other" || isInvalid;
+  $: isVideo = current["media_type"] == "video" && !isInvalid;
   $: isData = data[0] != 0;
   $: currentUrl = current["url"];
   $: currentTitle = current["title"];
