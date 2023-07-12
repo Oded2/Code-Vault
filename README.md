@@ -1,8 +1,6 @@
 # Code Vault
 
-# This project is still a work in progress!
-
-This repository contains multiple projects created for fun. Each project is built using HTML, CSS, and JavaScript and offers unique features and functionalities, all made possible by Svelte. You can check out the website at https://code-vault-svelte.netlify.app.
+This repository contains multiple projects created for fun. Each project is built using HTML, CSS, and JavaScript and offers unique features and functionalities, all made possible by Svelte. You can check out the website at https://oded.benamotz.com
 
 ## Requirements
 
