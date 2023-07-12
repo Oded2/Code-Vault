@@ -1,6 +1,6 @@
 <script>
   import Header from "../../../components/Header.svelte";
-  import transparentImg from "../../../images/Transparent.png";
+  import transparentImg from "../../../images/misc/transparent.png";
   let userImg;
   let imgSrc = transparentImg;
 
