@@ -11,10 +11,13 @@
   let endDate = today;
   let data = [0];
   let currentImg = 0;
+  const invalidDates = ["2014-08-11"];
+
   $: current = data[currentImg];
-  $: isImage = current["media_type"] == "image";
-  $: noImage = current["media_type"] == "other";
-  $: isVideo = current["media_type"] == "video";
+  $: isBad = invalidDates.includes(currentDate);
+  $: isImage = current["media_type"] == "image" && !isBad;
+  $: noImage = current["media_type"] == "other" || isBad;
+  $: isVideo = current["media_type"] == "video" && !isBad;
   $: isData = data[0] != 0;
   $: currentUrl = current["url"];
   $: currentTitle = current["title"];
@@ -23,6 +26,7 @@
   $: currentCopyright = removeLineBreak(current["copyright"]);
   $: youtubeUrl = showVideo(currentUrl);
   $: isLoading = false;
+
   function showVideo(originalLink) {
     if (!isVideo) {
       return;
