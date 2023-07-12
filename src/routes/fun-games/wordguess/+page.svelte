@@ -15,6 +15,7 @@
   let userGuess = "";
   let indexes = [];
 
+  $: lettersUsed = lettersUsed.sort();
   $: triesLeft = maxTries - attempts;
   let totalWords = [];
   fetchWords();
@@ -61,6 +62,7 @@
   };
 
   const check = () => {
+    userGuess = userGuess.toLowerCase();
     indexes = indexes.concat(findIndexes(winningWord, userGuess));
     revealed = getPlaceholderWord(winningWord, indexes);
     if (
