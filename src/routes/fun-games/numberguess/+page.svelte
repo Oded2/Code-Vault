@@ -10,7 +10,7 @@
   let attempts = 0;
   let numbersTried = [];
   let win = false;
-
+  $: numbersTried = numbersTried.sort();
   const startGame = () => {
     gameBefore = false;
     gameAfter = true;
@@ -39,7 +39,9 @@
       return;
     }
     attempts++;
-    numbersTried[numbersTried.length] = userNum;
+    if (!numbersTried.includes(userNum)) {
+      numbersTried[numbersTried.length] = userNum;
+    }
     if (userNum == winningNum) {
       win = true;
       return;
