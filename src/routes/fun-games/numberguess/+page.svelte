@@ -10,7 +10,7 @@
   let attempts = 0;
   let numbersTried = [];
   let win = false;
-  $: numbersTried = numbersTried.sort();
+  $: numbersTried = numbersTried.sort((a,b)=>{return a-b});
   const startGame = () => {
     gameBefore = false;
     gameAfter = true;
