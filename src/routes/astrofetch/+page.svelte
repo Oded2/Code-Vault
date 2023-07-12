@@ -124,11 +124,11 @@
     const formatDate = date.toLocaleDateString("en-US", dateOptions);
     return formatDate;
   }
-  function validateDates(start, end) {
+  function validateDates(start, end, mindate = "1996-6-16") {
     let valid = true;
     let message;
-    if (start < "1996-6-16") {
-      message = "Starting date cannot be before " + formatDate("1996-06-16");
+    if (start < mindate) {
+      message = "Starting date cannot be before " + formatDate(mindate);
       valid = false;
     }
     if (start > endDate) {

@@ -7,20 +7,37 @@
   let tags = {};
 
   let newTags = [];
-  let acceptableValues = ["Make", "Model", "Flash", "Software"];
-  $: for (let i in tags) {
-    if (acceptableValues.includes(i))
-      newTags[newTags.length] = `${i}: ${tags[i]}`;
-  }
+
+  const acceptableValues = {
+    Make: "Make",
+    Model: "Model",
+    Flash: "Flash",
+    Software: "Software",
+    FocalLength: "Focal Length",
+  };
+
   $: finalLong = handleCord(tags["GPSLongitude"], tags["GPSLongitudeRef"]);
   $: finalLat = handleCord(tags["GPSLatitude"], tags["GPSLatitudeRef"]);
   $: finalMap = createMapEmbedLink(finalLat, finalLong);
   const createImage = (event) => {
+    newTags = [];
     let file = event.target.files[0];
     imgSrc = URL.createObjectURL(file);
     EXIF.getData(file, processEXIF);
   };
-
+  function processEXIF() {
+    tags = EXIF.getAllTags(this);
+    updateNewTags();
+  }
+  function updateNewTags() {
+    for (let tag in tags) {
+      const current = acceptableValues[tag];
+      const value = tags[tag];
+      if (current) {
+        newTags[newTags.length] = `${current}: ${value}`;
+      }
+    }
+  }
   function handleCord(cord, ref) {
     if (!cord) {
       return;
@@ -31,9 +48,7 @@
     let final = ConvertDMSToDD(degree, minute, second, ref);
     return final;
   }
-  function processEXIF() {
-    tags = EXIF.getAllTags(this);
-  }
+
   function ConvertDMSToDD(degrees, minutes, seconds, direction) {
     let dd = degrees + minutes / 60 + seconds / 3600;
 
