@@ -194,6 +194,7 @@
           </div>
           <div class="col-md-6 col-5 d-flex-center">
             <select
+              required
               bind:value={placeHolder}
               class="form-select form-select-lg fs-4"
             >
@@ -220,6 +221,7 @@
           </div>
           <div class="col-md-6 col-5 d-flex align-items-center">
             <input
+              required
               type="number"
               class="form-control fs-4"
               bind:value={minLen}
@@ -232,6 +234,7 @@
           </div>
           <div class="col-md-6 col-5 d-flex align-items-center">
             <input
+              required
               type="number"
               class="form-control fs-4"
               bind:value={maxLen}
@@ -248,6 +251,7 @@
           </div>
           <div class="col-md-6 col-5 d-flex align-items-center">
             <input
+              required
               type="number"
               bind:value={maxTries}
               class="form-control fs-4"
