@@ -9,7 +9,10 @@
 
   const formUrl = "https://formspree.io/f/mnqkqrgg";
   let toast;
-  let email, name, topic, message;
+  let email = "";
+  let name = "";
+  let topic = "";
+  let message = "";
   let isSubmit = false;
 
   function clearValues() {
@@ -67,7 +70,7 @@
 
   <Header activePage="contact" title="Contact" />
   <div class="container">
-    <form on:submit={onSubmit}>
+    <form on:submit|preventDefault={onSubmit}>
       <div class="card shadow-lg my-5">
         <div class="card-body">
           <div class="border-bottom">
