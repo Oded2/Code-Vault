@@ -1,16 +1,73 @@
 <script>
+  import { toasts, ToastContainer, FlatToast } from "svelte-toasts";
   import Header from "../../components/Header.svelte";
   import hrefs from "../../data/hrefs.json";
   const mailTo = hrefs["email"]["mailto"];
   const mail = hrefs["email"]["address"];
   const maxLengthShort = 50;
   const maxLengthLong = 5000;
+
+  const FORMSPARK_ACTION_URL = "https://submit-form.com/gayNHGeg";
+  let toast;
+  let email, name, topic, message;
+  let isSubmit = false;
+
+  function clearValues() {
+    email = "";
+    name = "";
+    topic = "";
+    message = "";
+  }
+
+  async function onSubmit() {
+    try {
+      isSubmit = true;
+      await fetch(FORMSPARK_ACTION_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          name,
+          topic,
+          message,
+        }),
+      });
+      clearValues();
+      showToast();
+    } catch {
+      showToast("error", "Form not submitted", "There was an unexpected error");
+    }
+    isSubmit = false;
+  }
+
+  function showToast(
+    type = "success",
+    title = "Success",
+    description = "Email sent successfully"
+  ) {
+    toast = toasts.add({
+      title: title,
+      description: description,
+      duration: 5000,
+      placement: "bottom-right",
+      type: type,
+      theme: "dark",
+      showProgress: true,
+    });
+  }
 </script>
 
 <main>
+  <ToastContainer>
+    <FlatToast data={toast} />
+  </ToastContainer>
+
   <Header activePage="contact" title="Contact" />
   <div class="container">
-    <form action="https://submit-form.com/gayNHGeg">
+    <form on:submit={onSubmit}>
       <div class="card shadow-lg my-5">
         <div class="card-body">
           <div class="border-bottom">
@@ -29,7 +86,7 @@
                 placeholder="someone@domain.com"
                 maxlength={maxLengthShort}
                 type="email"
-                name="email"
+                bind:value={email}
                 class="form-control"
                 required
               />
@@ -40,7 +97,7 @@
               <input
                 type="text"
                 maxlength={maxLengthShort}
-                name="name"
+                bind:value={name}
                 class="form-control"
                 required
               />
@@ -50,7 +107,7 @@
               <input
                 type="text"
                 maxlength={maxLengthShort}
-                name="topic"
+                bind:value={topic}
                 class="form-control"
                 required
               />
@@ -61,7 +118,7 @@
                 maxlength={maxLengthLong}
                 cols="30"
                 rows="10"
-                name="message"
+                bind:value={message}
                 class="form-control"
                 required
               />
@@ -69,8 +126,11 @@
           </div>
         </div>
         <div class="card-footer d-flex justify-content-center">
-          <button class="btn btn-primary w-75 fs-5 fw-bold" type="submit"
-            >Submit</button
+          <button
+            class="btn btn-primary w-75 fs-5 fw-bold"
+            type="submit"
+            disabled={isSubmit}
+            ><i class="fa-solid fa-paper-plane" />&nbsp; Send</button
           >
         </div>
       </div>
