@@ -7,7 +7,7 @@
   const maxLengthShort = 50;
   const maxLengthLong = 5000;
 
-  const FORMSPARK_ACTION_URL = "https://submit-form.com/gayNHGeg";
+  const formUrl = "https://formspree.io/f/mnqkqrgg";
   let toast;
   let email, name, topic, message;
   let isSubmit = false;
@@ -22,7 +22,7 @@
   async function onSubmit() {
     try {
       isSubmit = true;
-      await fetch(FORMSPARK_ACTION_URL, {
+      await fetch(formUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,7 +46,7 @@
   function showToast(
     type = "success",
     title = "Success",
-    description = "Email sent successfully"
+    description = "Message sent successfully"
   ) {
     toast = toasts.add({
       title: title,
