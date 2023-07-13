@@ -20,8 +20,8 @@
   }
 
   async function onSubmit() {
+    isSubmit = true;
     try {
-      isSubmit = true;
       await fetch(formUrl, {
         method: "POST",
         headers: {
