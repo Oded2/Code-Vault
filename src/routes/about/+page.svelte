@@ -8,9 +8,9 @@
   import email from "../../images/svg/email.svg";
 </script>
 
-<main class="dark-background">
+<main class="dark-background text-bg-dark">
   <Header title="About Code Vault" activePage="about" />
-  <section class="p-1 text-bg-dark">
+  <section class="p-1">
     <div class="container">
       <div class="row p-3">
         <div class="col-md">
