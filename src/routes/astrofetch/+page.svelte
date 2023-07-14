@@ -333,10 +333,11 @@
   <section>
     <div class="container-fluid">
       {#if isData && !isLoading}
-        <h1 class="text-center vh-rsm-10">
-          <em>{currentTitle}</em>
-        </h1>
-
+        <div class="overflow-auto vh-rsm-10">
+          <h1 class="text-center">
+            <em>{currentTitle}</em>
+          </h1>
+        </div>
         <div class="vh-sm-75 vh-50">
           {#if isImage}
             <div class="h-100">
@@ -389,7 +390,7 @@
         <div class="container">
           <div class="row my-4" id="buttonDiv">
             <div class="col-12 mb-2">
-              <div class="row vh-rsm-10">
+              <div class="row vh-rsm-10 overflow-auto">
                 <div class="col-auto">
                   <h6>Date: {formatDate(currentDate)}</h6>
                 </div>
