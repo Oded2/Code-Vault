@@ -388,7 +388,7 @@
         </div>
 
         <div class="container">
-          <div class="row my-4" id="buttonDiv">
+          <div class="row my-4">
             <div class="col-12 mb-2">
               <div class="row vh-rsm-10 overflow-auto">
                 <div class="col-auto">

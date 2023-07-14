@@ -81,7 +81,7 @@
         </div>
       </div>
       <div class="col-md-6 my-4 my-md-0">
-        <div class="h-100 p-5 text-bg-secondary rounded-3" id="validCheck">
+        <div class="h-100 p-5 text-bg-secondary rounded-3">
           <h2 class="text-center">Credit Card Number</h2>
           <h2 class="text-center">{CreditCard}</h2>
           <div class="h-50 d-flex align-items-center justify-content-center">
