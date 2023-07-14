@@ -14,6 +14,56 @@
   let topic = "";
   let message = "";
   let isSubmit = false;
+  let emailError = { error: false, message: "" };
+  let nameError = { error: false, message: "" };
+  let topicError = { error: false, message: "" };
+  let messageError = { error: false, message: "" };
+
+  function validateValues() {
+    let valid = true;
+    const emailValid = validateValue(email, maxLengthShort, "Email");
+    const nameValid = validateValue(name, maxLengthShort, "Name");
+    const topicValid = validateValue(topic, maxLengthShort, "Topic");
+    const messageValid = validateValue(message, maxLengthLong, "Message");
+    if (!emailValid["valid"]) {
+      valid = false;
+      emailError["message"] = emailValid["message"];
+      emailError["error"] = true;
+    }
+    if (!nameValid["valid"]) {
+      valid = false;
+      nameError["message"] = nameValid["message"];
+      nameError["error"] = true;
+    }
+    if (!topicValid["valid"]) {
+      valid = false;
+      topicError["message"] = topicValid["message"];
+      topicError["error"] = true;
+    }
+    if (!messageValid["valid"]) {
+      valid = false;
+      messageError["message"] = messageValid["message"];
+      messageError["error"] = true;
+    }
+
+    return valid;
+  }
+  function validateValue(value, maxLength, name) {
+    let valid = true;
+    let message = "";
+    if (value.length < 1) {
+      message = name + " cannot be empty";
+      valid = false;
+    } else if (value.length > maxLength) {
+      message =
+        name +
+        " has to be shorter than or equal to " +
+        maxLength +
+        " characters long";
+      valid = false;
+    }
+    return { valid: valid, message: message };
+  }
 
   function clearValues() {
     email = "";
@@ -21,8 +71,17 @@
     topic = "";
     message = "";
   }
+  function clearErrors() {
+    emailError = { error: false, message: "" };
+    nameError = { error: false, message: "" };
+    topicError = { error: false, message: "" };
+    messageError = { error: false, message: "" };
+  }
 
   async function onSubmit() {
+    if (!validateValues()) {
+      return;
+    }
     isSubmit = true;
     try {
       await fetch(formUrl, {
@@ -38,6 +97,7 @@
           message,
         }),
       });
+      clearErrors();
       clearValues();
       showToast();
     } catch {
@@ -55,7 +115,7 @@
       title: title,
       description: description,
       duration: 5000,
-      placement: "bottom-right",
+      placement: "bottom-center",
       type: type,
       theme: "dark",
       showProgress: true,
@@ -63,12 +123,8 @@
   }
 </script>
 
+<Header activePage="contact" title="Contact" />
 <main>
-  <ToastContainer>
-    <FlatToast data={toast} />
-  </ToastContainer>
-
-  <Header activePage="contact" title="Contact" />
   <div class="container">
     <form on:submit|preventDefault={onSubmit}>
       <div class="card shadow-lg my-5">
@@ -91,8 +147,12 @@
                 type="email"
                 bind:value={email}
                 class="form-control"
+                class:border-error={emailError["error"]}
                 required
               />
+              {#if emailError["error"]}
+                <span class="text-danger">{emailError["message"]}</span>
+              {/if}
               <p class="form-text">Incase I need to get back to you.</p>
             </div>
             <div class="mt-2">
@@ -102,8 +162,11 @@
                 maxlength={maxLengthShort}
                 bind:value={name}
                 class="form-control"
+                class:border-error={nameError["error"]}
                 required
-              />
+              />{#if emailError["error"]}
+                <span class="text-danger">{nameError["message"]}</span>
+              {/if}
             </div>
             <div class="mt-2">
               <h4 class="form-label font-google-work-sans">Topic</h4>
@@ -112,8 +175,11 @@
                 maxlength={maxLengthShort}
                 bind:value={topic}
                 class="form-control"
+                class:border-error={topicError["error"]}
                 required
-              />
+              />{#if topicError["error"]}
+                <span class="text-danger">{topicError["message"]}</span>
+              {/if}
             </div>
             <div class="mt-2">
               <h4 class="form-label font-google-work-sans">Message</h4>
@@ -123,8 +189,11 @@
                 rows="10"
                 bind:value={message}
                 class="form-control"
+                class:border-error={messageError["error"]}
                 required
-              />
+              />{#if messageError["error"]}
+                <span class="text-danger">{messageError["message"]}</span>
+              {/if}
             </div>
           </div>
         </div>
@@ -140,8 +209,16 @@
     </form>
   </div>
 </main>
+<div>
+  <ToastContainer>
+    <FlatToast data={toast} />
+  </ToastContainer>
+</div>
 
 <style>
+  .border-error {
+    border: 2px solid #dc4c64;
+  }
   textarea {
     resize: none;
   }
