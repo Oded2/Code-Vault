@@ -21,7 +21,7 @@
 
   function validateValues() {
     let valid = true;
-    const emailValid = validateValue(email, maxLengthShort, "Email");
+    const emailValid = validateValue(email, maxLengthShort, "Email", "email");
     const nameValid = validateValue(name, maxLengthShort, "Name");
     const topicValid = validateValue(topic, maxLengthShort, "Topic");
     const messageValid = validateValue(message, maxLengthLong, "Message");
@@ -48,7 +48,7 @@
 
     return valid;
   }
-  function validateValue(value, maxLength, name) {
+  function validateValue(value, maxLength, name, type = "text") {
     let valid = true;
     let message = "";
     if (value.length < 1) {
@@ -61,6 +61,12 @@
         maxLength +
         " characters long";
       valid = false;
+    }
+    if (valid && type == "email") {
+      if (!value.includes("@") || !value.includes(".")) {
+        message = name + " must be a valid email";
+        valid = false;
+      }
     }
     return { valid: valid, message: message };
   }
