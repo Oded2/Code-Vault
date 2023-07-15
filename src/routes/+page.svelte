@@ -1,11 +1,37 @@
 <script>
   import Header from "../components/Header.svelte";
+  import Modal from "../components/Modal.svelte";
+  import HomeCard from "../components/cards/HomeCard.svelte";
   import learningImg from "../images/svg/learning.svg";
   import hrefs from "../data/hrefs.json";
-  import HomeCard from "../components/cards/HomeCard.svelte";
+
+  let showFilters = false;
+
+  let display = { html: true, python: true };
+
+  const toggleFilters = () => {
+    showFilters = !showFilters;
+  };
 </script>
 
 <Header directory="home" />
+<Modal showModal={showFilters} on:click={toggleFilters}
+  ><div class="p-4">
+    <div>
+      <h1 class="font-google-quicksand fw-bold text-center">Select Filters</h1>
+    </div>
+    <div class="row">
+      <div class="col-md"><h3>Webpages</h3></div>
+      <div class="col-md">
+        <input type="checkbox" bind:checked={display["html"]} />
+      </div>
+      <div class="col-md"><h3>Python</h3></div>
+      <div class="col-md">
+        <input type="checkbox" bind:checked={display["python"]} />
+      </div>
+    </div>
+  </div></Modal
+>
 <main class="bg-light">
   <section class="text-bg-dark p-5 p-lg-1 text-center text-sm-start">
     <div class="container">
@@ -33,9 +59,17 @@
   </section>
   <!-- Boxes -->
 
-  <div class="container pt-5">
+  <div class="container">
+    <div class="my-2">
+      <button
+        class="btn btn-outline-dark"
+        style="z-index: 999"
+        on:click={toggleFilters}>Filters</button
+      >
+    </div>
     <div class="row">
       <HomeCard
+        show={display["html"]}
         title="Fun Projects"
         description="This website offers various features, including a Text Encrypter,
       Text Decrypter, Credit Card Validator, Credit Card Generator,
@@ -44,12 +78,14 @@
         mainLink={hrefs["fun-projects"]["home"]}
       />
       <HomeCard
+        show={display["html"]}
         title="Fun Games"
         description="Discover a collection of fun browser games! No downloads required. Enjoy HTML, CSS, and JavaScript creations, all playable directly in your browser."
         icon="gamepad"
         mainLink={hrefs["fun-games"]["home"]}
       />
       <HomeCard
+        show={display["html"]}
         title="AstroFetch"
         description="AstroFetch is a versatile tool that retrieves the astronomy
         picture of the day within a specified date range. It comes in
@@ -65,6 +101,7 @@
         secondName={"Python"}
       />
       <HomeCard
+        show={display["python"]}
         title="Python Encrypter"
         description="The Python code enables text file encryption with password
         protection. It utilizes a command line interface and requires
@@ -77,6 +114,7 @@
         type="download"
       />
       <HomeCard
+        show={display["python"]}
         title="Python Hangman"
         description="The Hangman code for Python is a versatile program that enables
         you to play the popular word-guessing game. It incorporates
