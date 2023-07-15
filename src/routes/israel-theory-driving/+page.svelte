@@ -67,10 +67,12 @@
       limit: count,
     });
     const data = await fetch(url).then((response) => response.json());
-    questions = parseQuestions(data).sort((a, b) => 0.5 - Math.random());
+    questions = shuffleArray(parseQuestions(data));
     updateQuestion();
   }
-
+  function shuffleArray(arr) {
+    return arr.sort((a, b) => 0.5 - Math.random());
+  }
   function updateQuestion() {
     checked = false;
     questionArr = questions[current];
@@ -129,6 +131,11 @@
         <p class="font-google-quicksand fw-500 fs-5">
           Master the Israeli driver test in any language. Practice exams and
           language-specific support. Drive confidently, and get started now!
+          <span class="text-warning"
+            >Please note that this is not finished, and may display incorrect
+            answers that don't match the answers in the real test. For the time
+            being, this is simply a showcased project.</span
+          >
         </p>
       </div>
     </div>
@@ -171,19 +178,19 @@
         </div>
         <div class="card-footer">
           <div class="row">
-            <div class="col-2">
+            <div class="col-4 col-sm-2">
               <button class="btn btn-secondary fs-4 w-100" on:click={handleBack}
                 ><i class="fa-solid fa-backward" /></button
               >
             </div>
-            <div class="col-8">
+            <div class="col-4 col-sm-8">
               <button
                 on:click={handleSubmit}
                 disabled={!userAnswer}
-                class="btn btn-primary fs-4 w-100">Submit</button
+                class="btn btn-primary fs-4 w-100">Check</button
               >
             </div>
-            <div class="col-2">
+            <div class="col-4 col-sm-2">
               <button class="btn btn-secondary fs-4 w-100" on:click={handleNext}
                 ><i class="fa-solid fa-forward" /></button
               >
