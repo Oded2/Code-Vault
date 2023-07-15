@@ -7,7 +7,7 @@
   import hrefs from "../data/hrefs.json";
 
   let showFilters = false;
-  let display = { html: true, python: true };
+  let filter = { html: true, python: true };
 
   const responsiveModal = "sm";
 
@@ -20,8 +20,8 @@
     }
   };
   function resetFilters(state) {
-    for (let i in display) {
-      display[i] = state;
+    for (let i in filter) {
+      filter[i] = state;
     }
   }
 </script>
@@ -50,11 +50,11 @@
     <div class="row">
       <div class="col-{responsiveModal}"><h3>Webpages</h3></div>
       <div class="col-{responsiveModal}">
-        <Switch bind:checked={display["html"]} />
+        <Switch bind:checked={filter["html"]} />
       </div>
       <div class="col-{responsiveModal}"><h3>Python</h3></div>
       <div class="col-{responsiveModal}">
-        <Switch bind:checked={display["python"]} />
+        <Switch bind:checked={filter["python"]} />
       </div>
     </div>
   </div></Modal
@@ -98,7 +98,7 @@
     </div>
     <div class="row">
       <HomeCard
-        show={display["html"]}
+        show={filter["html"]}
         title="Fun Projects"
         description="This website offers various features, including a Text Encrypter,
       Text Decrypter, Credit Card Validator, Credit Card Generator,
@@ -107,14 +107,14 @@
         mainLink={hrefs["fun-projects"]["home"]}
       />
       <HomeCard
-        show={display["html"]}
+        show={filter["html"]}
         title="Fun Games"
         description="Discover a collection of fun browser games! No downloads required. Enjoy HTML, CSS, and JavaScript creations, all playable directly in your browser."
         icon="gamepad"
         mainLink={hrefs["fun-games"]["home"]}
       />
       <HomeCard
-        show={display["html"] || display["python"]}
+        show={filter["html"] || filter["python"]}
         title="AstroFetch"
         description="AstroFetch is a versatile tool that retrieves the astronomy
         picture of the day within a specified date range. It comes in
@@ -130,7 +130,14 @@
         secondName={"Python"}
       />
       <HomeCard
-        show={display["python"]}
+        show={filter["html"]}
+        title="Israeli Driver's Practice Test"
+        description="Pass the Israeli driver test in any language of your choice. Practice exams customized to your language preference. Overcome language barriers and drive with confidence. Start preparing now for a successful driving experience!"
+        icon="taxi"
+        mainLink={hrefs["israeli-driver-test"]}
+      />
+      <HomeCard
+        show={filter["python"]}
         title="Python Encrypter"
         description="The Python code enables text file encryption with password
         protection. It utilizes a command line interface and requires
@@ -143,7 +150,7 @@
         type="download"
       />
       <HomeCard
-        show={display["python"]}
+        show={filter["python"]}
         title="Python Hangman"
         description="The Hangman code for Python is a versatile program that enables
         you to play the popular word-guessing game. It incorporates
