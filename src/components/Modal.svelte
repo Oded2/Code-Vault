@@ -9,8 +9,13 @@
     class="backdrop d-flex align-items-center justify-content-center"
     on:click|self
   >
-    <div class=" container h-50 bg-light rounded">
-      <slot />
+    <div class=" container h-50 bg-light rounded card">
+      <div class="card-body">
+        <slot />
+      </div>
+      <div class="card-footer text-center">
+        <span class="fw-light">Click anywhere outside the modal to close.</span>
+      </div>
     </div>
   </div>
 {/if}
