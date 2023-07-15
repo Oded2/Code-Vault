@@ -87,13 +87,13 @@
     </div>
   </section>
   <!-- Boxes -->
-
   <div class="container">
     <div class="my-2">
       <button
         class="btn btn-outline-dark"
         style="z-index: 999"
-        on:click={toggleFilters}>Filters</button
+        on:click={toggleFilters}
+        ><i class="fa-solid fa-bars" />&nbsp; Filters</button
       >
     </div>
     <div class="row">
