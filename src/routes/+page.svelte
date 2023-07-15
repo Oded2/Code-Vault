@@ -6,7 +6,7 @@
   import learningImg from "../images/svg/learning.svg";
   import hrefs from "../data/hrefs.json";
 
-  let showFilters = true;
+  let showFilters = false;
   let display = { html: true, python: true };
 
   const responsiveModal = "sm";
