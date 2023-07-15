@@ -1,10 +1,20 @@
 <script>
   import Header from "../../components/Header.svelte";
-  let questions, questionArr, question, answers, correctAnswer;
-  let userAnswer;
+  let questions,
+    questionArr,
+    question,
+    answers,
+    correctAnswer,
+    userAnswer,
+    image;
+
+  let inProgress = false;
   let language = "en";
-  let count = 30;
+  let current = 0;
+  let maxQuestions = 30;
   let start = false;
+  let checked = false;
+  let score = 0;
   const languageResourceId = {
     en: "9a197011-adf9-45a2-81b9-d17dabdf990b",
     he: "bf7cb748-f220-474b-a4d5-2d59f93db28d",
@@ -58,13 +68,17 @@
     });
     const data = await fetch(url).then((response) => response.json());
     questions = parseQuestions(data).sort((a, b) => 0.5 - Math.random());
-    questionArr = questions[0];
+    updateQuestion();
+  }
+
+  function updateQuestion() {
+    checked = false;
+    questionArr = questions[current];
     question = questionArr["question"];
     answers = questionArr["answers"];
     correctAnswer = questionArr["correctAnswer"];
-    console.log(questions);
+    image = questionArr["imageUrl"];
   }
-  fetchQuestions(language, count);
   function addParams(link, params) {
     link = new URL(link);
     let value;
@@ -76,12 +90,31 @@
   }
 
   const handleSubmit = () => {
+    checked = true;
     if (correctAnswer == userAnswer) {
-      return true;
+      score++;
     }
-    return false;
   };
-  const handleStart = () => {
+  const handleNext = () => {
+    if (current + 1 > maxQuestions - 1) {
+      current = 0;
+    } else {
+      current++;
+    }
+    updateQuestion();
+  };
+  const handleBack = () => {
+    if (current - 1 < 0) {
+      current = maxQuestions - 1;
+    } else {
+      current--;
+    }
+    updateQuestion();
+  };
+  const handleStart = async () => {
+    inProgress = true;
+    await fetchQuestions(language, maxQuestions);
+    inProgress = false;
     start = true;
   };
 </script>
@@ -94,32 +127,44 @@
 
       <div class="border-start ps-4">
         <p class="font-google-quicksand fw-500 fs-5">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos
-          atque, fuga quia quae, omnis itaque eveniet, veritatis voluptate
-          corporis minima distinctio maiores consequatur aliquam possimus nisi
-          at quam quo corrupti!
+          Master the Israeli driver test in any language. Practice exams and
+          language-specific support. Drive confidently, and get started now!
         </p>
       </div>
     </div>
-    <div class="card bg-light">
+    <div class="card bg-light px-4">
       {#if start}
         <div
-          class="card-body m-auto"
+          class="card-body m-auto w-100"
           class:text-end={language == "he" || language == "ar"}
           lang={language}
         >
           <h1>{question}</h1>
+          {#if image}
+            <div class="d-flex justify-content-center p-2">
+              <img src={image} alt={question} class="img-fluid shadow" />
+            </div>
+          {/if}
           <div class="form-check">
-            {#each answers as answer, index}
-              <div class="fs-4">
+            {#each answers as answer}
+              <div class="fs-4 my-2">
                 <input
                   type="radio"
                   class="form-check-input"
-                  id={index}
+                  id={answer}
                   value={answer}
                   bind:group={userAnswer}
                 />
-                <label for={index} class="form-check-label">{answer}</label>
+                <label
+                  for={answer}
+                  class="form-check-label answer rounded pb-3 px-3"
+                  class:bg-success-subtle={correctAnswer == answer && checked}
+                  class:bg-danger-subtle={correctAnswer != answer &&
+                    userAnswer == answer &&
+                    checked}
+                >
+                  {answer}
+                </label>
               </div>
             {/each}
           </div>
@@ -127,7 +172,9 @@
         <div class="card-footer">
           <div class="row">
             <div class="col-2">
-              <button class="btn btn-secondary fs-4 w-100">Back</button>
+              <button class="btn btn-secondary fs-4 w-100" on:click={handleBack}
+                ><i class="fa-solid fa-backward" /></button
+              >
             </div>
             <div class="col-8">
               <button
@@ -137,7 +184,9 @@
               >
             </div>
             <div class="col-2">
-              <button class="btn btn-secondary fs-4 w-100">Next</button>
+              <button class="btn btn-secondary fs-4 w-100" on:click={handleNext}
+                ><i class="fa-solid fa-forward" /></button
+              >
             </div>
           </div>
         </div>
@@ -190,13 +239,13 @@
                   class="form-control fs-5"
                   min="1"
                   max="100"
-                  bind:value={count}
+                  bind:value={maxQuestions}
                 />
               </div>
             </div>
           </div>
           <div class="card-footer">
-            <button class="btn btn-primary w-100 fs-4" disabled={!questions}
+            <button class="btn btn-primary w-100 fs-4" disabled={inProgress}
               ><i class="fa-solid fa-file-lines" />&nbsp; Begin Test</button
             >
           </div>
@@ -205,3 +254,16 @@
     </div>
   </div>
 </main>
+
+<style>
+  .answer {
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  .answer:hover {
+    background-color: #d3d3d3 !important;
+  }
+  input[type="radio"] {
+    cursor: pointer;
+  }
+</style>

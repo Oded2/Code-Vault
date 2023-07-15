@@ -34,6 +34,7 @@
         "home": "/astrofetch",
         "nasaApi": "https://api.nasa.gov"
     },
+    "israeli-driver-test": "/israel-theory-driving",
     "email": {
         "address": "odedconnect@gmail.com",
         "mailto": "mailto:odedconnect@gmail.com"
