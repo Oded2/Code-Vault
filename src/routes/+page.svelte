@@ -1,37 +1,45 @@
 <script>
   import Header from "../components/Header.svelte";
   import Modal from "../components/Modal.svelte";
+  import Switch from "../components/Switch.svelte";
   import HomeCard from "../components/cards/HomeCard.svelte";
   import learningImg from "../images/svg/learning.svg";
   import hrefs from "../data/hrefs.json";
 
   let showFilters = false;
-
   let display = { html: true, python: true };
+
+  const responsiveModal = "sm";
 
   const toggleFilters = () => {
     showFilters = !showFilters;
   };
+  const onKeyDown = (e) => {
+    if (e.key == "Escape") {
+      showFilters = false;
+    }
+  };
 </script>
 
-<Header directory="home" />
 <Modal showModal={showFilters} on:click={toggleFilters}
   ><div class="p-4">
     <div>
       <h1 class="font-google-quicksand fw-bold text-center">Select Filters</h1>
     </div>
     <div class="row">
-      <div class="col-md"><h3>Webpages</h3></div>
-      <div class="col-md">
-        <input type="checkbox" bind:checked={display["html"]} />
+      <div class="col-{responsiveModal}"><h3>Webpages</h3></div>
+      <div class="col-{responsiveModal}">
+        <Switch bind:checked={display["html"]} />
       </div>
-      <div class="col-md"><h3>Python</h3></div>
-      <div class="col-md">
-        <input type="checkbox" bind:checked={display["python"]} />
+      <div class="col-{responsiveModal}"><h3>Python</h3></div>
+      <div class="col-{responsiveModal}">
+        <Switch bind:checked={display["python"]} />
       </div>
     </div>
   </div></Modal
 >
+<Header directory="home" />
+
 <main class="bg-light">
   <section class="text-bg-dark p-5 p-lg-1 text-center text-sm-start">
     <div class="container">
@@ -85,7 +93,7 @@
         mainLink={hrefs["fun-games"]["home"]}
       />
       <HomeCard
-        show={display["html"]}
+        show={display["html"] || display["python"]}
         title="AstroFetch"
         description="AstroFetch is a versatile tool that retrieves the astronomy
         picture of the day within a specified date range. It comes in
@@ -131,3 +139,5 @@
     </div>
   </div>
 </main>
+
+<svelte:window on:keydown={onKeyDown} />

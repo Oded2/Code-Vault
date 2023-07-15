@@ -1,4 +1,6 @@
 <script>
+  import { fly } from "svelte/transition";
+  import { flip } from "svelte/animate";
   export let show = true;
   export let title = "";
   export let description = "";
@@ -10,6 +12,8 @@
   export let secondIcon = null;
   export let secondName = null;
   export let type = "link";
+
+  const durationTime = 2000;
 
   const fullIcon = `fa-${iconType} fa-${icon}`;
 </script>

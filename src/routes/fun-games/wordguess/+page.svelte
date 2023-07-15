@@ -1,5 +1,6 @@
 <script>
   import Header from "../../../components/Header.svelte";
+  import Switch from "../../../components/Switch.svelte";
   import wordGuess from "../../../images/svg/word_guess.svg";
 
   let gameBefore = true;
@@ -262,10 +263,7 @@
             <h2 class="font-google-roboto-mono fw-bold">Show Hints</h2>
           </div>
           <div class="col-md-6 col-5 d-flex align-items-center">
-            <label class="switch">
-              <input type="checkbox" bind:checked={showHints} />
-              <span class="slider round" />
-            </label>
+            <Switch bind:checked={showHints} />
           </div>
         </div>
       </form>

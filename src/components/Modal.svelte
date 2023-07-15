@@ -9,7 +9,9 @@
     class="backdrop d-flex align-items-center justify-content-center"
     on:click|self
   >
-    <div class=" container h-50 bg-light rounded"><slot /></div>
+    <div class=" container h-50 bg-light rounded">
+      <slot />
+    </div>
   </div>
 {/if}
 
