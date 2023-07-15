@@ -6,7 +6,7 @@
   import learningImg from "../images/svg/learning.svg";
   import hrefs from "../data/hrefs.json";
 
-  let showFilters = false;
+  let showFilters = true;
   let display = { html: true, python: true };
 
   const responsiveModal = "sm";
@@ -19,12 +19,33 @@
       showFilters = false;
     }
   };
+  function resetFilters(state) {
+    for (let i in display) {
+      display[i] = state;
+    }
+  }
 </script>
 
 <Modal showModal={showFilters} on:click={toggleFilters}
   ><div class="p-4">
     <div>
       <h1 class="font-google-quicksand fw-bold text-center">Select Filters</h1>
+    </div>
+    <div class="mb-4">
+      <div class="row">
+        <div class="col-6">
+          <button
+            class="btn btn-outline-dark w-100"
+            on:click={() => resetFilters(true)}>Show All</button
+          >
+        </div>
+        <div class="col-6">
+          <button
+            class="btn btn-outline-danger w-100"
+            on:click={() => resetFilters(false)}>Hide All</button
+          >
+        </div>
+      </div>
     </div>
     <div class="row">
       <div class="col-{responsiveModal}"><h3>Webpages</h3></div>
