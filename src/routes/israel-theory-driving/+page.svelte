@@ -7,7 +7,6 @@
     correctAnswer,
     userAnswer,
     image;
-
   let inProgress = false;
   let language = "en";
   let current = 0;
@@ -15,6 +14,8 @@
   let start = false;
   let checked = false;
   let score = 0;
+  let correct = false;
+  let questionsDone = [];
   const languageResourceId = {
     en: "9a197011-adf9-45a2-81b9-d17dabdf990b",
     he: "bf7cb748-f220-474b-a4d5-2d59f93db28d",
@@ -68,7 +69,6 @@
     });
     const data = await fetch(url).then((response) => response.json());
     questions = shuffleArray(parseQuestions(data), maxQuestions);
-    console.log(questions);
     updateQuestion();
   }
   function shuffleArray(arr, maxLength) {
@@ -88,11 +88,19 @@
   }
   function updateQuestion() {
     checked = false;
+    correct = false;
     questionArr = questions[current];
     question = questionArr["question"];
     answers = questionArr["answers"];
     correctAnswer = questionArr["correctAnswer"];
     image = questionArr["imageUrl"];
+    userAnswer = null;
+  }
+  function simplifyString(str) {
+    for (let i = 0; i < str.length; i++) {
+      str = str.replace(/\s/g, "").toLowerCase();
+    }
+    return str;
   }
   function addParams(link, params) {
     link = new URL(link);
@@ -104,11 +112,18 @@
     return link.toString();
   }
 
-  const handleSubmit = () => {
+  const handleCheck = () => {
     checked = true;
-    if (correctAnswer == userAnswer) {
+    let tempCorrect = simplifyString(correctAnswer);
+    let tempUser = simplifyString(userAnswer);
+    console.log(tempCorrect, tempUser);
+    if (tempCorrect == tempUser) {
+      console.log("here");
       score++;
+      correct = true;
     }
+    questionsDone[questionsDone.length] = current;
+    console.log(questionsDone);
   };
   const handleNext = () => {
     if (current + 1 > maxQuestions - 1) {
@@ -128,10 +143,12 @@
   };
   const handleStart = async () => {
     inProgress = true;
+    questionsDone = [];
     await fetchQuestions(language, maxQuestions);
     inProgress = false;
     start = true;
   };
+  handleStart();
   function randomNum(min, max) {
     const difference = max - min;
     let rand = Math.floor(Math.random() * difference) + min;
@@ -144,7 +161,6 @@
   <div class="container">
     <div class="ms-0 ms-sm-2">
       <h1>The Israel Driver Test</h1>
-
       <div class="border-start ps-4">
         <p class="font-google-quicksand fw-500 fs-5">
           Master the Israeli driver test in any language. Practice exams and
@@ -183,9 +199,10 @@
                 <label
                   for={answer}
                   class="form-check-label answer rounded pb-3 px-3"
-                  class:bg-success-subtle={correctAnswer == answer && checked}
-                  class:bg-danger-subtle={correctAnswer != answer &&
-                    userAnswer == answer &&
+                  class:bg-success-subtle={simplifyString(correctAnswer) ==
+                    simplifyString(answer) && checked}
+                  class:bg-danger-subtle={userAnswer == answer &&
+                    !correct &&
                     checked}
                 >
                   {answer}
@@ -203,8 +220,8 @@
             </div>
             <div class="col-4 col-sm-8">
               <button
-                on:click={handleSubmit}
-                disabled={!userAnswer}
+                on:click={handleCheck}
+                disabled={questionsDone.includes(current) || !userAnswer}
                 class="btn btn-primary fs-4 w-100">Check</button
               >
             </div>
