@@ -217,7 +217,7 @@
           class:text-end={language == "he" || language == "ar"}
           lang={language}
         >
-          <div class="row">
+          <div class="row pb-4">
             <div class="col-auto text-start">
               <span>Question {current + 1} out of {maxQuestions}</span>
             </div>
