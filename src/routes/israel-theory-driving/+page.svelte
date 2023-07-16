@@ -218,7 +218,7 @@
         >
           <span>Question {current + 1} out of {maxQuestions}</span>
           <br />
-          <h1>{question}</h1>
+          <h2>{question}</h2>
 
           {#if image}
             <div class="d-flex justify-content-center p-2">
