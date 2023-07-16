@@ -176,6 +176,7 @@
     let rand = Math.floor(Math.random() * difference) + min;
     return rand;
   }
+  handleStart();
 </script>
 
 <Modal showModal={showScore} on:click={toggleScore}>
@@ -232,7 +233,7 @@
               <img src={image} alt={question} class="img-fluid shadow" />
             </div>
           {/if}
-          <div class="form-check">
+          <div class="form-check" class:mt-md-5={!image}>
             {#each answers as answer}
               <div class="fs-4 my-2">
                 <input
