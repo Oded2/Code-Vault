@@ -60,18 +60,33 @@
       };
     });
   }
-  async function fetchQuestions(lang = "en", count = 30) {
+  async function fetchQuestions(lang = "en") {
     const resourceId = languageResourceId[lang];
     const url = addParams("https://data.gov.il/api/3/action/datastore_search", {
       resource_id: resourceId,
-      limit: count,
+      limit: 5000,
     });
     const data = await fetch(url).then((response) => response.json());
-    questions = shuffleArray(parseQuestions(data));
+    console.debug(url);
+    questions = shuffleArray(parseQuestions(data), maxQuestions);
+    console.log(questions);
     updateQuestion();
   }
-  function shuffleArray(arr) {
-    return arr.sort((a, b) => 0.5 - Math.random());
+  function shuffleArray(arr, maxLength) {
+    const arrLength = arr.length;
+    let numUsed = [];
+    let newArray = [];
+
+    for (let i = 0; i < maxLength; i++) {
+      let random = randomNum(0, arrLength);
+      while (numUsed.includes(random)) {
+        random = randomNum(0, arrLength);
+      }
+      numUsed[numUsed.length] = random;
+      newArray[newArray.length] = arr[random];
+    }
+    return newArray;
+    // return arr.sort((a, b) => 0.5 - Math.random());
   }
   function updateQuestion() {
     checked = false;
@@ -119,12 +134,17 @@
     inProgress = false;
     start = true;
   };
+  function randomNum(min, max) {
+    const difference = max - min;
+    let rand = Math.floor(Math.random() * difference) + min;
+    return rand;
+  }
 </script>
 
 <main class="text-bg-dark dark-background">
   <Header title="Israel Driving Test" />
   <div class="container">
-    <div class="m-5">
+    <div class="ms-0 ms-sm-2">
       <h1>The Israel Driver Test</h1>
 
       <div class="border-start ps-4">
