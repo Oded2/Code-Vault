@@ -8,7 +8,8 @@
     answers,
     correctAnswer,
     userAnswer,
-    image;
+    image,
+    category;
   let showScore = false;
   let inProgress = false;
   let language = "en";
@@ -101,6 +102,7 @@
     answers = questionArr["answers"];
     correctAnswer = questionArr["correctAnswer"];
     image = questionArr["imageUrl"];
+    category = questionArr["category"];
     userAnswer = null;
   }
   function simplifyString(str) {
@@ -168,6 +170,7 @@
     let rand = Math.floor(Math.random() * difference) + min;
     return rand;
   }
+  handleStart();
 </script>
 
 <Modal showModal={showScore} on:click={toggleScore}>
@@ -215,10 +218,13 @@
           class:text-end={language == "he" || language == "ar"}
           lang={language}
         >
-          <span>Question {current + 1} out of {maxQuestions}</span>
-          <br />
+          <div class="row">
+            <div class="col text-start">
+              <span>Question {current + 1} out of {maxQuestions}</span>
+            </div>
+            <div class="col text-end"><span>{category}</span></div>
+          </div>
           <h2>{question}</h2>
-
           {#if image}
             <div class="d-flex justify-content-center p-2">
               <img src={image} alt={question} class="img-fluid shadow" />
