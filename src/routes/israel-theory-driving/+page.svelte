@@ -15,7 +15,6 @@
   let current = 0;
   let maxQuestions = 30;
   let start = false;
-  let checked = false;
   let score = 0;
   let correct = false;
   let questionsDone = {};
@@ -96,7 +95,6 @@
     return newArray;
   }
   function updateQuestion() {
-    checked = false;
     correct = false;
     questionArr = questions[current];
     question = questionArr["question"];
@@ -122,7 +120,6 @@
   }
 
   const handleCheck = () => {
-    checked = true;
     let tempCorrect = simplifyString(correctAnswer);
     let tempUser = simplifyString(userAnswer);
     if (tempCorrect == tempUser) {
@@ -161,7 +158,16 @@
     start = true;
   };
 
-  const handleEnd = () => {
+  const handleEnd = (early = false) => {
+    if (early) {
+      if (
+        !confirm(
+          "Are you sure you want to end your test early? All progress you made up until now will NOT be saved."
+        )
+      ) {
+        return;
+      }
+    }
     start = false;
     toggleScore();
   };
@@ -170,6 +176,7 @@
     let rand = Math.floor(Math.random() * difference) + min;
     return rand;
   }
+  handleStart();
 </script>
 
 <Modal showModal={showScore} on:click={toggleScore}>
@@ -213,7 +220,7 @@
     <div class="card bg-light mb-5">
       {#if start}
         <div
-          class="card-body m-auto w-100 px-4"
+          class="card-body min-vh-75 m-auto w-100 px-4"
           class:text-end={language == "he" || language == "ar"}
           lang={language}
         >
@@ -255,29 +262,44 @@
         </div>
         <div class="card-footer">
           <div class="row">
-            <div class="col-4 col-sm-2">
+            <div class="col-4 col-md-2">
               <button
                 class="btn btn-secondary fs-4 w-100"
                 disabled={!questionsDone[current - 1]}
                 on:click={handleBack}><i class="fa-solid fa-backward" /></button
               >
             </div>
-            <div class="col-4 col-sm-8">
-              <button
-                on:click={handleCheck}
-                disabled={questionsDone[current] || !userAnswer}
-                class="btn btn-primary fs-4 w-100"
-                ><span class="d-none d-sm-block">Check</span><span
-                  class="d-block d-sm-none"
-                  ><i class="fa-solid fa-check" /></span
-                ></button
-              >
+            <div class="col-4 col-md-8">
+              {#if !questionsDone[current]}
+                <button
+                  on:click={handleCheck}
+                  disabled={questionsDone[current] || !userAnswer}
+                  class="btn btn-primary fs-4 w-100"
+                  ><span class="d-none d-md-block">Check</span><span
+                    class="d-block d-md-none"
+                    ><i class="fa-solid fa-check" /></span
+                  >
+                </button>
+              {:else}
+                <button
+                  on:click={handleNext}
+                  disabled={!questionsDone[current] || isEnd}
+                  class="btn btn-primary fs-4 w-100"
+                  ><span class="d-none d-md-block">Next Question</span><span
+                    class="d-block d-md-none"
+                    ><i class="fa-solid fa-forward" /></span
+                  >
+                </button>
+              {/if}
             </div>
-            <div class="col-4 col-sm-2">
+            <div class="col-4 col-md-2">
               <button
-                class="btn btn-secondary fs-4 w-100"
-                disabled={!questionsDone[current] || isEnd}
-                on:click={handleNext}><i class="fa-solid fa-forward" /></button
+                class="btn btn-danger fs-4 w-100"
+                on:click={() => handleEnd(true)}
+                ><span class="d-none d-lg-block">End Test</span><span
+                  class="d-block d-lg-none"
+                  ><i class="fa-solid fa-rectangle-xmark" /></span
+                ></button
               >
             </div>
           </div>
@@ -286,15 +308,6 @@
               <div class="col-12">
                 <button class="btn btn-success w-100 fs-4" on:click={handleEnd}
                   ><i class="fa-solid fa-square-check" />&nbsp; Submit Test</button
-                >
-              </div>
-            {:else}
-              {#if language == "ar" || language == "he"}
-                <div class="col" />
-              {/if}
-              <div class="col-auto">
-                <button class="btn btn-outline-danger" on:click={handleEnd}
-                  >End Test</button
                 >
               </div>
             {/if}

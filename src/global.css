@@ -37,6 +37,10 @@
   height: 25vh !important;
 }
 
+.min-vh-75 {
+  min-height: 75vh !important;
+}
+
 @media (min-width: 1400px) {
   .w-xxl-75 {
     width: 75% !important;
