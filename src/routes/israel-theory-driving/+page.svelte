@@ -1,5 +1,6 @@
 <script>
   import Header from "../../components/Header.svelte";
+  import Modal from "../../components/Modal.svelte";
   let questions,
     questionArr,
     question,
@@ -7,6 +8,7 @@
     correctAnswer,
     userAnswer,
     image;
+  let showScore = false;
   let inProgress = false;
   let language = "en";
   let current = 0;
@@ -16,6 +18,9 @@
   let score = 0;
   let correct = false;
   let questionsDone = {};
+
+  $: isEnd = current + 1 == maxQuestions && questionsDone[maxQuestions - 1];
+  $: percent = parseInt((score / maxQuestions) * 100);
   const languageResourceId = {
     en: "9a197011-adf9-45a2-81b9-d17dabdf990b",
     he: "bf7cb748-f220-474b-a4d5-2d59f93db28d",
@@ -23,6 +28,9 @@
     fr: "a106ea08-ff97-4971-8720-c85bdd3d2264",
     ru: "ca264280-1669-45ce-a96f-a4c9ed71e812",
   };
+  function toggleScore() {
+    showScore = !showScore;
+  }
   function parseQuestions(data) {
     return data.result.records.map((record) => {
       const htmlContent = record.description4;
@@ -117,6 +125,7 @@
     let tempCorrect = simplifyString(correctAnswer);
     let tempUser = simplifyString(userAnswer);
     if (tempCorrect == tempUser) {
+      console.log("Correct");
       score++;
       correct = true;
     }
@@ -149,8 +158,11 @@
     inProgress = false;
     start = true;
   };
-  handleStart();
 
+  const handleEnd = () => {
+    start = false;
+    toggleScore();
+  };
   function randomNum(min, max) {
     const difference = max - min;
     let rand = Math.floor(Math.random() * difference) + min;
@@ -158,6 +170,28 @@
   }
 </script>
 
+<Modal showModal={showScore} on:click={toggleScore}>
+  <div class="font-google-quicksand p-5 text-center">
+    {#if percent >= 86}
+      <h1>
+        <i class="fa-solid fa-circle-check" />&nbsp; Congratualions, you passed!
+      </h1>
+      <p class="fs-5 text-center fw-500">
+        Great job, you are ready for the Israeli drivers test. Always remember
+        to drive safely.
+      </p>
+    {:else}
+      <h1>
+        <i class="fa-solid fa-circle-xmark" />&nbsp; Better luck next time
+      </h1>
+      <p class="fs-5 text-center fw-500">At least it's not the real test!</p>
+    {/if}
+    <div class="my-5">
+      <h2>You scored {percent}%</h2>
+      <h4>You got {score} out of {maxQuestions} questions correct.</h4>
+    </div>
+  </div>
+</Modal>
 <main class="text-bg-dark dark-background">
   <Header title="Israel Driving Test" />
   <div class="container">
@@ -182,6 +216,7 @@
           class:text-end={language == "he" || language == "ar"}
           lang={language}
         >
+          <span>Question {current + 1} out of {maxQuestions}</span>
           <h1>{question}</h1>
           {#if image}
             <div class="d-flex justify-content-center p-2">
@@ -206,7 +241,8 @@
                   class:bg-danger-subtle={questionsDone[current] &&
                     questionsDone[current]["user"] == answer &&
                     questionsDone[current]["user"] !=
-                      questionsDone[current]["correctAnswer"]}
+                      questionsDone[current]["correctAnswer"] &&
+                    !questionsDone[current]["isCorrect"]}
                 >
                   {answer}
                 </label>
@@ -217,8 +253,10 @@
         <div class="card-footer">
           <div class="row">
             <div class="col-4 col-sm-2">
-              <button class="btn btn-secondary fs-4 w-100" on:click={handleBack}
-                ><i class="fa-solid fa-backward" /></button
+              <button
+                class="btn btn-secondary fs-4 w-100"
+                disabled={!questionsDone[current - 1]}
+                on:click={handleBack}><i class="fa-solid fa-backward" /></button
               >
             </div>
             <div class="col-4 col-sm-8">
@@ -229,11 +267,22 @@
               >
             </div>
             <div class="col-4 col-sm-2">
-              <button class="btn btn-secondary fs-4 w-100" on:click={handleNext}
-                ><i class="fa-solid fa-forward" /></button
+              <button
+                class="btn btn-secondary fs-4 w-100"
+                disabled={!questionsDone[current] || isEnd}
+                on:click={handleNext}><i class="fa-solid fa-forward" /></button
               >
             </div>
           </div>
+          {#if isEnd}
+            <div class="row mt-2">
+              <div class="col-12">
+                <button class="btn btn-success w-100 fs-4" on:click={handleEnd}
+                  >Submit Test</button
+                >
+              </div>
+            </div>
+          {/if}
         </div>
       {:else}
         <form on:submit|preventDefault={handleStart}>
@@ -243,11 +292,11 @@
             </h1>
             <div>
               <p class="font-google-quicksand fw-500 fs-4">
-                This test consists of 30 questions. Do your best and remember,
-                this is not the actual test! Try your best and remember each
-                question you get wrong. <span class="text-success"
-                  >Good luck!</span
-                >
+                Please note that the real test consists of 30 questions, so for
+                the most realistic version of the test it is reccomended to set
+                the questions to 30. Do your best and remember, this is not the
+                actual test! Try your best and remember each question you get
+                wrong. <span class="text-success">Good luck!</span>
               </p>
             </div>
 
