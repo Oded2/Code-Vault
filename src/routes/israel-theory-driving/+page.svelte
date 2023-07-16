@@ -19,7 +19,7 @@
   let correct = false;
   let questionsDone = {};
 
-  $: isEnd = current + 1 == maxQuestions && questionsDone[maxQuestions - 1];
+  $: isEnd = questionsDone[maxQuestions - 1];
   $: percent = parseInt((score / maxQuestions) * 100);
   const languageResourceId = {
     en: "9a197011-adf9-45a2-81b9-d17dabdf990b",
@@ -133,19 +133,11 @@
     };
   };
   const handleNext = () => {
-    if (current + 1 > maxQuestions - 1) {
-      current = 0;
-    } else {
-      current++;
-    }
+    current++;
     updateQuestion();
   };
   const handleBack = () => {
-    if (current - 1 < 0) {
-      current = maxQuestions - 1;
-    } else {
-      current--;
-    }
+    current--;
     updateQuestion();
   };
   const handleStart = async () => {
@@ -282,7 +274,8 @@
               {:else}
                 <button
                   on:click={handleNext}
-                  disabled={!questionsDone[current] || isEnd}
+                  disabled={!questionsDone[current] ||
+                    current + 1 == maxQuestions}
                   class="btn btn-primary fs-4 w-100"
                   ><span class="d-none d-md-block">Next Question</span><span
                     class="d-block d-md-none"
