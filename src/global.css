@@ -37,8 +37,8 @@
   height: 25vh !important;
 }
 
-.min-vh-75 {
-  min-height: 75vh !important;
+.min-vh-60 {
+  min-height: 60vh !important;
 }
 
 @media (min-width: 1400px) {

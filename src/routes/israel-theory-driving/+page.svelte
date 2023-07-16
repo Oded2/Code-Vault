@@ -176,7 +176,6 @@
     let rand = Math.floor(Math.random() * difference) + min;
     return rand;
   }
-  handleStart();
 </script>
 
 <Modal showModal={showScore} on:click={toggleScore}>
@@ -220,7 +219,7 @@
     <div class="card bg-light mb-5">
       {#if start}
         <div
-          class="card-body min-vh-75 m-auto w-100 px-4"
+          class="card-body min-vh-60 m-auto w-100 px-4"
           class:text-end={language == "he" || language == "ar"}
           lang={language}
         >
