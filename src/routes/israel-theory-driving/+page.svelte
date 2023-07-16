@@ -170,7 +170,6 @@
     let rand = Math.floor(Math.random() * difference) + min;
     return rand;
   }
-  handleStart();
 </script>
 
 <Modal showModal={showScore} on:click={toggleScore}>
@@ -219,10 +218,13 @@
           lang={language}
         >
           <div class="row">
-            <div class="col text-start">
+            <div class="col-auto text-start py-1 py-sm-0">
               <span>Question {current + 1} out of {maxQuestions}</span>
             </div>
-            <div class="col text-end"><span>{category}</span></div>
+            <div class="col" />
+            <div class="col-auto text-end py-1 py-sm-0">
+              <span>{category}</span>
+            </div>
           </div>
           <h2>{question}</h2>
           {#if image}
