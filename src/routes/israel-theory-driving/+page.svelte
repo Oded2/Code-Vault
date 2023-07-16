@@ -218,11 +218,11 @@
           lang={language}
         >
           <div class="row">
-            <div class="col-auto text-start py-1 py-sm-0">
+            <div class="col-auto text-start">
               <span>Question {current + 1} out of {maxQuestions}</span>
             </div>
             <div class="col" />
-            <div class="col-auto text-end py-1 py-sm-0">
+            <div class="col-auto text-end">
               <span>{category}</span>
             </div>
           </div>
