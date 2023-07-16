@@ -196,7 +196,7 @@
   <Header title="Israel Driving Test" />
   <div class="container">
     <div class="ms-0 ms-sm-2">
-      <h1>The Israel Driver Test</h1>
+      <h1>The Israeli Driver Test</h1>
       <div class="border-start ps-4">
         <p class="font-google-quicksand fw-500 fs-5">
           Master the Israeli driver test in any language. Practice exams and
