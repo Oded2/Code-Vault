@@ -125,7 +125,6 @@
     let tempCorrect = simplifyString(correctAnswer);
     let tempUser = simplifyString(userAnswer);
     if (tempCorrect == tempUser) {
-      console.log("Correct");
       score++;
       correct = true;
     }
@@ -202,9 +201,8 @@
           Master the Israeli driver test in any language. Practice exams and
           language-specific support. Drive confidently, and get started now!
           <span class="text-warning"
-            >Please note that this is not finished, and may display incorrect
-            answers that don't match the answers in the real test. For the time
-            being, this is simply a showcased project.</span
+            >Please remember this isn't affiliated with the official licensing
+            department.</span
           >
         </p>
       </div>
@@ -263,7 +261,11 @@
               <button
                 on:click={handleCheck}
                 disabled={questionsDone[current] || !userAnswer}
-                class="btn btn-primary fs-4 w-100">Check</button
+                class="btn btn-primary fs-4 w-100"
+                ><span class="d-none d-sm-block">Check</span><span
+                  class="d-block d-sm-none"
+                  ><i class="fa-solid fa-check" /></span
+                ></button
               >
             </div>
             <div class="col-4 col-sm-2">
@@ -278,7 +280,7 @@
             <div class="row mt-2">
               <div class="col-12">
                 <button class="btn btn-success w-100 fs-4" on:click={handleEnd}
-                  >Submit Test</button
+                  ><i class="fa-solid fa-square-check" />&nbsp; Submit Test</button
                 >
               </div>
             </div>
@@ -293,7 +295,7 @@
             <div>
               <p class="font-google-quicksand fw-500 fs-4">
                 Please note that the real test consists of 30 questions, so for
-                the most realistic version of the test it is reccomended to set
+                the most realistic version of the test it is recommended to set
                 the questions to 30. Do your best and remember, this is not the
                 actual test! Try your best and remember each question you get
                 wrong. <span class="text-success">Good luck!</span>
