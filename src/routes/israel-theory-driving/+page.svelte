@@ -67,7 +67,6 @@
       limit: 5000,
     });
     const data = await fetch(url).then((response) => response.json());
-    console.debug(url);
     questions = shuffleArray(parseQuestions(data), maxQuestions);
     console.log(questions);
     updateQuestion();
@@ -86,7 +85,6 @@
       newArray[newArray.length] = arr[random];
     }
     return newArray;
-    // return arr.sort((a, b) => 0.5 - Math.random());
   }
   function updateQuestion() {
     checked = false;
@@ -159,7 +157,7 @@
         </p>
       </div>
     </div>
-    <div class="card bg-light px-4">
+    <div class="card bg-light px-4 mb-5">
       {#if start}
         <div
           class="card-body m-auto w-100"
