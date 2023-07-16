@@ -281,24 +281,23 @@
             </div>
           </div>
           <div class="row mt-2">
-            {#if language == "ar" || language == "he"}
-              <div class="col" />
-            {/if}
-            <div class="col-auto">
-              <button class="btn btn-outline-danger" on:click={handleEnd}
-                >End Test</button
-              >
-            </div>
-          </div>
-          {#if isEnd}
-            <div class="row mt-2">
+            {#if isEnd}
               <div class="col-12">
                 <button class="btn btn-success w-100 fs-4" on:click={handleEnd}
                   ><i class="fa-solid fa-square-check" />&nbsp; Submit Test</button
                 >
               </div>
-            </div>
-          {/if}
+            {:else}
+              {#if language == "ar" || language == "he"}
+                <div class="col" />
+              {/if}
+              <div class="col-auto">
+                <button class="btn btn-outline-danger" on:click={handleEnd}
+                  >End Test</button
+                >
+              </div>
+            {/if}
+          </div>
         </div>
       {:else}
         <form on:submit|preventDefault={handleStart}>
