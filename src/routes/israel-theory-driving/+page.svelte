@@ -210,7 +210,7 @@
         </p>
       </div>
     </div>
-    <div class="card bg-light mb-5">
+    <div class="card bg-light my-5">
       {#if start}
         <div
           class="card-body min-vh-60 m-auto w-100 px-4"
