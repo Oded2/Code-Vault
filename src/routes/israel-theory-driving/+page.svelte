@@ -154,6 +154,7 @@
   const handleStart = async () => {
     inProgress = true;
     current = 0;
+    score = 0;
     questionsDone = {};
     await fetchQuestions(language, maxQuestions);
     inProgress = false;
