@@ -1,6 +1,7 @@
 <script>
   import Header from "../../components/Header.svelte";
   import Modal from "../../components/Modal.svelte";
+
   let questions,
     questionArr,
     question,
@@ -152,6 +153,7 @@
   };
   const handleStart = async () => {
     inProgress = true;
+    current = 0;
     questionsDone = {};
     await fetchQuestions(language, maxQuestions);
     inProgress = false;
@@ -167,6 +169,7 @@
     let rand = Math.floor(Math.random() * difference) + min;
     return rand;
   }
+  handleStart();
 </script>
 
 <Modal showModal={showScore} on:click={toggleScore}>
@@ -207,15 +210,17 @@
         </p>
       </div>
     </div>
-    <div class="card bg-light px-4 mb-5">
+    <div class="card bg-light mb-5">
       {#if start}
         <div
-          class="card-body m-auto w-100"
+          class="card-body m-auto w-100 px-4"
           class:text-end={language == "he" || language == "ar"}
           lang={language}
         >
           <span>Question {current + 1} out of {maxQuestions}</span>
+          <br />
           <h1>{question}</h1>
+
           {#if image}
             <div class="d-flex justify-content-center p-2">
               <img src={image} alt={question} class="img-fluid shadow" />
@@ -276,6 +281,16 @@
               >
             </div>
           </div>
+          <div class="row mt-2">
+            {#if language == "ar" || language == "he"}
+              <div class="col" />
+            {/if}
+            <div class="col-auto">
+              <button class="btn btn-outline-danger" on:click={handleEnd}
+                >End Test</button
+              >
+            </div>
+          </div>
           {#if isEnd}
             <div class="row mt-2">
               <div class="col-12">
@@ -288,7 +303,7 @@
         </div>
       {:else}
         <form on:submit|preventDefault={handleStart}>
-          <div class="card-body">
+          <div class="card-body px-4">
             <h1 class="text-center font-google-quicksand">
               The Israeli Driver Test
             </h1>
