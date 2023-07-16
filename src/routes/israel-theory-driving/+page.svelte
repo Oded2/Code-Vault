@@ -158,8 +158,8 @@
     start = true;
   };
 
-  const handleEnd = (early = false) => {
-    if (early) {
+  const handleEnd = () => {
+    if (!isEnd) {
       if (
         !confirm(
           "Are you sure you want to end your test early? All progress you made up until now will NOT be saved."
@@ -175,7 +175,7 @@
     const difference = max - min;
     let rand = Math.floor(Math.random() * difference) + min;
     return rand;
-  };
+  }
 </script>
 
 <Modal showModal={showScore} on:click={toggleScore}>
@@ -293,23 +293,23 @@
             </div>
             <div class="col-4 col-md-2">
               <button
-                class="btn btn-danger fs-4 w-100"
-                on:click={() => handleEnd(true)}
-                ><span class="d-none d-lg-block">End Test</span><span
-                  class="d-block d-lg-none"
-                  ><i class="fa-solid fa-rectangle-xmark" /></span
-                ></button
-              >
+                class="btn fs-4 w-100"
+                class:btn-danger={!isEnd}
+                class:btn-success={isEnd}
+                on:click={handleEnd}
+                >{#if isEnd}
+                  <span class="d-none d-lg-block">Submit Test</span><span
+                    class="d-block d-lg-none"
+                    ><i class="fa-solid fa-square-check" /></span
+                  >
+                {:else}
+                  <span class="d-none d-lg-block">End Test</span><span
+                    class="d-block d-lg-none"
+                    ><i class="fa-solid fa-rectangle-xmark" /></span
+                  >
+                {/if}
+              </button>
             </div>
-          </div>
-          <div class="row mt-2">
-            {#if isEnd}
-              <div class="col-12">
-                <button class="btn btn-success w-100 fs-4" on:click={handleEnd}
-                  ><i class="fa-solid fa-square-check" />&nbsp; Submit Test</button
-                >
-              </div>
-            {/if}
           </div>
         </div>
       {:else}
