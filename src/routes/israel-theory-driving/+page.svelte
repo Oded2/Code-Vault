@@ -15,7 +15,7 @@
   let checked = false;
   let score = 0;
   let correct = false;
-  let questionsDone = [];
+  let questionsDone = {};
   const languageResourceId = {
     en: "9a197011-adf9-45a2-81b9-d17dabdf990b",
     he: "bf7cb748-f220-474b-a4d5-2d59f93db28d",
@@ -116,14 +116,15 @@
     checked = true;
     let tempCorrect = simplifyString(correctAnswer);
     let tempUser = simplifyString(userAnswer);
-    console.log(tempCorrect, tempUser);
     if (tempCorrect == tempUser) {
-      console.log("here");
       score++;
       correct = true;
     }
-    questionsDone[questionsDone.length] = current;
-    console.log(questionsDone);
+    questionsDone[current] = {
+      isCorrect: correct,
+      correctAnswer: correctAnswer,
+      user: userAnswer,
+    };
   };
   const handleNext = () => {
     if (current + 1 > maxQuestions - 1) {
@@ -143,12 +144,13 @@
   };
   const handleStart = async () => {
     inProgress = true;
-    questionsDone = [];
+    questionsDone = {};
     await fetchQuestions(language, maxQuestions);
     inProgress = false;
     start = true;
   };
   handleStart();
+
   function randomNum(min, max) {
     const difference = max - min;
     let rand = Math.floor(Math.random() * difference) + min;
@@ -200,10 +202,11 @@
                   for={answer}
                   class="form-check-label answer rounded pb-3 px-3"
                   class:bg-success-subtle={simplifyString(correctAnswer) ==
-                    simplifyString(answer) && checked}
-                  class:bg-danger-subtle={userAnswer == answer &&
-                    !correct &&
-                    checked}
+                    simplifyString(answer) && questionsDone[current]}
+                  class:bg-danger-subtle={questionsDone[current] &&
+                    questionsDone[current]["user"] == answer &&
+                    questionsDone[current]["user"] !=
+                      questionsDone[current]["correctAnswer"]}
                 >
                   {answer}
                 </label>
@@ -221,7 +224,7 @@
             <div class="col-4 col-sm-8">
               <button
                 on:click={handleCheck}
-                disabled={questionsDone.includes(current) || !userAnswer}
+                disabled={questionsDone[current] || !userAnswer}
                 class="btn btn-primary fs-4 w-100">Check</button
               >
             </div>
