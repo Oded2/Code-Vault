@@ -171,7 +171,6 @@
     let rand = Math.floor(Math.random() * difference) + min;
     return rand;
   }
-  handleStart();
 </script>
 
 <Modal showModal={showScore} on:click={toggleScore}>
