@@ -18,10 +18,11 @@
   let start = false;
   let score = 0;
   let correct = false;
-  let questionsDone = {};
+  let questionsDone = [];
   let darkMode = false;
 
-  $: isFinished = questionsDone[maxQuestions - 1];
+  // $: isFinished = questionsDone[maxQuestions - 1];
+  let isFinished = false;
   $: percent = parseInt((score / maxQuestions) * 100);
   const languageResourceId = {
     en: "9a197011-adf9-45a2-81b9-d17dabdf990b",
@@ -30,6 +31,16 @@
     fr: "a106ea08-ff97-4971-8720-c85bdd3d2264",
     ru: "ca264280-1669-45ce-a96f-a4c9ed71e812",
   };
+
+  function checkIfFinished() {
+    for (let i = 0; i < maxQuestions; i++) {
+      if (!questionsDone[i]) {
+        isFinished = false;
+        return;
+      }
+    }
+    isFinished = true;
+  }
   function toggleScore() {
     showScore = !showScore;
   }
@@ -134,6 +145,7 @@
       correctAnswer: correctAnswer,
       user: userAnswer,
     };
+    checkIfFinished();
   };
   const handleNext = () => {
     current++;
@@ -147,12 +159,18 @@
     inProgress = true;
     current = 0;
     score = 0;
-    questionsDone = {};
+    isFinished = false;
+    questionsDone = [];
     await fetchQuestions(language, maxQuestions);
     inProgress = false;
+
     start = true;
   };
 
+  const handleSkip = (num) => {
+    current = num;
+    updateQuestion();
+  };
   const handleEnd = () => {
     if (!isFinished) {
       if (
@@ -213,7 +231,7 @@
       </div>
     </div>
     <div
-      class="card my-5"
+      class="card mt-5"
       class:text-bg-light={!darkMode}
       class:text-bg-dark={darkMode}
       class:vh-90={start}
@@ -386,6 +404,38 @@
         </form>
       {/if}
     </div>
+    {#if start}
+      <div
+        class="card pt-3 pb-5 px-0 px-sm-5 my-5"
+        class:text-bg-light={!darkMode}
+        class:text-bg-dark={darkMode}
+      >
+        <div class="card-body">
+          <div class="mb-4">
+            <h1 class="font-google-quicksand">Questions</h1>
+            <span class="fw-light"
+              >Click on any number to jump to the respective question.</span
+            >
+          </div>
+          <ol class="list-group list-group-numbered fs-5">
+            {#each questions as currentQuestion, index}
+              <button
+                class="list-group-item list-group-item-action transition"
+                class:list-group-item-secondary={!questionsDone[index] &&
+                  darkMode}
+                class:list-group-item-danger={questionsDone[index] &&
+                  !questionsDone[index]["isCorrect"]}
+                class:list-group-item-success={questionsDone[index] &&
+                  questionsDone[index]["isCorrect"]}
+                on:click={() => handleSkip(index)}
+              >
+                {currentQuestion["question"]}
+              </button>
+            {/each}
+          </ol>
+        </div>
+      </div>
+    {/if}
   </div>
 </main>
 
@@ -407,5 +457,8 @@
   .bg-success-subtle,
   .bg-danger-subtle {
     color: #000000;
+  }
+  .transition {
+    transition: 0.3s;
   }
 </style>
