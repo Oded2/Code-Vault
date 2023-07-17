@@ -226,7 +226,7 @@
           lang={language}
         >
           <div class="row pb-4">
-            <div class="col d-flex align-items-center">
+            <div class="col d-flex align-items-center justify-content-start">
               <span>Question {current + 1} out of {maxQuestions}</span>
             </div>
             <div class="col d-flex align-items-center justify-content-center">
