@@ -20,8 +20,8 @@
   let correct = false;
   let questionsDone = [];
   let darkMode = false;
+  let questionDiv;
 
-  // $: isFinished = questionsDone[maxQuestions - 1];
   let isFinished = false;
   $: percent = parseInt((score / maxQuestions) * 100);
   const languageResourceId = {
@@ -170,6 +170,7 @@
   const handleSkip = (num) => {
     current = num;
     updateQuestion();
+    questionDiv.scrollIntoView();
   };
   const handleEnd = () => {
     if (!isFinished) {
@@ -236,13 +237,10 @@
       class:text-bg-dark={darkMode}
       class:vh-90={start}
       class:vh-xl-90={start}
+      bind:this={questionDiv}
     >
       {#if start}
-        <div
-          class="card-body m-auto w-100 px-4 overflow-auto"
-          class:text-end={language == "he" || language == "ar"}
-          lang={language}
-        >
+        <div class="card-body m-auto w-100 px-4 overflow-auto">
           <div class="row pb-4">
             <div class="col d-flex align-items-center justify-content-start">
               <span>Question {current + 1} out of {maxQuestions}</span>
@@ -255,13 +253,18 @@
               <DarkModeSwitch bind:checked={darkMode} />
             </div>
           </div>
-          <h2>{question}</h2>
+          <h2 dir="auto" lang={language}>{question}</h2>
           {#if image}
             <div class="d-flex justify-content-center p-2">
               <img src={image} alt={question} class="img-fluid shadow" />
             </div>
           {/if}
-          <div class="form-check" class:mt-sm-5={!image}>
+          <div
+            class="form-check"
+            class:mt-sm-5={!image}
+            dir="auto"
+            lang={language}
+          >
             {#each answers as answer}
               <div class="fs-4 my-2">
                 <input
@@ -420,6 +423,8 @@
           <ol class="list-group list-group-numbered fs-5">
             {#each questions as currentQuestion, index}
               <button
+                dir="auto"
+                lang={language}
                 class="list-group-item list-group-item-action transition"
                 class:list-group-item-secondary={!questionsDone[index] &&
                   darkMode}
