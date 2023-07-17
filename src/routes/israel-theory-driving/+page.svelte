@@ -24,6 +24,7 @@
 
   let isFinished = false;
   $: percent = parseInt((score / maxQuestions) * 100);
+  $: dirType = language == "he" || language == "ar" ? "rtl" : "ltr";
   const languageResourceId = {
     en: "9a197011-adf9-45a2-81b9-d17dabdf990b",
     he: "bf7cb748-f220-474b-a4d5-2d59f93db28d",
@@ -291,14 +292,20 @@
             {/each}
           </div>
         </div>
-        <div class="card-footer">
+        <div class="card-footer" dir={dirType}>
           <div class="row">
             <div class="col-4 col-md-2">
               <button
                 class="btn btn-secondary fs-4 w-100"
                 disabled={!questionsDone[current - 1]}
-                on:click={handleBack}><i class="fa-solid fa-backward" /></button
+                on:click={handleBack}
               >
+                {#if dirType != "rtl"}
+                  <i class="fa-solid fa-backward" />
+                {:else}
+                  <i class="fa-solid fa-forward" />
+                {/if}
+              </button>
             </div>
             <div class="col-4 col-md-8">
               {#if !questionsDone[current]}
@@ -319,7 +326,11 @@
                   class="btn btn-primary fs-4 w-100"
                   ><span class="d-none d-md-block">Next Question</span><span
                     class="d-block d-md-none"
-                    ><i class="fa-solid fa-forward" /></span
+                    >{#if dirType != "rtl"}
+                      <i class="fa-solid fa-forward" />
+                    {:else}
+                      <i class="fa-solid fa-backward" />
+                    {/if}</span
                   >
                 </button>
               {/if}
