@@ -1,7 +1,7 @@
 <script>
   import Header from "../../components/Header.svelte";
   import Modal from "../../components/Modal.svelte";
-
+  import DarkModeSwitch from "../../components/DarkModeSwitch.svelte";
   let questions,
     questionArr,
     question,
@@ -19,6 +19,7 @@
   let score = 0;
   let correct = false;
   let questionsDone = {};
+  let darkMode = false;
 
   $: isEnd = questionsDone[maxQuestions - 1];
   $: percent = parseInt((score / maxQuestions) * 100);
@@ -170,6 +171,7 @@
     let rand = Math.floor(Math.random() * difference) + min;
     return rand;
   }
+  handleStart();
 </script>
 
 <Modal showModal={showScore} on:click={toggleScore}>
@@ -210,20 +212,30 @@
         </p>
       </div>
     </div>
-    <div class="card bg-light my-5">
+    <div
+      class="card mt-5 mb-0 mb-xl-5 transition"
+      class:text-bg-light={!darkMode}
+      class:text-bg-dark={darkMode}
+      class:vh-100={start}
+      class:vh-xl-90={start}
+    >
       {#if start}
         <div
-          class="card-body min-vh-60 m-auto w-100 px-4"
+          class="card-body m-auto w-100 px-4 overflow-auto"
           class:text-end={language == "he" || language == "ar"}
           lang={language}
         >
           <div class="row pb-4">
-            <div class="col-auto text-start">
+            <div class="col-auto">
               <span>Question {current + 1} out of {maxQuestions}</span>
             </div>
             <div class="col" />
-            <div class="col-auto text-end">
+            <div class="col-auto">
               <span>{category}</span>
+            </div>
+            <div class="col" />
+            <div class="col-auto px-3">
+              <DarkModeSwitch bind:checked={darkMode} />
             </div>
           </div>
           <h2>{question}</h2>
@@ -232,7 +244,7 @@
               <img src={image} alt={question} class="img-fluid shadow" />
             </div>
           {/if}
-          <div class="form-check" class:mt-md-5={!image}>
+          <div class="form-check" class:mt-sm-5={!image}>
             {#each answers as answer}
               <div class="fs-4 my-2">
                 <input
@@ -385,8 +397,16 @@
   }
   .answer:hover {
     background-color: #d3d3d3 !important;
+    color: #000000;
   }
   input[type="radio"] {
     cursor: pointer;
+  }
+  .transition {
+    transition: 0.1s;
+  }
+  .bg-success-subtle,
+  .bg-danger-subtle {
+    color: #000000;
   }
 </style>
