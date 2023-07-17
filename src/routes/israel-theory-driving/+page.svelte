@@ -212,7 +212,7 @@
       </div>
     </div>
     <div
-      class="card mt-5 mb-0 mb-xl-5 transition"
+      class="card mt-5 mb-0 mb-xl-5"
       class:text-bg-light={!darkMode}
       class:text-bg-dark={darkMode}
       class:vh-100={start}
@@ -401,8 +401,8 @@
   input[type="radio"] {
     cursor: pointer;
   }
-  .transition {
-    transition: 0.1s;
+  .card {
+    transition: 0.2s;
   }
   .bg-success-subtle,
   .bg-danger-subtle {
