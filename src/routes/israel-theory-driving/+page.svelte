@@ -21,7 +21,7 @@
   let questionsDone = {};
   let darkMode = false;
 
-  $: isEnd = questionsDone[maxQuestions - 1];
+  $: isFinished = questionsDone[maxQuestions - 1];
   $: percent = parseInt((score / maxQuestions) * 100);
   const languageResourceId = {
     en: "9a197011-adf9-45a2-81b9-d17dabdf990b",
@@ -154,7 +154,7 @@
   };
 
   const handleEnd = () => {
-    if (!isEnd) {
+    if (!isFinished) {
       if (
         !confirm(
           "Are you sure you want to end your test early? All progress you made up until now will NOT be saved."
@@ -164,6 +164,7 @@
       }
     }
     start = false;
+    darkMode = false;
     toggleScore();
   };
   function randomNum(min, max) {
@@ -305,10 +306,10 @@
             <div class="col-4 col-md-2">
               <button
                 class="btn fs-4 w-100"
-                class:btn-danger={!isEnd}
-                class:btn-success={isEnd}
+                class:btn-danger={!isFinished}
+                class:btn-success={isFinished}
                 on:click={handleEnd}
-                >{#if isEnd}
+                >{#if isFinished}
                   <span class="d-none d-lg-block">Submit Test</span><span
                     class="d-block d-lg-none"
                     ><i class="fa-solid fa-square-check" /></span
