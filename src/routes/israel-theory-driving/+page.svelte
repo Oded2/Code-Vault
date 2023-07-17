@@ -212,10 +212,10 @@
       </div>
     </div>
     <div
-      class="card mt-5 mb-0 mb-xl-5"
+      class="card my-5"
       class:text-bg-light={!darkMode}
       class:text-bg-dark={darkMode}
-      class:vh-100={start}
+      class:vh-90={start}
       class:vh-xl-90={start}
     >
       {#if start}
@@ -225,15 +225,13 @@
           lang={language}
         >
           <div class="row pb-4">
-            <div class="col-auto">
+            <div class="col">
               <span>Question {current + 1} out of {maxQuestions}</span>
             </div>
-            <div class="col" />
-            <div class="col-auto">
+            <div class="col">
               <span>{category}</span>
             </div>
-            <div class="col" />
-            <div class="col-auto px-3">
+            <div class="col">
               <DarkModeSwitch bind:checked={darkMode} />
             </div>
           </div>

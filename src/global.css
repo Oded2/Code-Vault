@@ -27,6 +27,9 @@
   top: 0;
 }
 
+.vh-90 {
+  height: 90vh !important;
+}
 .vh-75 {
   height: 75vh !important;
 }
