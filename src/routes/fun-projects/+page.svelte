@@ -12,7 +12,7 @@
       <div class="row">
         <FunProjectsCard
           icon="lock"
-          title="Text Encrypter"
+          title={homeRef["encrypt"]["title"]}
           description="Secure enough for fun messages and with friends, but not for actual
         security. Will take a password that is used to encrypt and decrypt the
         message."
@@ -20,13 +20,13 @@
         />
         <FunProjectsCard
           icon="unlock"
-          title="Text Decrypter"
+          title={homeRef["decrypt"]["title"]}
           description="Will decrypt any text from the original encrypter above. Use the same password as the encrypted text and it will decrypt it."
           href={homeRef["decrypt"]["link"]}
         />
         <FunProjectsCard
           icon="credit-card"
-          title="Credit Card Validator"
+          title={homeRef["ccvalidator"]["title"]}
           description="Will validate any credit card. The method used is called the Luhn algorithm, and it will show you how it works. Does not store any information, the entire process happens locally."
           href={homeRef["ccvalidator"]["link"]}
         />
@@ -34,14 +34,14 @@
           large={true}
           iconType="regular"
           icon="credit-card"
-          title="Credit Card Generator"
+          title={homeRef["ccgenerator"]["title"]}
           description="Will generate any valid credit card. Will show you how the algorithm is used. For demo purposes only."
           href={homeRef["ccgenerator"]["link"]}
         />
         <FunProjectsCard
           large={true}
           icon="image"
-          title="Metadata Viewer"
+          title={homeRef["photodata"]["title"]}
           description="Will show you the metadata info of any photo"
           href={homeRef["photodata"]["link"]}
         />

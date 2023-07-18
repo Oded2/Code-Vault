@@ -30,11 +30,11 @@
         },
         "encrypt": {
             "link": "/fun-projects/encrypt",
-            "title": "Encrypter"
+            "title": "Text Encrypter"
         },
         "decrypt": {
             "link": "/fun-projects/decrypt",
-            "title": "Decrypter"
+            "title": "Text Decrypter"
         },
         "ccvalidator": {
             "link": "/fun-projects/ccvalidator",
