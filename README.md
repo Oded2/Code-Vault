@@ -37,10 +37,6 @@ Contributions to this repository are welcome! If you have an interesting project
 
 Please ensure your contributions align with the purpose and style of the repository.
 
-## License
-
-This repository is open source and available under the [MIT License](LICENSE). Feel free to use the projects in this repository as per the terms of the license.
-
 ## Contact
 
 For any questions, feedback, or support, you can reach out to me at odedconnect@gmail.com.
