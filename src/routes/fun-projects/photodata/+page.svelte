@@ -15,6 +15,8 @@
     Flash: "Flash",
     Software: "Software",
     FocalLength: "Focal Length",
+    DateTime: "Date Taken",
+    SceneType: "Scene Type",
   };
 
   $: finalLong = handleCord(tags["GPSLongitude"], tags["GPSLongitudeRef"]);
@@ -33,11 +35,22 @@
   function updateNewTags() {
     for (let tag in tags) {
       const current = acceptableValues[tag];
-      const value = tags[tag];
+      let value = tags[tag];
       if (current) {
+        if (current == acceptableValues["DateTime"]) {
+          value = cleanDate(value);
+        }
         newTags[newTags.length] = `${current}: ${value}`;
       }
     }
+  }
+  function cleanDate(stringDate) {
+    let newDate = new Date(stringDate.replace(/:/g, "-").slice(0, 11));
+    const year = newDate.getFullYear();
+    const month = months[newDate.getMonth()];
+    const day = days[newDate.getDay()];
+    const date = newDate.getDate();
+    return `${day}, ${date} ${month} ${year}`;
   }
   function handleCord(cord, ref) {
     if (!cord) {
@@ -76,6 +89,29 @@
     const embedLink = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&amp;layer=mapnik&marker=${marker}`;
     return embedLink;
   }
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 </script>
 
 <Header
