@@ -1,7 +1,13 @@
 {
-    "code vault": "/",
-    "about": "/about",
-    "contact": "/contact",
+    "home": "/",
+    "about": {
+        "link": "/about",
+        "title": "About Code Vault"
+    },
+    "contact": {
+        "link": "/contact",
+        "title": "Contact"
+    },
     "github": {
         "profile": "https://github.com/Oded2",
         "astrofetch": {
@@ -18,23 +24,58 @@
         }
     },
     "fun-projects": {
-        "home": "/fun-projects",
-        "encrypt": "/fun-projects/encrypt",
-        "decrypt": "/fun-projects/decrypt",
-        "ccvalidator": "/fun-projects/ccvalidator",
-        "ccgenerator": "/fun-projects/ccgenerator",
-        "photodata": "/fun-projects/photodata"
+        "home": {
+            "link": "/fun-projects",
+            "title": "Fun Projects"
+        },
+        "encrypt": {
+            "link": "/fun-projects/encrypt",
+            "title": "Encrypter"
+        },
+        "decrypt": {
+            "link": "/fun-projects/decrypt",
+            "title": "Decrypter"
+        },
+        "ccvalidator": {
+            "link": "/fun-projects/ccvalidator",
+            "title": "Credit Card Validator"
+        },
+        "ccgenerator": {
+            "link": "/fun-projects/ccgenerator",
+            "title": "Credit Card Generator"
+        },
+        "photodata": {
+            "link": "/fun-projects/photodata",
+            "title": "Metadata Viewer"
+        }
     },
     "fun-games": {
-        "home": "/fun-games",
-        "wordguess": "/fun-games/wordguess",
-        "numberguess": "/fun-games/numberguess"
+        "home": {
+            "link": "/fun-games",
+            "title": "Fun Games"
+        },
+        "wordguess": {
+            "link": "/fun-games/wordguess",
+            "title": "Word Guesser"
+        },
+        "numberguess": {
+            "link": "/fun-games/numberguess",
+            "title": "Number Guesser"
+        }
     },
     "astrofetch": {
-        "home": "/astrofetch",
+        "home": {
+            "link": "/astrofetch",
+            "title": "AstroFetch"
+        },
         "nasaApi": "https://api.nasa.gov"
     },
-    "israeli-driver-test": "/israel-theory-driving",
+    "israeli-driver-test": {
+        "home": {
+            "link": "/israel-theory-driving",
+            "title": "Israeli Driver Theory"
+        }
+    },
     "email": {
         "address": "odedconnect@gmail.com",
         "mailto": "mailto:odedconnect@gmail.com"

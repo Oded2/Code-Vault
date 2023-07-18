@@ -1,5 +1,7 @@
 <script>
   import Header from "../../../components/Header.svelte";
+  import hrefs from "../../../data/hrefs.json";
+  const directory = hrefs["fun-games"];
   let minNum = 0;
   let maxNum = 100;
   let userNum;
@@ -10,7 +12,9 @@
   let attempts = 0;
   let numbersTried = [];
   let win = false;
-  $: numbersTried = numbersTried.sort((a,b)=>{return a-b});
+  $: numbersTried = numbersTried.sort((a, b) => {
+    return a - b;
+  });
   const startGame = () => {
     gameBefore = false;
     gameAfter = true;
@@ -69,7 +73,7 @@
 </script>
 
 <main class="text-bg-dark dark-background">
-  <Header directory="fun-games" activePage="numberguess" title="Number Guess" />
+  <Header {directory} title={directory["numberguess"]["title"]} />
   <section class="py-5">
     <div class="container">
       <div class="row gx-4 gx-lg-5">

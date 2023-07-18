@@ -59,7 +59,7 @@
     </div>
   </div></Modal
 >
-<Header directory="home" />
+<Header isHome={true} />
 
 <main class="bg-light">
   <section class="text-bg-dark p-5 p-lg-1 text-center text-sm-start">
@@ -104,14 +104,14 @@
       Text Decrypter, Credit Card Validator, Credit Card Generator,
       and an Image Metadata Viewer. All available in your web browser."
         icon="laptop"
-        mainLink={hrefs["fun-projects"]["home"]}
+        mainLink={hrefs["fun-projects"]["home"]["link"]}
       />
       <HomeCard
         show={filter["html"]}
         title="Fun Games"
         description="Discover a collection of fun browser games! No downloads required. Enjoy HTML, CSS, and JavaScript creations, all playable directly in your browser."
         icon="gamepad"
-        mainLink={hrefs["fun-games"]["home"]}
+        mainLink={hrefs["fun-games"]["home"]["link"]}
       />
       <HomeCard
         show={filter["html"] || filter["python"]}
@@ -123,7 +123,7 @@
         provides access to captivating and up-to-date astronomical
         imagery."
         icon="user-astronaut"
-        mainLink={hrefs["astrofetch"]["home"]}
+        mainLink={hrefs["astrofetch"]["home"]["link"]}
         sourceLink={hrefs["github"]["astrofetch"]["source"]}
         secondLink={hrefs["github"]["astrofetch"]["download"]}
         secondIcon={"python"}
@@ -134,7 +134,7 @@
         title="Israeli Driver's Practice Test"
         description="Pass the Israeli driver test in any language of your choice. Practice exams customized to your language preference. Overcome language barriers and drive with confidence. Start preparing now for a successful driving experience!"
         icon="taxi"
-        mainLink={hrefs["israeli-driver-test"]}
+        mainLink={hrefs["israeli-driver-test"]["home"]["link"]}
       />
       <HomeCard
         show={filter["python"]}

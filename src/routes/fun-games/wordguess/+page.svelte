@@ -2,7 +2,8 @@
   import Header from "../../../components/Header.svelte";
   import Switch from "../../../components/Switch.svelte";
   import wordGuess from "../../../images/svg/word_guess.svg";
-
+  import hrefs from "../../../data/hrefs.json";
+  const directory = hrefs["fun-games"];
   let gameBefore = true;
   let gameAfter = false;
   let placeHolder = "_";
@@ -148,7 +149,7 @@
 </script>
 
 <main class="text-bg-dark dark-background">
-  <Header directory="fun-games" activePage="wordguess" title="Word Guess" />
+  <Header {directory} title={directory["wordguess"]["title"]} />
 
   <section hidden={gameAfter}>
     <div class="container">

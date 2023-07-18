@@ -1,27 +1,30 @@
 <script>
   import hrefs from "../data/hrefs.json";
-  export let directory = null;
-  export let activePage = null;
   export let title = "Code Vault";
-  const funProjects = hrefs["fun-projects"];
-  const funGames = hrefs["fun-games"];
-  const isHome = directory == "home";
-  const isFunProjects = directory == "fun-projects";
-  const isFunGames = directory == "fun-games";
+  export let directory = null;
+  export let isHome = false;
+  const newTitle = isHome ? "Code Vault" : title + " - Code Vault";
+  let breakpoint;
+  let pages = [];
+  for (let i in directory) {
+    pages.push(i);
+  }
+  if (pages.length < 3) {
+    breakpoint = "sm";
+  } else if (pages.length >= 3 && pages.length < 5) {
+    breakpoint = "md";
+  } else {
+    breakpoint = "xl";
+  }
 </script>
 
 <svelte:head>
-  <title>{title}</title>
+  <title>{newTitle}</title>
 </svelte:head>
 
-<nav
-  class="navbar bg-dark navbar-dark"
-  class:navbar-expand-xl={isFunProjects}
-  class:navbar-expand-md={isFunGames}
-  class:navbar-expand-sm={isHome || !directory}
->
+<nav class="navbar bg-dark navbar-dark navbar-expand-{breakpoint}">
   <div class="container">
-    <a href={hrefs["code vault"]} class="navbar-brand"
+    <a href={hrefs["home"]} class="navbar-brand"
       >{#if isHome}Oded's Website
       {:else}Code <span class="text-warning">Vault</span>{/if}</a
     >
@@ -33,92 +36,35 @@
     >
       <span class="navbar-toggler-icon" />
     </button>
+
     <div class="collapse navbar-collapse" id="navmenu">
-      {#if isFunProjects}
-        <ul class="navbar-nav ms-xl-5">
-          <li>
-            <a
-              href={funProjects["home"]}
-              class="nav-link"
-              class:active={activePage == "home"}>Fun Projects</a
-            >
-          </li>
-          <li>
-            <a
-              href={funProjects["encrypt"]}
-              class="nav-link"
-              class:active={activePage == "encrypt"}>Encrypt</a
-            >
-          </li>
-          <li>
-            <a
-              href={funProjects["decrypt"]}
-              class="nav-link"
-              class:active={activePage == "decrypt"}>Decrypt</a
-            >
-          </li>
-          <li>
-            <a
-              href={funProjects["ccvalidator"]}
-              class="nav-link"
-              class:active={activePage == "ccvalidator"}
-              >Credit Card Validator</a
-            >
-          </li>
-          <li>
-            <a
-              href={funProjects["ccgenerator"]}
-              class="nav-link"
-              class:active={activePage == "ccgenerator"}
-              >Credit Card Generator</a
-            >
-          </li>
-          <li>
-            <a
-              href={funProjects["photodata"]}
-              class="nav-link"
-              class:active={activePage == "photodata"}>Metadata Viewer</a
-            >
-          </li>
-        </ul>
-      {:else if isFunGames}
-        <ul class="navbar-nav ms-md-5">
-          <li>
-            <a
-              href={funGames["home"]}
-              class="nav-link"
-              class:active={activePage == "home"}>Fun Games</a
-            >
-          </li>
-          <li>
-            <a
-              href={funGames["numberguess"]}
-              class="nav-link"
-              class:active={activePage == "numberguess"}>Number Guess</a
-            >
-          </li>
-          <li>
-            <a
-              href={funGames["wordguess"]}
-              class="nav-link"
-              class:active={activePage == "wordguess"}>Word Guess</a
-            >
-          </li>
+      {#if directory}
+        <ul class="navbar-nav ms-{breakpoint}-5">
+          {#each pages as page}
+            <li>
+              <a
+                href={directory[page]["link"]}
+                class="nav-link"
+                class:active={directory[page]["title"] == title}
+                >{directory[page]["title"]}</a
+              >
+            </li>
+          {/each}
         </ul>
       {/if}
       <ul class="navbar-nav ms-auto">
         <li>
           <a
-            href={hrefs["about"]}
+            href={hrefs["about"]["link"]}
             class="nav-link"
-            class:active={activePage == "about"}>About</a
+            class:active={title == hrefs["about"]["title"]}>About</a
           >
         </li>
         <li>
           <a
-            href={hrefs["contact"]}
+            href={hrefs["contact"]["link"]}
             class="nav-link"
-            class:active={activePage == "contact"}>Contact</a
+            class:active={title == hrefs["contact"]["title"]}>Contact</a
           >
         </li>
       </ul>

@@ -1,5 +1,6 @@
 <script>
   import Header from "../../../components/Header.svelte";
+  import hrefs from "../../../data/hrefs.json";
   let password = "";
   $: hash = hashPass(password);
   let encryptedMessage = "";
@@ -154,7 +155,10 @@
   }
 </script>
 
-<Header title="Decrypt" directory="fun-projects" activePage="decrypt" />
+<Header
+  directory={hrefs["fun-projects"]}
+  title={hrefs["fun-projects"]["decrypt"]["title"]}
+/>
 <main>
   <section>
     <div class="container">

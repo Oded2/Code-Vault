@@ -2,6 +2,7 @@
   import Header from "../../components/Header.svelte";
   import Modal from "../../components/Modal.svelte";
   import DarkModeSwitch from "../../components/DarkModeSwitch.svelte";
+  import hrefs from "../../data/hrefs.json";
   let questions,
     questionArr,
     question,
@@ -219,7 +220,7 @@
   </div>
 </Modal>
 <main class="text-bg-dark dark-background">
-  <Header title="Israel Driving Test" />
+  <Header title={hrefs["israeli-driver-test"]["home"]["title"]} />
   <div class="container">
     <div class="ms-0 ms-sm-2">
       <h1>The Israeli Driver Test</h1>

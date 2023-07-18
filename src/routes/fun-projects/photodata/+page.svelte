@@ -1,6 +1,7 @@
 <script>
   import Header from "../../../components/Header.svelte";
   import transparentImg from "../../../images/misc/transparent.png";
+  import hrefs from "../../../data/hrefs.json";
   let userImg;
   let imgSrc = transparentImg;
 
@@ -78,16 +79,14 @@
 </script>
 
 <Header
-  directory="fun-projects"
-  activePage="photodata"
-  title="Metadata Viewer"
+  directory={hrefs["fun-projects"]}
+  title={hrefs["fun-projects"]["photodata"]["title"]}
 />
 <main>
   <div class="col-lg-8 mx-auto p-4 py-md-5">
     <main>
       <div class="mb-5">
         <h1 class="text-body-emphasis">Metadata Viewer</h1>
-
         <label for="formFile" class="form-label">Choose an Image</label>
         <input
           id="formFile"

@@ -129,7 +129,7 @@
   }
 </script>
 
-<Header activePage="contact" title="Contact" />
+<Header title={hrefs["contact"]["title"]} />
 <main>
   <div class="container">
     <form on:submit|preventDefault={onSubmit}>

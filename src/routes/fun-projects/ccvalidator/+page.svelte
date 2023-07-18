@@ -1,6 +1,7 @@
 <script>
   import Header from "../../../components/Header.svelte";
   import CardInfo from "../../../components/funProjects/CardInfo.svelte";
+  import hrefs from "../../../data/hrefs.json";
   let cardNum;
   let sum;
   $: isValid = verifyCard(cardNum);
@@ -58,9 +59,8 @@
 </script>
 
 <Header
-  directory="fun-projects"
-  activePage="ccvalidator"
-  title="Credit Card Validator"
+  directory={hrefs["fun-projects"]}
+  title={hrefs["fun-projects"]["ccvalidator"]["title"]}
 />
 
 <main>

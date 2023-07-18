@@ -9,7 +9,7 @@
 </script>
 
 <main class="dark-background text-bg-dark">
-  <Header title="About Code Vault" activePage="about" />
+  <Header title={hrefs["about"]["title"]} />
   <section class="p-1">
     <div class="container">
       <div class="row p-3">
