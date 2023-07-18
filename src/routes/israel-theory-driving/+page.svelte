@@ -228,7 +228,7 @@
           language-specific support. Drive confidently, and get started now!
           <span class="text-warning"
             >Please remember this isn't affiliated with the official licensing
-            department.</span
+            authority.</span
           >
         </p>
       </div>

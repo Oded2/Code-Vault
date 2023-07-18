@@ -1,5 +1,10 @@
 <script>
   export let showModal = false;
+  export let timeOut = null;
+
+  $: if (showModal && timeOut) {
+    setTimeout(() => (showModal = false), timeOut);
+  }
 </script>
 
 {#if showModal}
