@@ -151,6 +151,7 @@
   };
   const handleNext = () => {
     current++;
+
     updateQuestion();
   };
   const handleBack = () => {
@@ -321,8 +322,10 @@
                   >
                 </button>
               {:else if questionsDone[current] && !isFinished}
-                <button class="btn btn-primary fs-4 w-100" on:click={handleNext}
-                  >Next</button
+                <button
+                  class="btn btn-primary fs-4 w-100"
+                  on:click={handleNext}
+                  disabled={!questions[current + 1]}>Next</button
                 >
               {:else}
                 <button class="btn btn-success fs-4 w-100" on:click={handleEnd}
