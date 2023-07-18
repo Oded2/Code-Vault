@@ -99,7 +99,7 @@
     <div class="row">
       <HomeCard
         show={filter["html"]}
-        title="Fun Projects"
+        title={hrefs["fun-projects"]["home"]["title"]}
         description="This website offers various features, including a Text Encrypter,
       Text Decrypter, Credit Card Validator, Credit Card Generator,
       and an Image Metadata Viewer. All available in your web browser."
@@ -108,14 +108,14 @@
       />
       <HomeCard
         show={filter["html"]}
-        title="Fun Games"
+        title={hrefs["fun-games"]["home"]["title"]}
         description="Discover a collection of fun browser games! No downloads required. Enjoy HTML, CSS, and JavaScript creations, all playable directly in your browser."
         icon="gamepad"
         mainLink={hrefs["fun-games"]["home"]["link"]}
       />
       <HomeCard
         show={filter["html"] || filter["python"]}
-        title="AstroFetch"
+        title={hrefs["astrofetch"]["home"]["title"]}
         description="AstroFetch is a versatile tool that retrieves the astronomy
         picture of the day within a specified date range. It comes in
         two versions: a Python version for image downloads and a
@@ -131,7 +131,7 @@
       />
       <HomeCard
         show={filter["html"]}
-        title="Israeli Driver's Practice Test"
+        title={hrefs["israeli-driver-test"]["home"]["title"]}
         description="Pass the Israeli driver test in any language of your choice. Practice exams customized to your language preference. Overcome language barriers and drive with confidence. Start preparing now for a successful driving experience!"
         icon="taxi"
         mainLink={hrefs["israeli-driver-test"]["home"]["link"]}
