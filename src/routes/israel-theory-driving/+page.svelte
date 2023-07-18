@@ -234,7 +234,7 @@
       </div>
     </div>
     <div
-      class="card mt-5"
+      class="card my-5"
       class:text-bg-light={!darkMode}
       class:text-bg-dark={darkMode}
       class:vh-90={start}
@@ -296,10 +296,10 @@
         </div>
         <div class="card-footer" dir={manualDir}>
           <div class="row">
-            <div class="col-4 col-md-2">
+            <div class="col-4">
               <button
                 class="btn btn-secondary fs-4 w-100"
-                disabled={!questionsDone[current - 1]}
+                disabled={!questions[current - 1]}
                 on:click={handleBack}
               >
                 {#if manualDir != "rtl"}
@@ -309,7 +309,7 @@
                 {/if}
               </button>
             </div>
-            <div class="col-4 col-md-8">
+            <div class="col-4">
               {#if !questionsDone[current]}
                 <button
                   on:click={handleCheck}
@@ -320,39 +320,28 @@
                     ><i class="fa-solid fa-check" /></span
                   >
                 </button>
+              {:else if questionsDone[current] && !isFinished}
+                <button class="btn btn-primary fs-4 w-100" on:click={handleNext}
+                  >Next</button
+                >
               {:else}
-                <button
-                  on:click={handleNext}
-                  disabled={!questionsDone[current] ||
-                    current + 1 == maxQuestions}
-                  class="btn btn-primary fs-4 w-100"
-                  ><span class="d-none d-md-block">Next Question</span><span
-                    class="d-block d-md-none"
-                    >{#if manualDir != "rtl"}
-                      <i class="fa-solid fa-forward" />
-                    {:else}
-                      <i class="fa-solid fa-backward" />
-                    {/if}</span
-                  >
-                </button>
-              {/if}
-            </div>
-            <div class="col-4 col-md-2">
-              <button
-                class="btn fs-4 w-100"
-                class:btn-danger={!isFinished}
-                class:btn-success={isFinished}
-                on:click={handleEnd}
-                >{#if isFinished}
-                  <span class="d-none d-lg-block">Submit Test</span><span
+                <button class="btn btn-success fs-4 w-100" on:click={handleEnd}
+                  ><span class="d-none d-lg-block">Submit Test</span><span
                     class="d-block d-lg-none"
                     ><i class="fa-solid fa-square-check" /></span
-                  >
+                  ></button
+                >
+              {/if}
+            </div>
+            <div class="col-4">
+              <button
+                on:click={handleNext}
+                disabled={!questions[current + 1]}
+                class="btn btn-secondary fs-4 w-100"
+                >{#if manualDir != "rtl"}
+                  <i class="fa-solid fa-forward" />
                 {:else}
-                  <span class="d-none d-lg-block">End Test</span><span
-                    class="d-block d-lg-none"
-                    ><i class="fa-solid fa-rectangle-xmark" /></span
-                  >
+                  <i class="fa-solid fa-backward" />
                 {/if}
               </button>
             </div>
@@ -422,11 +411,11 @@
     </div>
     {#if start}
       <div
-        class="card pt-3 pb-5 px-0 px-sm-5 my-5"
+        class="card mb-5"
         class:text-bg-light={!darkMode}
         class:text-bg-dark={darkMode}
       >
-        <div class="card-body">
+        <div class="card-body pt-4 pb-5 px-0 px-sm-5">
           <div class="mb-4">
             <h1 class="font-google-quicksand">Questions</h1>
             <span class="fw-light"
@@ -441,6 +430,8 @@
                 class="list-group-item list-group-item-action transition"
                 class:list-group-item-secondary={!questionsDone[index] &&
                   darkMode}
+                class:list-group-item-warning={current == index &&
+                  !questionsDone[index]}
                 class:list-group-item-danger={questionsDone[index] &&
                   !questionsDone[index]["isCorrect"]}
                 class:list-group-item-success={questionsDone[index] &&
@@ -451,6 +442,11 @@
               </button>
             {/each}
           </ol>
+        </div>
+        <div class="card-footer py-4">
+          <button class="btn btn-danger w-100 fs-4" on:click={handleEnd}
+            >End Test</button
+          >
         </div>
       </div>
     {/if}
