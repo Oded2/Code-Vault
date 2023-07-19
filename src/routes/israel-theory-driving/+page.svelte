@@ -187,7 +187,6 @@
       }
     }
     start = false;
-    darkMode = false;
     toggleScore();
   };
   function randomNum(min, max) {
@@ -243,20 +242,22 @@
       class:vh-xl-90={start}
       bind:this={questionDiv}
     >
+      <div class="row px-4 pt-3">
+        {#if start}
+          <div class="col d-flex align-items-center justify-content-start">
+            <span>Question {current + 1} out of {maxQuestions}</span>
+          </div>
+          <div class="col d-flex align-items-center justify-content-center">
+            <span>{category}</span>
+          </div>
+        {/if}
+
+        <div class="col d-flex justify-content-end align-items-center">
+          <DarkModeSwitch bind:checked={darkMode} />
+        </div>
+      </div>
       {#if start}
         <div class="card-body m-auto w-100 px-4 overflow-auto">
-          <div class="row pb-4">
-            <div class="col d-flex align-items-center justify-content-start">
-              <span>Question {current + 1} out of {maxQuestions}</span>
-            </div>
-            <div class="col d-flex align-items-center justify-content-center">
-              <span>{category}</span>
-            </div>
-
-            <div class="col d-flex justify-content-end align-items-center">
-              <DarkModeSwitch bind:checked={darkMode} />
-            </div>
-          </div>
           <h2 dir="auto" lang={language}>{question}</h2>
           {#if image}
             <div class="d-flex justify-content-center p-2">
@@ -378,6 +379,7 @@
                   required
                   bind:value={language}
                   class="form-select form-select-lg"
+                  class:text-bg-dark={darkMode}
                 >
                   <option value="he" lang="he">עִברִית</option>
                   <option value="en" selected>English</option>
@@ -398,6 +400,7 @@
                   required
                   type="number"
                   class="form-control fs-5"
+                  class:text-bg-dark={darkMode}
                   min="1"
                   max="100"
                   bind:value={maxQuestions}
