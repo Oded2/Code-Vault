@@ -250,7 +250,7 @@
             <span>{category}</span>
           </div>
         {:else}
-          <div class="col" />
+          <div class="col-md" />
           <div class="col-md-auto text-center">
             <h1 class=" font-google-quicksand">The Israeli Driver Test</h1>
           </div>
