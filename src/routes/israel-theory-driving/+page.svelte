@@ -239,7 +239,6 @@
       class:text-bg-light={!darkMode}
       class:text-bg-dark={darkMode}
       class:vh-90={start}
-      class:vh-xl-90={start}
       bind:this={questionDiv}
     >
       <div class="row px-4 pt-3">
@@ -252,12 +251,16 @@
           </div>
         {:else}
           <div class="col" />
-          <div class="col-auto">
+          <div class="col-md-auto text-center">
             <h1 class=" font-google-quicksand">The Israeli Driver Test</h1>
           </div>
         {/if}
 
-        <div class="col d-flex justify-content-end align-items-center">
+        <div
+          class="col d-flex justify-content-md-end align-items-center"
+          class:justify-content-end={start}
+          class:justify-content-center={!start}
+        >
           <DarkModeSwitch bind:checked={darkMode} />
         </div>
       </div>
