@@ -241,27 +241,29 @@
       class:vh-90={start}
       bind:this={questionDiv}
     >
-      <div class="row px-4 pt-3">
-        {#if start}
-          <div class="col d-flex align-items-center justify-content-start">
-            <span>Question {current + 1} out of {maxQuestions}</span>
-          </div>
-          <div class="col d-flex align-items-center justify-content-center">
-            <span>{category}</span>
-          </div>
-        {:else}
-          <div class="col-md" />
-          <div class="col-md-auto text-center">
-            <h1 class=" font-google-quicksand">The Israeli Driver Test</h1>
-          </div>
-        {/if}
+      <div class="card-header">
+        <div class="row px-4">
+          {#if start}
+            <div class="col d-flex align-items-center justify-content-start">
+              <span>Question {current + 1} out of {maxQuestions}</span>
+            </div>
+            <div class="col d-flex align-items-center justify-content-center">
+              <span>{category}</span>
+            </div>
+          {:else}
+            <div class="col-md" />
+            <div class="col-md-auto text-center">
+              <h1 class=" font-google-quicksand">The Israeli Driver Test</h1>
+            </div>
+          {/if}
 
-        <div
-          class="col d-flex justify-content-md-end align-items-center"
-          class:justify-content-end={start}
-          class:justify-content-center={!start}
-        >
-          <DarkModeSwitch bind:checked={darkMode} />
+          <div
+            class="col d-flex justify-content-md-end align-items-center"
+            class:justify-content-end={start}
+            class:justify-content-center={!start}
+          >
+            <DarkModeSwitch bind:checked={darkMode} />
+          </div>
         </div>
       </div>
       {#if start}

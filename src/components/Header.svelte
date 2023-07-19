@@ -11,8 +11,10 @@
   }
   if (pages.length < 3) {
     breakpoint = "sm";
-  } else if (pages.length >= 3 && pages.length < 5) {
+  } else if (pages.length == 3) {
     breakpoint = "md";
+  } else if (pages.length == 4) {
+    breakpoint = "lg";
   } else {
     breakpoint = "xl";
   }

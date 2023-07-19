@@ -61,6 +61,10 @@
         "numberguess": {
             "link": "/fun-games/numberguess",
             "title": "Number Guesser"
+        },
+        "timegame": {
+            "link": "/fun-games/timegame",
+            "title": "Time Perspective"
         }
     },
     "astrofetch": {
