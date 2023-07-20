@@ -19,3 +19,5 @@ vite.config.ts.timestamp-*
 .netlify/
 
 references/
+
+scrapped/
