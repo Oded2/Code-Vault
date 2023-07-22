@@ -203,18 +203,18 @@
               <div class="row">
                 <div class="col">
                   <button class="btn btn-dark fs-5 w-100" on:click={isLower}
-                    >Lower</button
+                    ><i class="fa-solid fa-down-long" />&nbsp; Lower</button
                   >
                 </div>
                 <div class="col">
                   <button class="btn btn-primary fs-5 w-100" on:click={isHigher}
-                    >Higher</button
+                    ><i class="fa-solid fa-up-long" />&nbsp; Higher</button
                   >
                 </div>
               </div>
               <div class="my-2">
                 <button class="btn btn-success fs-5 w-100" on:click={handleEnd}
-                  >Yes</button
+                  ><i class="fa-solid fa-check" />&nbsp; Yes</button
                 >
               </div>
               <div class="py-3">
@@ -247,6 +247,12 @@
           </div>
         </div>
       {/if}
+      <div class="card-footer">
+        <span class="fw-light">
+          * Remember, you're goal is to help Numbo guess the right number, if he
+          loses, you lose too.
+        </span>
+      </div>
     </div>
   </div>
 </main>
