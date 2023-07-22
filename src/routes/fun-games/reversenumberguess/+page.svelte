@@ -150,7 +150,7 @@
     </h1>
     <div class="border-start ps-3 my-4">
       <p class="font-google-space-mono fs-5">
-        {description}
+        {newDescription}
       </p>
     </div>
 
