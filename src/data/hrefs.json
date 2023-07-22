@@ -64,7 +64,8 @@
         },
         "reversenumberguess": {
             "link": "/fun-games/reversenumberguess",
-            "title": "Reverse Number Guesser"
+            "title": "Numbo's Game",
+            "description": "You've heard of the number guessing game, where a computer picks a number for you. But why don't we turn the tables and have you pick the number for the computer?"
         }
     },
     "astrofetch": {

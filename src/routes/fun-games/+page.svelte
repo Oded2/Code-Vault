@@ -38,6 +38,12 @@
           description="This is a simple hangman game implemented in your web browser. The game randomly selects a word from a provided list of words and gives you a limited number of tries to guess the word correctly."
           icon="arrow-up-z-a"
         />
+        <FunGamesCard
+          gameLink={directory["reversenumberguess"]["link"]}
+          title={directory["reversenumberguess"]["title"]}
+          description={hrefs["fun-games"]["reversenumberguess"]["description"]}
+          icon="arrow-up-9-1"
+        />
       </div>
     </div>
   </section>
