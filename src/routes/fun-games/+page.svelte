@@ -41,7 +41,7 @@
         <FunGamesCard
           gameLink={directory["reversenumberguess"]["link"]}
           title={directory["reversenumberguess"]["title"]}
-          description={hrefs["fun-games"]["reversenumberguess"]["description"]}
+          description={directory["reversenumberguess"]["description"]}
           icon="arrow-up-9-1"
         />
       </div>
