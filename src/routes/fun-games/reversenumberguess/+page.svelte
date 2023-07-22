@@ -5,7 +5,7 @@
   let newDescription = "";
   let i = 0;
   const description =
-    "Hello I am Numbo, and welcome to the reverse number guesser. Please provide me with a maximum and minimum number and I will use my complex algorithmic skills to guess your number as quickly as possible. Don't worry, I'm not cheating. To start, enter a number and a viable range of the number.";
+    "Hello I am Numbo, and welcome to the reverse number guesser. Please provide me with a maximum and minimum number and I will use my complex algorithmic skills to guess your number as quickly as possible, and don't worry, I'm not cheating. To start, enter a number and a viable range of the number.";
   function typeWriter() {
     if (i < description.length) {
       newDescription += description[i];
@@ -28,7 +28,7 @@
   };
   let guessed;
   let guessedNums = [];
-  let statuses = { 1: "Hopeful", 2: "Curious", 3: "Confused", 4: "Clueless" };
+  const statuses = { 1: "Hopeful", 2: "Curious", 3: "Confused", 4: "Clueless" };
   let statusLevel = 1;
   function resetGame() {
     for (let i in errors) {
@@ -39,6 +39,7 @@
     minNum = 0;
     maxNum = 100;
     userNum = 50;
+    statusLevel = 1;
   }
   function toggleLoseModal() {
     showLoseModal = !showLoseModal;
@@ -121,7 +122,6 @@
     let rand = Math.floor(Math.random() * difference) + min;
     return rand;
   }
-  // handleStart();
 </script>
 
 <Modal showModal={showLoseModal} on:click={toggleLoseModal}
@@ -145,19 +145,20 @@
     title={hrefs["fun-games"]["reversenumberguess"]["title"]}
   />
   <div class="container py-5">
-    <h1 class="font-google-quicksand fw-bold">Reverse Number Guesser</h1>
-    <h2 class="font-google-quicksand fw-bold text-warning">
-      This is a work in progress
-    </h2>
+    <h1 class="font-google-quicksand fw-bold">
+      <span class="text-warning">Reverse</span> Number Guesser
+    </h1>
     <div class="border-start ps-3 my-4">
       <p class="font-google-space-mono fs-5">
-        {description}
+        {newDescription}
       </p>
     </div>
 
     <div class="card my-5">
       <div class="card-header">
-        <h4 class="text-center">Reverse Number Guesser</h4>
+        <h4 class="text-center font-google-quicksand fw-bold">
+          Reverse Number Guesser
+        </h4>
       </div>
       {#if !start}
         <form on:submit={handleStart}>
