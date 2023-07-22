@@ -1,23 +1,23 @@
 <script>
   import Header from "../../../components/Header.svelte";
+  import Modal from "../../../components/Modal.svelte";
   import hrefs from "../../../data/hrefs.json";
-  import happyRobot from "../../../images/funGames/robot/happy.png";
-  import neutralRobot from "../../../images/funGames/robot/neutral.png";
-  import angryRobot from "../../../images/funGames/robot/angry.png";
   let newDescription = "";
   let i = 0;
   const description =
     "Hello I am Numbo, and welcome to the reverse number guesser. Please provide me with a maximum and minimum number and I will use my complex algorithmic skills to guess your number as quickly as possible. Don't worry, I'm not cheating. To start, enter a number and a viable range of the number.";
-  const speed = 10;
   function typeWriter() {
     if (i < description.length) {
       newDescription += description[i];
       i++;
-      setTimeout(typeWriter, speed);
+      setTimeout(typeWriter, 25);
     }
   }
+
   typeWriter();
   let start = false;
+  let showLoseModal = false;
+  let showWinModal = false;
   let userNum = 50;
   let maxNum = 100;
   let minNum = 0;
@@ -28,6 +28,8 @@
   };
   let guessed;
   let guessedNums = [];
+  let statuses = { 1: "Hopeful", 2: "Curious", 3: "Confused", 4: "Clueless" };
+  let statusLevel = 1;
   function resetGame() {
     for (let i in errors) {
       errors[i]["error"] = false;
@@ -38,14 +40,24 @@
     maxNum = 100;
     userNum = 50;
   }
-
+  function toggleLoseModal() {
+    showLoseModal = !showLoseModal;
+  }
+  function toggleWinModal() {
+    showWinModal = !showWinModal;
+  }
   function handleStart() {
     if (!validateValues()) {
       return;
     }
-    resetGame();
     start = true;
     guessNum();
+  }
+  function handleEnd() {
+    const func = userNum == guessed ? toggleWinModal : toggleLoseModal;
+    func();
+    resetGame();
+    start = false;
   }
   function validateValues() {
     let valid = true;
@@ -79,7 +91,22 @@
 
   function guessNum() {
     guessed = randomNum(minNum, maxNum);
+    while (guessedNums.includes(guessed)) {
+      guessed = randomNum(minNum, maxNum);
+      if (maxNum - minNum == 1 || maxNum - minNum == 0) {
+        handleEnd();
+        break;
+      }
+    }
     guessedNums[guessedNums.length] = guessed;
+    const length = guessedNums.length;
+    if (length > 15) {
+      statusLevel = 4;
+    } else if (length > 10) {
+      statusLevel = 3;
+    } else if (length > 4) {
+      statusLevel = 2;
+    }
   }
   function isLower() {
     maxNum = guessed;
@@ -94,7 +121,23 @@
     let rand = Math.floor(Math.random() * difference) + min;
     return rand;
   }
+  // handleStart();
 </script>
+
+<Modal showModal={showLoseModal} on:click={toggleLoseModal}
+  ><div class="p-5 font-google-quicksand">
+    <h1>You Lose!</h1>
+    <h3>
+      Maybe next time you should think twice about misleading a helpless robot
+    </h3>
+  </div>
+</Modal>
+<Modal showModal={showWinModal} on:click={toggleWinModal}
+  ><div class="p-5 font-google-quicksand">
+    <h1>You Win!</h1>
+    <h3>Congratulations! You helped Numbo guess the right number.</h3>
+  </div>
+</Modal>
 
 <main class="dark-background text-bg-dark">
   <Header
@@ -158,9 +201,6 @@
               </h3>
               <div class="row">
                 <div class="col">
-                  <button class="btn btn-success fs-5 w-100">Yes</button>
-                </div>
-                <div class="col">
                   <button class="btn btn-dark fs-5 w-100" on:click={isLower}
                     >Lower</button
                   >
@@ -170,6 +210,11 @@
                     >Higher</button
                   >
                 </div>
+              </div>
+              <div class="my-2">
+                <button class="btn btn-success fs-5 w-100" on:click={handleEnd}
+                  >Yes</button
+                >
               </div>
               <div class="py-3">
                 <h3>Numbo's Info:</h3>
@@ -193,7 +238,10 @@
               </ul>
             </div>
             <div class="col-md mb-4 mb-md-0">
-              <img src={happyRobot} alt="Happy Robot" class="img-fluid" />
+              <div class="font-google-quicksand text-center">
+                <h2 class="fw-bold">Numbo's Status</h2>
+                <h1>{statuses[statusLevel]}</h1>
+              </div>
             </div>
           </div>
         </div>
