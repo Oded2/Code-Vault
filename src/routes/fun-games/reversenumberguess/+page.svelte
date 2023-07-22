@@ -156,9 +156,17 @@
 
     <div class="card my-5">
       <div class="card-header">
-        <h4 class="text-center font-google-quicksand fw-bold">
-          Reverse Number Guesser
-        </h4>
+        <div class="row">
+          <div class="col">
+            {#if start}Your number: {userNum}{/if}
+          </div>
+          <div class="col-auto">
+            <h4 class="text-center font-google-quicksand fw-bold">
+              Reverse Number Guesser
+            </h4>
+          </div>
+          <div class="col" />
+        </div>
       </div>
       {#if !start}
         <form on:submit={handleStart}>
