@@ -150,7 +150,7 @@
     </h1>
     <div class="border-start ps-3 my-4">
       <p class="font-google-space-mono fs-5">
-        {newDescription}
+        {description}
       </p>
     </div>
 
@@ -178,11 +178,11 @@
                 >
               </div>
               <div class="col">
-                <h3 class="font-google-quicksand fw-bold">Minmum Guess</h3>
+                <h3 class="font-google-quicksand fw-bold">Minmum</h3>
                 <input type="number" class="form-control" bind:value={minNum} />
               </div>
               <div class="col">
-                <h3 class="font-google-quicksand fw-bold">Maximum Guess</h3>
+                <h3 class="font-google-quicksand fw-bold">Maximum</h3>
                 <input type="number" class="form-control" bind:value={maxNum} />
               </div>
             </div>
