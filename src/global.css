@@ -20,6 +20,10 @@
 .font-google-caveat {
   font-family: "Caveat", cursive;
 }
+
+.font-google-space-mono {
+  font-family: "Space Mono", monospace;
+}
 .dark-background {
   position: absolute;
   width: 100%;

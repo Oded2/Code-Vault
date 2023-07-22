@@ -61,6 +61,10 @@
         "numberguess": {
             "link": "/fun-games/numberguess",
             "title": "Number Guesser"
+        },
+        "reversenumberguess": {
+            "link": "/fun-games/reversenumberguess",
+            "title": "Reverse Number Guesser"
         }
     },
     "astrofetch": {
