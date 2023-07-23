@@ -8,7 +8,6 @@
   const nasaApiKey = data["api"];
   const astrofetchRef = hrefs["astrofetch"];
   let today = new Date().toISOString().split("T")[0];
-  let apiKey = "DEMO_KEY";
   let startDate = today;
   let endDate = today;
   let astroData = [0];
@@ -47,17 +46,7 @@
     return newSrc;
   }
   const apiUrl = new URL("https://api.nasa.gov/planetary/apod");
-  async function paste() {
-    try {
-      const clip = await navigator.clipboard.readText();
-      return clip;
-    } catch (error) {
-      console.error(error);
-    }
-    return null;
-  }
   async function fetchData(url) {
-    console.log(url);
     let response;
     try {
       response = await fetch(url);
@@ -66,11 +55,7 @@
       return false;
     }
     if (response.status != 200) {
-      if (response.status == 403) {
-        alert("Invalid API key");
-      } else if (response.status == 429) {
-        alert("Too many requests, try using a different API key");
-      } else {
+      {
         alert("Error. Error code: " + response.status);
       }
       return false;
@@ -155,9 +140,6 @@
 
     return { valid: valid, message: message };
   }
-  const pasteToApi = async () => {
-    apiKey = await paste();
-  };
   const changeStart = (days) => {
     const final = getDateAhead(startDate, days);
     if (!validateDates(startDate, final)["valid"]) {
@@ -296,35 +278,8 @@
       </div>
 
       <div class="row my-5">
-        <div class="col-md-5">
-          <h2>Nasa API key</h2>
-          <input
-            bind:value={apiKey}
-            type="text"
-            class="form-control"
-            placeholder="API key"
-          />
-          <span class="fs-6 fw-light"
-            >Don't have an API key? Either leave it as "DEMO_KEY" or visit
-            <a href={astrofetchRef["nasaApi"]} class="link-light"
-              >api.nava.gov</a
-            >
-            to obtain one.</span
-          >
-        </div>
-        <div class="col-md-1 mt-4 mt-md-0">
-          <h2 class="d-none d-md-block">&nbsp;</h2>
-          <button class="btn btn-secondary w-100" on:click={pasteToApi}>
-            <span>
-              <i class="fa-regular fa-clipboard" /><span class="d-md-none">
-                &nbsp;Paste from clipboard</span
-              ></span
-            >
-          </button>
-        </div>
-        <div class="col-md-6 mt-1 mt-md-0">
-          <h2 class="d-none d-md-block">&nbsp;</h2>
-          <button on:click={submit} class="btn btn-primary w-100">
+        <div class="col mt-1 mt-md-0">
+          <button on:click={submit} class="btn btn-primary w-100 fs-5">
             Fetch
           </button>
         </div>
