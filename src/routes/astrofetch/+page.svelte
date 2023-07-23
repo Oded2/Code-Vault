@@ -185,8 +185,9 @@
           <div class="container-fluid">
             <p class="fs-6 text-start">
               Want to download images instead? Use the
-              <a href={hrefs["github"]["astrofetch"]} class="link-light"
-                >python</a
+              <a
+                href={hrefs["github"]["astrofetch"]["download"]}
+                class="link-light">python</a
               >
               version!
             </p>
