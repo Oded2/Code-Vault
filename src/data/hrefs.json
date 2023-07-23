@@ -54,13 +54,13 @@
             "link": "/fun-games",
             "title": "Fun Games"
         },
-        "wordguess": {
-            "link": "/fun-games/wordguess",
-            "title": "Word Guesser"
-        },
         "numberguess": {
             "link": "/fun-games/numberguess",
             "title": "Number Guesser"
+        },
+        "wordguess": {
+            "link": "/fun-games/wordguess",
+            "title": "Word Guesser"
         },
         "reversenumberguess": {
             "link": "/fun-games/reversenumberguess",
