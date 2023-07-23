@@ -4,21 +4,22 @@
   import nasaLogo from "../../images/svg/NASA.svg";
   import rocketImg from "../../images/svg/rocket.svg";
   import loadingGif from "../../images/loading.gif";
+  export let data;
+  const nasaApiKey = data["api"];
   const astrofetchRef = hrefs["astrofetch"];
   let today = new Date().toISOString().split("T")[0];
   let apiKey = "DEMO_KEY";
   let startDate = today;
   let endDate = today;
-  let data = [0];
+  let astroData = [0];
   let currentImg = 0;
   const invalidDates = ["2014-08-11"];
-
-  $: current = data[currentImg];
+  $: current = astroData[currentImg];
   $: isInvalid = invalidDates.includes(currentDate);
   $: isImage = current["media_type"] == "image" && !isInvalid;
   $: noImage = current["media_type"] == "other" || isInvalid;
   $: isVideo = current["media_type"] == "video" && !isInvalid;
-  $: isData = data[0] != 0;
+  $: isData = astroData[0] != 0;
   $: currentUrl = current["url"];
   $: currentTitle = current["title"];
   $: currentExplanation = removeLineBreak(current["explanation"]);
@@ -80,11 +81,11 @@
   async function insertImages() {
     isLoading = true;
     const url = addParams(apiUrl, {
-      api_key: apiKey,
+      api_key: nasaApiKey,
       start_date: startDate,
       end_date: endDate,
     });
-    data = await fetchData(url);
+    astroData = await fetchData(url);
     isLoading = false;
   }
   const submit = async () => {
@@ -167,7 +168,7 @@
   };
   function changeImg(plus) {
     if (plus == 1) {
-      if (currentImg + 1 < data.length) {
+      if (currentImg + 1 < astroData.length) {
         currentImg++;
       } else {
         currentImg = 0;
@@ -176,7 +177,7 @@
       if (currentImg - 1 >= 0) {
         currentImg--;
       } else {
-        currentImg = data.length - 1;
+        currentImg = astroData.length - 1;
       }
     }
   }
@@ -341,7 +342,7 @@
         <div class="vh-sm-75 vh-50">
           {#if isImage}
             <div class="h-100">
-              {#each data as currentItem, index}
+              {#each astroData as currentItem, index}
                 <img
                   src={currentItem["url"]}
                   alt={currentItem["title"]}
