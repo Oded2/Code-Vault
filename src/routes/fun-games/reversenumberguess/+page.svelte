@@ -257,7 +257,7 @@
       {/if}
       <div class="card-footer">
         <span class="fw-light">
-          * Remember, you're goal is to help Numbo guess the right number, if he
+          * Remember, your goal is to help Numbo guess the right number, if he
           loses, you lose too.
         </span>
       </div>
