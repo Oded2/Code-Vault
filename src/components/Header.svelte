@@ -1,9 +1,9 @@
 <script>
   import hrefs from "../data/hrefs.json";
-  export let title = "Code Vault";
+  export let title;
   export let directory = null;
   export let isHome = false;
-  const newTitle = isHome ? "Code Vault" : title + " - Code Vault";
+  const newTitle = !title ? "Code Vault" : title + " - Code Vault";
   let breakpoint;
   let pages = [];
   for (let i in directory) {

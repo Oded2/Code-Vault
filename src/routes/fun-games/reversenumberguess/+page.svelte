@@ -139,7 +139,7 @@
   </div>
 </Modal>
 
-<main class="dark-background text-bg-dark">
+<main class="full-background text-bg-dark">
   <Header
     directory={hrefs["fun-games"]}
     title={hrefs["fun-games"]["reversenumberguess"]["title"]}

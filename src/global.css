@@ -24,7 +24,7 @@
 .font-google-space-mono {
   font-family: "Space Mono", monospace;
 }
-.dark-background {
+.full-background {
   position: absolute;
   width: 100%;
   min-height: 100vh;

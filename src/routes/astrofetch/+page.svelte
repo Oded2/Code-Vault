@@ -165,7 +165,7 @@
   }
 </script>
 
-<main class="text-bg-dark dark-background">
+<main class="text-bg-dark full-background">
   <Header title={hrefs["astrofetch"]["home"]["title"]} />
   <section class="p-lg-5 text-center text-lg-start">
     <div class="container">

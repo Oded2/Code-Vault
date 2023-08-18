@@ -218,7 +218,7 @@
     </div>
   </div>
 </Modal>
-<main class="text-bg-dark dark-background">
+<main class="text-bg-dark full-background">
   <Header title={hrefs["israeli-driver-test"]["home"]["title"]} />
   <div class="container">
     <div class="ms-0 ms-sm-2">

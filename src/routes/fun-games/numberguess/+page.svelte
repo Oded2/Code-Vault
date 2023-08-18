@@ -72,7 +72,7 @@
   }
 </script>
 
-<main class="text-bg-dark dark-background">
+<main class="text-bg-dark full-background">
   <Header {directory} title={directory["numberguess"]["title"]} />
   <section class="py-5">
     <div class="container">

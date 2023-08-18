@@ -5,7 +5,7 @@
   const directory = hrefs["fun-games"];
 </script>
 
-<main class="text-bg-dark dark-background">
+<main class="text-bg-dark full-background">
   <Header {directory} title={directory["home"]["title"]} />
   <section>
     <div class="container">

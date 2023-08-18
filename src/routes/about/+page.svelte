@@ -8,7 +8,7 @@
   import email from "../../images/svg/email.svg";
 </script>
 
-<main class="dark-background text-bg-dark">
+<main class="full-background text-bg-dark">
   <Header title={hrefs["about"]["title"]} />
   <section class="p-1">
     <div class="container">
