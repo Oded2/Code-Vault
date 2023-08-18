@@ -81,6 +81,12 @@
             "title": "Israeli Driver Theory"
         }
     },
+    "map-news": {
+        "home": {
+            "link": "/mapNews",
+            "title": "Map News"
+        }
+    },
     "email": {
         "address": "odedconnect@gmail.com",
         "mailto": "mailto:odedconnect@gmail.com"
