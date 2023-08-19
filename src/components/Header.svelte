@@ -106,7 +106,7 @@
           >
         </li>
         <li>
-          <div class="btn-group mx-2">
+          <div class="btn-group mx-{breakpoint}-2">
             <button
               type="button"
               class="btn btn-primary dropdown-toggle"
