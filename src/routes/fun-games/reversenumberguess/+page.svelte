@@ -2,19 +2,12 @@
   import Header from "../../../components/Header.svelte";
   import Modal from "../../../components/Modal.svelte";
   import hrefs from "../../../data/hrefs.json";
+  import explanations from "./explananations.json";
   let newDescription = "";
   let i = 0;
   const description =
     "Hello I am Numbo, and welcome to the reverse number guesser. Please provide me with a maximum and minimum number and I will use my complex algorithmic skills to guess your number as quickly as possible, and don't worry, I'm not cheating. To start, enter a number and a viable range of the number.";
-  function typeWriter() {
-    if (i < description.length) {
-      newDescription += description[i];
-      i++;
-      setTimeout(typeWriter, 25);
-    }
-  }
 
-  typeWriter();
   let start = false;
   let showLoseModal = false;
   let showWinModal = false;
@@ -147,9 +140,10 @@
     <h1 class="font-google-quicksand fw-bold">
       <span class="text-warning">Reverse</span> Number Guesser
     </h1>
+
     <div class="border-start ps-3 my-4">
       <p class="font-google-space-mono fs-5">
-        {newDescription}
+        {description}
       </p>
     </div>
 
@@ -261,11 +255,70 @@
         </span>
       </div>
     </div>
+    <div>
+      <h1 class="font-google-quicksand fw-bold">
+        How does this <span class="text-warning">work?</span>
+      </h1>
+      <p class="fs-4 font-google-quicksand fw-500">
+        No, Numbo doesn't pick a number at random. This code utilizes the <a
+          href="https://en.wikipedia.org/wiki/Binary_search_algorithm"
+          class="text-light"
+          target="_blank"
+          ><i class="fa-solid fa-up-right-from-square fs-6" /> binary search algorithm</a
+        > to find your number at the quickest possible way.
+      </p>
+      {#each explanations as explanation}
+        <div class="my-5">
+          <h2
+            class="font-google-quicksand fw-bold text-header text-decoration-underline"
+          >
+            {explanation["title"]}
+          </h2>
+
+          <p class="font-google-quicksand fw-500 fs-4">
+            {explanation["explanation"]}
+          </p>
+        </div>
+      {/each}
+      <div class="row">
+        <div class="col-md pe-md-5">
+          <h2
+            class="font-google-quicksand fw-bold text-header text-decoration-underline"
+          >
+            Video
+          </h2>
+          <p class="font-google-quicksand fw-500 fs-4">
+            Feel free to watch this video by <a
+              href="https://www.youtube.com/@Fireship"
+              class="text-light"
+              target="_blank"
+              ><i class="fa-solid fa-up-right-from-square fs-6" /> Fireship</a
+            > to get a better and more visual representation of the binary search
+            algorithm.
+          </p>
+        </div>
+        <div class="col-md ratio ratio-16x9">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/MFhxShGxHWc"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            class=""
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </main>
 
 <style>
   .border-error {
     border: 2px solid #dc4c64;
+  }
+  .text-header {
+    transition: 0.2s;
+  }
+  .text-header:hover {
+    color: #d3d3d3;
   }
 </style>

@@ -1,0 +1,10 @@
+[
+    {
+        "title": "Lion in the Desert",
+        "explanation": "Imagine this: you're looking for a lion in a big desert. The quickest way to find the lion is to split the desert into two equal sections. You now know that the lion is at either the first or second section. You repeat this proccess until you find the lion."
+    },
+    {
+        "title": "Numbo's Proccess",
+        "explanation": "Assume you choose the number 38 with a minimum of 0 and a maximum of 100. The fastest way to guess the number is to use the same thought proccess as the lion in the desert example. For example, 50 is in the middle of 0 and 100. Then I choose 25, then 38."
+    }
+]
