@@ -1,6 +1,6 @@
 <script>
   import hrefs from "../data/hrefs.json";
-  export let title;
+  export let title = null;
   export let directory = null;
   export let isHome = false;
   const newTitle = !title ? "Code Vault" : title + " - Code Vault";
@@ -106,7 +106,7 @@
           >
         </li>
         <li>
-          <div class="btn-group">
+          <div class="btn-group mx-2">
             <button
               type="button"
               class="btn btn-primary dropdown-toggle"
