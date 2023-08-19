@@ -57,12 +57,12 @@
           <h1 class="text-center">Resources</h1>
           <p class="font-google-quicksand fs-5">
             In Code Vault, I leverage the power of
-            <a href={hrefs["external"]["bootstrap"]} class="text-white"
+            <a href={hrefs["external"]["bootstrap"]} class="text-light"
               >Bootstrap</a
             >,
-            <a href={hrefs["external"]["exifJs"]} class="text-white">exif.js</a
+            <a href={hrefs["external"]["exifJs"]} class="text-light">exif.js</a
             >, and
-            <a href={hrefs["external"]["fontAwesome"]} class="text-white"
+            <a href={hrefs["external"]["fontAwesome"]} class="text-light"
               >Font Awesome</a
             >, incorporating these robust frameworks and libraries to enhance
             the aesthetics, functionality, and iconography of the website.
@@ -77,11 +77,14 @@
           <h1 class="text-center">Contact</h1>
           <p class="font-google-quicksand fs-5">
             Feel free to reach out to me at
-            <a class="text-white" href={hrefs["email"]["mailto"]}
+            <a class="text-light" href={hrefs["email"]["mailto"]}
               >{hrefs["email"]["address"]}</a
             >
-            or visit my
-            <a href={hrefs["github"]["profile"]} class="text-white">GitHub</a>
+            or use my simple
+            <a href={hrefs["contact"]["link"]} class="text-light"
+              >contact form</a
+            >. Alternatively, you can visit my
+            <a href={hrefs["github"]["profile"]} class="text-light">GitHub</a>
             page for further engagement and collaboration opportunities.
           </p>
         </div>
