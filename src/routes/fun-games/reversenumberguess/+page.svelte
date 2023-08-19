@@ -52,7 +52,7 @@
       return;
     }
     start = true;
-    guessNum();
+    guessNum(true);
   }
   function handleEnd() {
     const func = userNum == guessed ? toggleWinModal : toggleLoseModal;
@@ -90,14 +90,13 @@
     return null;
   }
 
-  function guessNum() {
-    guessed = randomNum(minNum, maxNum);
-    while (guessedNums.includes(guessed)) {
+  function guessNum(first) {
+    guessed = parseInt((minNum + maxNum) / 2);
+    if (first) {
       guessed = randomNum(minNum, maxNum);
-      if (maxNum - minNum == 1 || maxNum - minNum == 0) {
-        handleEnd();
-        break;
-      }
+    }
+    if (guessedNums.includes(guessed)) {
+      handleEnd();
     }
     guessedNums[guessedNums.length] = guessed;
     const length = guessedNums.length;

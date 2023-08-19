@@ -2,12 +2,6 @@
   import Header from "../../components/Header.svelte";
   import hrefs from "../../data/hrefs.json";
   const title = hrefs["map-news"]["home"]["title"];
-
-  let map = L.map("map", {
-    center: [20.0, 5.0],
-    minZoom: 2,
-    zoom: 2,
-  });
 </script>
 
 <main class="full-background text-bg-dark h-100">
@@ -29,19 +23,16 @@
 <svelte:head>
   <link
     rel="stylesheet"
-    type="text/css"
-    href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
   />
-
   <script
-    type="text/javascript"
-    src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
   ></script>
-  <script
-    type="text/javascript"
-    src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"
-  ></script></svelte:head
->
+</svelte:head>
 
 <style>
   .map-container {
