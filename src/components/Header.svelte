@@ -105,7 +105,7 @@
             class:active={title == hrefs["contact"]["title"]}>Contact</a
           >
         </li>
-        <li>
+        <li class="d-none d-{breakpoint}-block">
           <div class="btn-group mx-{breakpoint}-2">
             <button
               type="button"
