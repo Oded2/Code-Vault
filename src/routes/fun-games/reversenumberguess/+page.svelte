@@ -114,6 +114,15 @@
     let rand = Math.floor(Math.random() * difference) + min;
     return rand;
   }
+  function randomizeUserNum() {
+    if (!minNum) {
+      minNum = 0;
+    }
+    if (!maxNum) {
+      maxNum = 100;
+    }
+    userNum = randomNum(minNum, maxNum);
+  }
 </script>
 
 <Modal showModal={showLoseModal} on:click={toggleLoseModal}
@@ -165,24 +174,41 @@
         <form on:submit={handleStart}>
           <div class="card-body">
             <div class="row">
-              <div class="col">
+              <div class="col" />
+            </div>
+            <div class="row">
+              <div class="col-md">
                 <h3 class="font-google-quicksand fw-bold">Your Number</h3>
-                <input
-                  type="number"
-                  class="form-control"
-                  class:border-error={errors["user"]["error"]}
-                  bind:value={userNum}
-                />
+                <div class="row">
+                  <div class="col">
+                    <input
+                      type="number"
+                      class="form-control"
+                      class:border-error={errors["user"]["error"]}
+                      bind:value={userNum}
+                    />
+                  </div>
+                  <div class="col-auto">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      title="Randomize"
+                      on:click={randomizeUserNum}
+                    >
+                      <i class="fa-solid fa-dice" />
+                    </button>
+                  </div>
+                </div>
 
                 <span class="form-text text-danger"
                   >{errors["user"]["message"]}</span
                 >
               </div>
-              <div class="col">
+              <div class="col-md mt-2 mt-md-0">
                 <h3 class="font-google-quicksand fw-bold">Minmum</h3>
                 <input type="number" class="form-control" bind:value={minNum} />
               </div>
-              <div class="col">
+              <div class="col-md mt-2 mt-md-0">
                 <h3 class="font-google-quicksand fw-bold">Maximum</h3>
                 <input type="number" class="form-control" bind:value={maxNum} />
               </div>
