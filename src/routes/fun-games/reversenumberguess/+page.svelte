@@ -98,7 +98,7 @@
       statusLevel = 4;
     } else if (length > 10) {
       statusLevel = 3;
-    } else if (length > 4) {
+    } else if (length > 5) {
       statusLevel = 2;
     }
   }
@@ -260,8 +260,12 @@
               </div>
             </div>
             <div class="col-md mb-4 mb-md-0">
-              <h5>Numbo's attempted numbers</h5>
-              <ul class="list-group list-group-flush px-5">
+              <h5 class="font-google-quicksand fw-bold">
+                Numbo's attempted numbers
+              </h5>
+              <ul
+                class="list-group list-group-flush px-md-5 text-center text-md-start"
+              >
                 {#each guessedNums as number}
                   <li class="list-group-item fs-4">
                     {number.toLocaleString()}
