@@ -3,14 +3,12 @@
   import Modal from "../../../components/Modal.svelte";
   import hrefs from "../../../data/hrefs.json";
   import explanations from "./explananations.json";
-  let newDescription = "";
   let i = 0;
   const description =
     "Hello I am Numbo, and welcome to the reverse number guesser. Please provide me with a maximum and minimum number and I will use my complex algorithmic skills to guess your number as quickly as possible, and don't worry, I'm not cheating. To start, enter a number and a viable range of the number.";
 
   let start = false;
-  let showLoseModal = false;
-  let showWinModal = false;
+  let showModal = false;
   let userNum = 50;
   let maxNum = 100;
   let minNum = 0;
@@ -21,6 +19,7 @@
   };
   let guessed;
   let guessedNums = [];
+  let stats = {};
   const statuses = { 1: "Hopeful", 2: "Curious", 3: "Confused", 4: "Clueless" };
   let statusLevel = 1;
   function resetGame() {
@@ -34,11 +33,8 @@
     userNum = 50;
     statusLevel = 1;
   }
-  function toggleLoseModal() {
-    showLoseModal = !showLoseModal;
-  }
-  function toggleWinModal() {
-    showWinModal = !showWinModal;
+  function toggleModal() {
+    showModal = !showModal;
   }
   function handleStart() {
     if (!validateValues()) {
@@ -47,9 +43,14 @@
     start = true;
     guessNum(true);
   }
+
   function handleEnd() {
-    const func = userNum == guessed ? toggleWinModal : toggleLoseModal;
-    func();
+    stats = {
+      win: userNum == guessed,
+      attempts: guessedNums.length,
+      userNum: userNum,
+    };
+    toggleModal();
     resetGame();
     start = false;
   }
@@ -74,17 +75,17 @@
     if (!value) {
       return `${name} cannot be empty`;
     }
-    if (value > maxNum) {
-      return `${name} cannot be higher than the maximum guess`;
+    if (value >= maxNum) {
+      return `${name} cannot be higher than or equal to the maximum guess`;
     }
-    if (value < minNum) {
-      return `${name} cannot be lower than the minimum guess`;
+    if (value <= minNum) {
+      return `${name} cannot be lower than or equal to the minimum guess`;
     }
     return null;
   }
 
   function guessNum(first) {
-    guessed = parseInt((minNum + maxNum) / 2);
+    guessed = Math.round((minNum + maxNum) / 2);
     if (first) {
       guessed = randomNum(minNum, maxNum);
     }
@@ -125,18 +126,19 @@
   }
 </script>
 
-<Modal showModal={showLoseModal} on:click={toggleLoseModal}
+<Modal {showModal} on:click={toggleModal}
   ><div class="p-5 font-google-quicksand">
-    <h1>You Lose!</h1>
-    <h3>
-      Maybe next time you should think twice about misleading a helpless robot
-    </h3>
-  </div>
-</Modal>
-<Modal showModal={showWinModal} on:click={toggleWinModal}
-  ><div class="p-5 font-google-quicksand">
-    <h1>You Win!</h1>
-    <h3>Congratulations! You helped Numbo guess the right number.</h3>
+    {#if stats["win"]}
+      <h1><i class="fa-solid fa-circle-check" /> You Win!</h1>
+      <h3>Congratulations! You helped Numbo guess the right number.</h3>
+    {:else}
+      <h1><i class="fa-solid fa-circle-xmark" /> You Lose</h1>
+      <h3>Next time think twice before misleading a helpless robot.</h3>
+    {/if}
+    <div class="py-5">
+      <h4>Attempts: {stats["attempts"]}</h4>
+      <h4>Your number: {stats["userNum"]}</h4>
+    </div>
   </div>
 </Modal>
 
@@ -249,10 +251,10 @@
 
                 <ul class="list-group">
                   <li class="list-group-item">
-                    Your number isn't higher than {maxNum}
+                    Your number is lower than {maxNum}
                   </li>
                   <li class="list-group-item">
-                    Your number isn't lower than {minNum}
+                    Your number is higher than {minNum}
                   </li>
                 </ul>
               </div>
