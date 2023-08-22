@@ -17,7 +17,7 @@
     min: { error: false, message: "" },
     max: { error: false, message: "" },
   };
-  let guessed;
+  let guessed = NaN;
   let guessedNums = [];
   let stats = {};
   const statuses = { 1: "Hopeful", 2: "Curious", 3: "Confused", 4: "Clueless" };
@@ -137,7 +137,7 @@
     {/if}
     <div class="py-5">
       <h4>Attempts: {stats["attempts"]}</h4>
-      <h4>Your number: {stats["userNum"]}</h4>
+      <h4>Your number: {stats["userNum"].toLocaleString()}</h4>
     </div>
   </div>
 </Modal>
@@ -162,7 +162,7 @@
       <div class="card-header">
         <div class="row">
           <div class="col">
-            {#if start}Your number: {userNum}{/if}
+            {#if start}Your number: {userNum.toLocaleString()}{/if}
           </div>
           <div class="col-auto">
             <h4 class="text-center font-google-quicksand fw-bold">
@@ -227,7 +227,7 @@
           <div class="row">
             <div class="col-md mb-4 mb-md-0 px-md-5">
               <h3 class="font-google-quicksand fw-bold">
-                Is your number {guessed}?
+                Is your number {guessed.toLocaleString()}?
               </h3>
               <div class="row">
                 <div class="col">
@@ -251,10 +251,10 @@
 
                 <ul class="list-group">
                   <li class="list-group-item">
-                    Your number is lower than {maxNum}
+                    Your number is lower than {maxNum.toLocaleString()}
                   </li>
                   <li class="list-group-item">
-                    Your number is higher than {minNum}
+                    Your number is higher than {minNum.toLocaleString()}
                   </li>
                 </ul>
               </div>
@@ -263,7 +263,9 @@
               <h5>Numbo's attempted numbers</h5>
               <ul class="list-group list-group-flush px-5">
                 {#each guessedNums as number}
-                  <li class="list-group-item fs-4">{number}</li>
+                  <li class="list-group-item fs-4">
+                    {number.toLocaleString()}
+                  </li>
                 {/each}
               </ul>
             </div>
