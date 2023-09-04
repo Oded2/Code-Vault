@@ -20,8 +20,8 @@
         <img {src} alt={title} class="img-fluid object-fit-contain" />
       </div>
 
-      <div class="row p-5 mt-5">
-        <div class="col-md-9">
+      <div class="row p-md-5 mt-5">
+        <div class="col-md-6 col-lg-7">
           <div class="card text-bg-dark h-100 px-md-5 py-3">
             <div class="card-header border-light">
               <h1 class="font-google-comfortaa fw-bold">Explanation</h1>
@@ -31,7 +31,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6 col-lg-5">
           <div class="card text-bg-dark h-100 px-md-5 py-3">
             <div class="card-header border-light">
               <h1 class="font-google-comfortaa fw-bold">More</h1>
@@ -48,6 +48,13 @@
                     Copyright: <span class="fw-bold">{copyright}</span>
                   </li>
                 {/if}
+                <li class="list-group-item text-bg-dark px-0">
+                  <a
+                    href={hrefs["astrofetch"]["home"]["link"]}
+                    class="btn btn-primary fs-3 w-100"
+                    ><i class="fa-solid fa-user-astronaut" /> Return to AstroFetch</a
+                  >
+                </li>
               </ul>
             </div>
           </div>
