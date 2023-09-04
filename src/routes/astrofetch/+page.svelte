@@ -63,23 +63,23 @@
     const currentData = await response.json();
     return currentData;
   }
-  async function insertImages() {
+  async function insertImages(isDemo) {
     isLoading = true;
     const url = addParams(apiUrl, {
-      api_key: nasaApiKey,
+      api_key: isDemo ? "DEMO_KEY" : nasaApiKey,
       start_date: startDate,
       end_date: endDate,
     });
     astroData = await fetchData(url);
     isLoading = false;
   }
-  const submit = async () => {
+  const submit = async (isDemo = false) => {
     const validation = validateDates(startDate, endDate);
     if (!validation["valid"]) {
       alert(validation["message"]);
       return;
     }
-    await insertImages();
+    await insertImages(isDemo);
   };
   function addParams(link, params) {
     link = new URL(link);
@@ -279,10 +279,19 @@
       </div>
 
       <div class="row my-5">
-        <div class="col mt-1 mt-md-0">
-          <button on:click={submit} class="btn btn-primary w-100 fs-5">
+        <div class="col-12 mt-1 mt-md-0">
+          <button
+            on:click={() => submit(false)}
+            class="btn btn-primary w-100 fs-5 position-relative"
+          >
             Fetch
           </button>
+        </div>
+        <div class="col">
+          <button
+            class="help-button mt-3 px-5 py-2 font-google-quicksand fw-bold w-rmd-100"
+            on:click={() => submit(true)}>Not working? Click here!</button
+          >
         </div>
       </div>
     </div>
@@ -418,5 +427,19 @@
 <style>
   .custom-text {
     border-left: 5px solid;
+  }
+  .help-button {
+    border-radius: 40px;
+    border: none;
+    transition: 0.5s;
+    background-color: white;
+  }
+  .help-button:hover {
+    scale: 105%;
+    background-color: #d3d3d3;
+  }
+  .help-button:active {
+    scale: 110%;
+    background-color: #b1afaf;
   }
 </style>

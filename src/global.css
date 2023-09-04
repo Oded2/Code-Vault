@@ -97,6 +97,13 @@
     width: 50% !important;
   }
 }
+
+@media (max-width: 768px) {
+  .w-rmd-100 {
+    width: 100% !important;
+  }
+}
+
 @media (max-width: 576px) {
   .vh-rsm-10 {
     height: 10vh !important;
