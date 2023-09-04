@@ -327,7 +327,7 @@
                     src={currentItem["url"]}
                     alt={currentItem["title"]}
                     hidden={index != currentImg}
-                    class="img-fluid object-fit-contain"
+                    class="img-fluid object-fit-contain h-100"
                   /></a
                 >
               {/each}
