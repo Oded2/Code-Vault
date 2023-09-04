@@ -73,6 +73,10 @@
             "link": "/astrofetch",
             "title": "AstroFetch"
         },
+        "viewer": {
+            "link": "/astrofetch/imageViewer",
+            "title": "Astrofetch"
+        },
         "nasaApi": "https://api.nasa.gov"
     },
     "israeli-driver-test": {

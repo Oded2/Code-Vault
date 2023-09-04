@@ -26,7 +26,6 @@
   $: currentCopyright = removeLineBreak(current["copyright"]);
   $: youtubeUrl = showVideo(currentUrl);
   $: isLoading = false;
-
   function showVideo(originalLink) {
     if (!isVideo) {
       return;
@@ -81,6 +80,7 @@
     }
     await insertImages(isDemo);
   };
+
   function addParams(link, params) {
     link = new URL(link);
     let value;
@@ -90,6 +90,11 @@
       link.searchParams.append(key, value);
     }
     return link.toString();
+  }
+  function addParamsString(string, params) {
+    const link = "https://codevault.com";
+    const linkWithParams = addParams(link, params);
+    return linkWithParams.replace("https://codevault.com", string);
   }
   function removeLineBreak(string) {
     if (!string) {
@@ -308,12 +313,23 @@
           {#if isImage}
             <div class="h-100">
               {#each astroData as currentItem, index}
-                <img
-                  src={currentItem["url"]}
-                  alt={currentItem["title"]}
-                  hidden={index != currentImg}
-                  class="img-fluid object-fit-contain h-100 w-100"
-                />
+                <a
+                  href={addParamsString("/astrofetch/imageViewer", {
+                    title: currentItem["title"],
+                    url: currentItem["url"],
+                    explanation: currentItem["explanation"],
+                    date: formatDate(currentItem["date"]),
+                    copyright: currentItem["copyright"],
+                  })}
+                  target="_blank"
+                >
+                  <img
+                    src={currentItem["url"]}
+                    alt={currentItem["title"]}
+                    hidden={index != currentImg}
+                    class="img-fluid object-fit-contain h-100 w-100"
+                  /></a
+                >
               {/each}
             </div>
           {:else if isVideo}
@@ -341,7 +357,7 @@
                   <div class="col-auto">
                     <span class="fs-6 fw-light"
                       >Feel free to
-                      <a href={hrefs["contact"]} class="link-light"
+                      <a href={hrefs["contact"]["link"]} class="link-light"
                         >contact me</a
                       >
                       if you encounter this issue.</span
