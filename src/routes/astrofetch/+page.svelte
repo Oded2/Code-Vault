@@ -311,7 +311,7 @@
         </div>
         <div class="vh-sm-75 vh-50">
           {#if isImage}
-            <div class="h-100">
+            <div class="h-100 d-flex justify-content-center">
               {#each astroData as currentItem, index}
                 <a
                   href={addParamsString("/astrofetch/imageViewer", {
@@ -327,7 +327,7 @@
                     src={currentItem["url"]}
                     alt={currentItem["title"]}
                     hidden={index != currentImg}
-                    class="img-fluid object-fit-contain h-100 w-100"
+                    class="img-fluid object-fit-contain"
                   /></a
                 >
               {/each}
