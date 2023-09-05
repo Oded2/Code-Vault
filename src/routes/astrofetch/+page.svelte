@@ -284,17 +284,18 @@
       </div>
 
       <div class="row my-5">
-        <div class="col-12 mt-1 mt-md-0">
+        <div class="col-md" />
+        <div class="col-md-6 mt-1 mt-md-0">
           <button
             on:click={() => submit(false)}
-            class="btn btn-primary w-100 fs-5 position-relative"
+            class="btn btn-primary btn-interactive fs-4 p-2 font-google-quicksand fw-600 w-100 h-100"
           >
             Fetch
           </button>
         </div>
         <div class="col">
           <button
-            class="help-button mt-3 px-5 py-2 font-google-quicksand fw-bold w-rmd-100"
+            class="help-button fs-4 px-2 py-3 mt-4 mt-md-0 font-google-quicksand fw-600 w-100 h-100"
             on:click={() => submit(true)}>Not working? Click here!</button
           >
         </div>
@@ -321,6 +322,7 @@
                     date: formatDate(currentItem["date"]),
                     copyright: currentItem["copyright"],
                   })}
+                  target="_blank"
                 >
                   <img
                     src={currentItem["url"]}
@@ -411,7 +413,7 @@
           <em>Loading</em>
         </h1>
 
-        <div class="vh-sm-75 vh-50">
+        <div class="vh-sm-75 vh-50 py-5">
           <div class="h-100">
             <img
               src={loadingGif}
@@ -444,7 +446,7 @@
     border-left: 5px solid;
   }
   .help-button {
-    border-radius: 40px;
+    border-radius: 30px;
     border: none;
     transition: 0.5s;
     background-color: white;
@@ -456,5 +458,15 @@
   .help-button:active {
     scale: 110%;
     background-color: #b1afaf;
+  }
+  .btn-interactive {
+    border-radius: 15px;
+    transition: 0.5s;
+  }
+  .btn-interactive:hover {
+    scale: 103%;
+  }
+  .btn-interactive:active {
+    scale: 105%;
   }
 </style>
