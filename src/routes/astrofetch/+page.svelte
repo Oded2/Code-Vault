@@ -7,7 +7,7 @@
   export let data;
   const nasaApiKey = data["api"];
   const astrofetchRef = hrefs["astrofetch"];
-  let today = new Date().toISOString().split("T")[0];
+  const today = new Date().toISOString().split("T")[0];
   let startDate = today;
   let endDate = today;
   let astroData = [0];
@@ -145,7 +145,7 @@
 
     return { valid: valid, message: message };
   }
-  const changeStart = (days) => {
+  const changeEndDate = (days) => {
     const final = getDateAhead(startDate, days);
     if (!validateDates(startDate, final)["valid"]) {
       endDate = today;
@@ -167,6 +167,23 @@
         currentImg = astroData.length - 1;
       }
     }
+  }
+  function getRandomDate(startDate, endDate) {
+    const startTimestamp = new Date(startDate).getTime();
+    const endTimestamp = new Date(endDate).getTime();
+    const randomTimestamp =
+      startTimestamp + Math.random() * (endTimestamp - startTimestamp + 1); // +1 to include the end date
+    const randomDate = new Date(randomTimestamp);
+    const year = randomDate.getFullYear();
+    const month = String(randomDate.getMonth() + 1).padStart(2, "0");
+    const day = String(randomDate.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
+  function randomize() {
+    startDate = getRandomDate("1995-06-16", today);
+    changeEndDate(30);
+    submit(false);
   }
 </script>
 
@@ -233,7 +250,7 @@
               <button
                 class="btn btn-secondary"
                 on:click={() => {
-                  changeStart(0);
+                  changeEndDate(0);
                 }}
               >
                 Set to Start Date
@@ -243,7 +260,7 @@
               <button
                 class="btn btn-secondary"
                 on:click={() => {
-                  changeStart(7);
+                  changeEndDate(7);
                 }}
               >
                 7 Days
@@ -253,7 +270,7 @@
               <button
                 class="btn btn-secondary"
                 on:click={() => {
-                  changeStart(30);
+                  changeEndDate(30);
                 }}
               >
                 30 Days
@@ -263,7 +280,7 @@
               <button
                 class="btn btn-secondary"
                 on:click={() => {
-                  changeStart(100);
+                  changeEndDate(100);
                 }}
               >
                 100 Days
@@ -273,7 +290,7 @@
               <button
                 class="btn btn-secondary"
                 on:click={() => {
-                  changeStart(365);
+                  changeEndDate(365);
                 }}
               >
                 365 Days
@@ -284,19 +301,26 @@
       </div>
 
       <div class="row my-5">
-        <div class="col-md" />
-        <div class="col-md-6 mt-1 mt-md-0">
+        <div class="col-md">
+          <button
+            class="btn btn-info btn-interactive fs-4 p-2 font-google-quicksand fw-600 w-100 h-100"
+            on:click={randomize}
+            ><i class="fa-solid fa-dice" /> Randomize</button
+          >
+        </div>
+        <div class="col-md-4 col-xxl-6 mt-3 mt-md-0">
           <button
             on:click={() => submit(false)}
             class="btn btn-primary btn-interactive fs-4 p-2 font-google-quicksand fw-600 w-100 h-100"
           >
-            Fetch
+            <i class="fa-solid fa-rocket" /> Fetch
           </button>
         </div>
-        <div class="col">
+        <div class="col-md mt-3 mt-md-0">
           <button
-            class="help-button fs-4 px-2 py-3 mt-4 mt-md-0 font-google-quicksand fw-600 w-100 h-100"
-            on:click={() => submit(true)}>Not working? Click here!</button
+            class="btn btn-light btn-interactive fs-4 p-2 font-google-quicksand fw-600 w-100 h-100"
+            on:click={() => submit(true)}
+            ><i class="fa-solid fa-plug-circle-xmark" /> Not working?</button
           >
         </div>
       </div>
@@ -403,8 +427,10 @@
           </div>
           <div class="row my-4">
             <div class="col-md-12">
-              <h3 class="font-google-quicksand">Explanation</h3>
-              <p class="font-google-quicksand fs-5">{currentExplanation}</p>
+              <h2 class="font-google-quicksand fw-600">Explanation</h2>
+              <p class="font-google-quicksand fs-4 fw-500">
+                {currentExplanation}
+              </p>
             </div>
           </div>
         </div>
@@ -414,12 +440,8 @@
         </h1>
 
         <div class="vh-sm-75 vh-50 py-5">
-          <div class="h-100">
-            <img
-              src={loadingGif}
-              alt="Loading"
-              class="img-fluid object-fit-contain h-100 w-100"
-            />
+          <div class="h-100 d-flex justify-content-center align-items-center">
+            <span class="loader" />
           </div>
         </div>
       {:else}
@@ -439,28 +461,89 @@
       {/if}
     </div>
   </section>
+  <section>
+    <div class="container my-5 pt-5">
+      <h1 class="font-google-quicksand fw-bold">How to use</h1>
+      <div class="fs-1 font-google-quicksand fw-600 mt-4">
+        <div class="row border-bottom">
+          <div class="col-md">Input</div>
+          <div class="col-md">Purpose</div>
+        </div>
+        <div class="row border-bottom py-3 info-box info-normal">
+          <div class="col-md">
+            <i class="fa-regular fa-calendar" /> Start Date
+          </div>
+          <div class="col-md fs-3">
+            The date the APOD (Astronomy Picture of the Day) images will start.
+            Minimum date is June 16th, 1995.
+          </div>
+        </div>
+        <div class="row border-bottom py-3 info-box info-normal">
+          <div class="col-md"><i class="fa-solid fa-calendar" /> End Date</div>
+          <div class="col-md fs-3">The date the APOD images will end.</div>
+        </div>
+        <div class="row border-bottom py-3 info-box info-secondary">
+          <div class="col-md">
+            <i class="fa-solid fa-clock" /> Quick set buttons
+          </div>
+          <div class="col-md fs-3">
+            These buttons are used to quickly set the end date relative to the
+            start date.
+          </div>
+        </div>
+        <div class="row border-bottom py-3 info-box info-primary">
+          <div class="col-md"><i class="fa-solid fa-rocket" /> Fetch</div>
+          <div class="col-md fs-3">
+            Will start the operation and fetch the image from Nasa's API
+            according to your start and end date.
+          </div>
+        </div>
+        <div class="row border-bottom py-3 info-box info-info">
+          <div class="col-md"><i class="fa-solid fa-dice" /> Randomize</div>
+          <div class="col-md fs-3">
+            Will randomize the start date from any date starting from June 16th,
+            1995 until the current date, then set the end date 30 days after
+            that. Automatically fetches after that.
+          </div>
+        </div>
+        <div class="row border-bottom py-3 info-box info-light">
+          <div class="col-md">
+            <i class="fa-solid fa-plug-circle-xmark" /> Not working button
+          </div>
+          <div class="col-md fs-3">
+            In the case that the API key is broken, this button will trigger the
+            same operation with Nasa's demo key. Not reccomended, as there is a
+            35 time fetching limit per day for every IP using the demo key.
+          </div>
+        </div>
+        <div class="py-3 fs-3">
+          <h1 class="font-google-quickand fw-bold text-center">Tips</h1>
+          <ul>
+            <li>
+              Keep the start date and end date range as low as possible, as the
+              API cannot handle long time ranges. Reccomended maximum is a one
+              year difference.
+            </li>
+            <li>
+              Clicking on an image will open a whole web page specific for that
+              image.
+            </li>
+            <li>Have fun!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <style>
   .custom-text {
     border-left: 5px solid;
   }
-  .help-button {
-    border-radius: 30px;
-    border: none;
-    transition: 0.5s;
-    background-color: white;
-  }
-  .help-button:hover {
-    scale: 105%;
-    background-color: #d3d3d3;
-  }
-  .help-button:active {
-    scale: 110%;
-    background-color: #b1afaf;
-  }
   .btn-interactive {
-    border-radius: 15px;
+    border: none;
+
+    border-radius: 20px;
     transition: 0.5s;
   }
   .btn-interactive:hover {
@@ -468,5 +551,45 @@
   }
   .btn-interactive:active {
     scale: 105%;
+  }
+  .info-box {
+    transition: 0.5s;
+  }
+  .info-normal:hover {
+    background-color: #141414;
+  }
+  .info-secondary:hover {
+    background-color: #6c757d;
+  }
+  .info-primary:hover {
+    background-color: #0d6efd;
+  }
+  .info-info:hover {
+    color: #000000;
+    background-color: #0dcaf0;
+  }
+  .info-light:hover {
+    color: #000000;
+    background-color: #f8f9fa;
+  }
+  .loader {
+    height: 100%;
+    width: auto;
+    aspect-ratio: 1/1;
+    border: 10px solid #fff;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 </style>
