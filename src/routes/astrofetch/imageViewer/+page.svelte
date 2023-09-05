@@ -60,7 +60,7 @@
 
                 <li class="list-group-item text-bg-dark px-0">
                   <button
-                    class="btn btn-primary fs-3 w-100"
+                    class="btn btn-primary fs-3 w-100 my-1"
                     disabled={isCopy}
                     on:click={copy}>{copyText}</button
                   >
@@ -68,7 +68,7 @@
                 <li class="list-group-item text-bg-dark px-0">
                   <a
                     href={hrefs["astrofetch"]["home"]["link"]}
-                    class="btn btn-primary fs-3 w-100"
+                    class="btn btn-primary fs-3 w-100 my-1"
                     ><i class="fa-solid fa-user-astronaut" /> Return to AstroFetch</a
                   >
                 </li>
