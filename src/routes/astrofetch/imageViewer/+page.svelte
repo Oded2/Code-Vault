@@ -1,21 +1,58 @@
 <script>
   import { page } from "$app/stores";
   import hrefs from "../../../data/hrefs.json";
+  export let data;
   const url = $page.url;
+  const pageLink = url["href"];
   const title = url.searchParams.get("title");
   const src = url.searchParams.get("url");
   const explanation = url.searchParams.get("explanation");
   const date = url.searchParams.get("date");
   const copyright = url.searchParams.get("copyright");
   const valid = url && title && src && explanation && date && copyright;
+  const apiKey = data["api"];
+  let shortUrl = null;
   let isCopy = false;
   $: copyText = isCopy ? "Copied to Clipboard" : "Copy Link";
   function copy() {
-    navigator.clipboard.writeText(url["href"]);
+    navigator.clipboard.writeText(shortUrl);
     isCopy = true;
     setTimeout(() => {
       isCopy = false;
     }, 3000);
+  }
+  function addParams(link, params) {
+    let value;
+    for (let key in params) {
+      value = params[key];
+
+      link.searchParams.append(key, value);
+    }
+    return link.toString();
+  }
+  fetchTinyurl();
+  async function fetchTinyurl() {
+    fetch(
+      addParams(new URL("https://api.tinyurl.com/create"), {
+        api_token: apiKey,
+      }),
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          url: pageLink,
+        }),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        shortUrl = data["data"]["tiny_url"];
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }
 </script>
 
@@ -61,8 +98,11 @@
                 <li class="list-group-item text-bg-dark px-0">
                   <button
                     class="btn btn-primary fs-3 w-100 my-1"
-                    disabled={isCopy}
+                    disabled={isCopy || !shortUrl}
                     on:click={copy}>{copyText}</button
+                  >
+                  <span class="font-google-quicksand fw-light fs-6"
+                    >Powered by TinyUrl</span
                   >
                 </li>
                 <li class="list-group-item text-bg-dark px-0">
