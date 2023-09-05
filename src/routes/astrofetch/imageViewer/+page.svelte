@@ -16,8 +16,9 @@
   let copyText = "Copy Link";
   async function copy() {
     isCopy = true;
-    copyText = "Fetching Link";
+
     if (!shortUrl) {
+      copyText = "Fetching Link";
       await fetchTinyurl();
     }
     navigator.clipboard.writeText(shortUrl);
@@ -150,5 +151,9 @@
   }
   .btn {
     border-radius: 20px;
+    transition: 0.5s;
+  }
+  .btn:hover {
+    scale: 102%;
   }
 </style>
