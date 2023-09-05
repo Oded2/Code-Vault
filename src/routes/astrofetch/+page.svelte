@@ -511,9 +511,10 @@
             <i class="fa-solid fa-plug-circle-xmark" /> Not working button
           </div>
           <div class="col-md fs-3">
-            In the case that the API key is broken, this button will trigger the
-            same operation with Nasa's demo key. Not reccomended, as there is a
-            35 time fetching limit per day for every IP using the demo key.
+            In the case that the API key is broken, or the limit has been
+            reached, this button will trigger the same operation with Nasa's
+            demo key. Not recommended, as there is a 35 time fetching limit per
+            day for every IP using the demo key.
           </div>
         </div>
         <div class="py-3 fs-3">
@@ -521,7 +522,7 @@
           <ul>
             <li>
               Keep the start date and end date range as low as possible, as the
-              API cannot handle long time ranges. Reccomended maximum is a one
+              API cannot handle long time ranges. Recommended maximum is a one
               year difference.
             </li>
             <li>
