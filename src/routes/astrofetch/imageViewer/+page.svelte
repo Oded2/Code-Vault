@@ -52,7 +52,7 @@
                 <li class="list-group-item text-bg-dark px-0">
                   APOD from <span class="fw-bold">{date}</span>
                 </li>
-                {#if copyright}
+                {#if copyright != "undefined"}
                   <li class="list-group-item text-bg-dark px-0">
                     Copyright: <span class="fw-bold">{copyright}</span>
                   </li>
