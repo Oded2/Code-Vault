@@ -465,7 +465,7 @@
     <div class="container my-5 pt-5">
       <h1 class="font-google-quicksand fw-bold">How to use</h1>
       <div class="fs-1 font-google-quicksand fw-600 mt-4">
-        <div class="row border-bottom">
+        <div class="row border-bottom d-none d-md-flex">
           <div class="col-md">Input</div>
           <div class="col-md">Purpose</div>
         </div>
