@@ -8,6 +8,15 @@
   const date = url.searchParams.get("date");
   const copyright = url.searchParams.get("copyright");
   const valid = url && title && src && explanation && date && copyright;
+  let isCopy = false;
+  $: copyText = isCopy ? "Copied to Clipboard" : "Copy Link";
+  function copy() {
+    navigator.clipboard.writeText(url["href"]);
+    isCopy = true;
+    setTimeout(() => {
+      isCopy = false;
+    }, 3000);
+  }
 </script>
 
 {#if valid}
@@ -20,9 +29,9 @@
         <img {src} alt={title} class="img-fluid object-fit-contain" />
       </div>
 
-      <div class="row p-md-5 mt-5">
-        <div class="col-md-6 col-lg-7">
-          <div class="card text-bg-dark h-100 px-md-5 py-3">
+      <div class="row p-xl-5">
+        <div class="col-xl-6 col-xxl-7 mb-5 mb-xl-0">
+          <div class="card text-bg-dark h-100 px-xl-5 py-3">
             <div class="card-header border-light">
               <h1 class="font-google-comfortaa fw-bold">Explanation</h1>
             </div>
@@ -31,8 +40,8 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-lg-5">
-          <div class="card text-bg-dark h-100 px-md-5 py-3">
+        <div class="col-xl-6 col-xxl-5 mb-5 mb-xl-0">
+          <div class="card text-bg-dark h-100 px-xl-5 py-3">
             <div class="card-header border-light">
               <h1 class="font-google-comfortaa fw-bold">More</h1>
             </div>
@@ -48,6 +57,14 @@
                     Copyright: <span class="fw-bold">{copyright}</span>
                   </li>
                 {/if}
+
+                <li class="list-group-item text-bg-dark px-0">
+                  <button
+                    class="btn btn-primary fs-3 w-100"
+                    disabled={isCopy}
+                    on:click={copy}>{copyText}</button
+                  >
+                </li>
                 <li class="list-group-item text-bg-dark px-0">
                   <a
                     href={hrefs["astrofetch"]["home"]["link"]}
@@ -83,5 +100,8 @@
   img:hover {
     border-radius: 0px;
     scale: 101%;
+  }
+  .btn {
+    border-radius: 20px;
   }
 </style>
