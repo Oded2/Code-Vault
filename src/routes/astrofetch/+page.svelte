@@ -46,6 +46,7 @@
   }
   const apiUrl = new URL("https://api.nasa.gov/planetary/apod");
   async function fetchData(url) {
+    console.log(url);
     let response;
     try {
       response = await fetch(url);
@@ -321,7 +322,6 @@
                     date: formatDate(currentItem["date"]),
                     copyright: currentItem["copyright"],
                   })}
-                  target="_blank"
                 >
                   <img
                     src={currentItem["url"]}
