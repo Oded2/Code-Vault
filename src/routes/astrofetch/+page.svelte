@@ -3,7 +3,6 @@
   import hrefs from "../../data/hrefs.json";
   import nasaLogo from "../../images/svg/NASA.svg";
   import rocketImg from "../../images/svg/rocket.svg";
-  import loadingGif from "../../images/loading.gif";
   export let data;
   const nasaApiKey = data["api"];
   const astrofetchRef = hrefs["astrofetch"];
