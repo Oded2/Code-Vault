@@ -437,7 +437,6 @@
         <h1 class="text-center vh-rsm-10">
           <em>Loading</em>
         </h1>
-
         <div class="vh-sm-75 vh-50 py-5">
           <div class="h-100 d-flex justify-content-center align-items-center">
             <span class="loader" />
@@ -445,7 +444,7 @@
         </div>
       {:else}
         <h1 class="text-center vh-rsm-10">
-          <em>Nasa Logo</em>
+          <em>Nasa</em>
         </h1>
 
         <div class="vh-sm-75 vh-50">
