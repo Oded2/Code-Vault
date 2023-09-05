@@ -13,11 +13,18 @@
   const apiKey = data["api"];
   let shortUrl = null;
   let isCopy = false;
-  $: copyText = isCopy ? "Copied to Clipboard" : "Copy Link";
-  function copy() {
-    navigator.clipboard.writeText(shortUrl);
+  let copyText = "Copy Link";
+  async function copy() {
     isCopy = true;
+    copyText = "Fetching Link";
+    if (!shortUrl) {
+      await fetchTinyurl();
+    }
+    navigator.clipboard.writeText(shortUrl);
+    copyText = "Copied to Clipboard";
+
     setTimeout(() => {
+      copyText = "Copy Link";
       isCopy = false;
     }, 3000);
   }
@@ -30,9 +37,9 @@
     }
     return link.toString();
   }
-  fetchTinyurl();
+
   async function fetchTinyurl() {
-    fetch(
+    await fetch(
       addParams(new URL("https://api.tinyurl.com/create"), {
         api_token: apiKey,
       }),
@@ -98,7 +105,7 @@
                 <li class="list-group-item text-bg-dark px-0">
                   <button
                     class="btn btn-primary fs-3 w-100 my-1"
-                    disabled={isCopy || !shortUrl}
+                    disabled={isCopy}
                     on:click={copy}>{copyText}</button
                   >
                   <span class="font-google-quicksand fw-light fs-6"
