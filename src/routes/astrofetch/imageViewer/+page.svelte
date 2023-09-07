@@ -66,7 +66,7 @@
 
 {#if valid}
   <main class="full-background bg-black text-white">
-    <div class="container-fluid">
+    <div class="container-fluid overflow-hidden">
       <div class="text-center py-4">
         <h1 class="font-google-comfortaa fw-bold title">{title}</h1>
       </div>
