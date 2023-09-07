@@ -3,7 +3,6 @@
   import hrefs from "../../data/hrefs.json";
   import nasaLogo from "../../images/svg/NASA.svg";
   import rocketImg from "../../images/svg/rocket.svg";
-  import loadingGif from "../../images/loading.gif";
   export let data;
   const nasaApiKey = data["api"];
   const astrofetchRef = hrefs["astrofetch"];
@@ -439,7 +438,6 @@
         <h1 class="text-center vh-rsm-10">
           <em>Loading</em>
         </h1>
-
         <div class="vh-sm-75 vh-50 py-5">
           <div class="h-100 d-flex justify-content-center align-items-center">
             <span class="loader" />
@@ -447,7 +445,7 @@
         </div>
       {:else}
         <h1 class="text-center vh-rsm-10">
-          <em>Nasa Logo</em>
+          <em>Nasa</em>
         </h1>
 
         <div class="vh-sm-75 vh-50">
@@ -466,7 +464,7 @@
     <div class="container my-5 pt-5">
       <h1 class="font-google-quicksand fw-bold">How to use</h1>
       <div class="fs-1 font-google-quicksand fw-600 mt-4">
-        <div class="row border-bottom">
+        <div class="row border-bottom d-none d-md-flex">
           <div class="col-md">Input</div>
           <div class="col-md">Purpose</div>
         </div>
@@ -475,36 +473,46 @@
             <i class="fa-regular fa-calendar" /> Start Date
           </div>
           <div class="col-md fs-3">
-            The date the APOD (Astronomy Picture of the Day) images will start.
-            Minimum date is June 16th, 1995.
+            <p>
+              The date the APOD (Astronomy Picture of the Day) images will
+              start. Minimum date is June 16th, 1995.
+            </p>
           </div>
         </div>
         <div class="row border-bottom py-3 info-box info-normal">
           <div class="col-md"><i class="fa-solid fa-calendar" /> End Date</div>
-          <div class="col-md fs-3">The date the APOD images will end.</div>
+          <div class="col-md fs-3">
+            <p>The date the APOD images will end.</p>
+          </div>
         </div>
         <div class="row border-bottom py-3 info-box info-secondary">
           <div class="col-md">
             <i class="fa-solid fa-clock" /> Quick set buttons
           </div>
           <div class="col-md fs-3">
-            These buttons are used to quickly set the end date relative to the
-            start date.
+            <p>
+              These buttons are used to quickly set the end date relative to the
+              start date.
+            </p>
           </div>
         </div>
         <div class="row border-bottom py-3 info-box info-primary">
           <div class="col-md"><i class="fa-solid fa-rocket" /> Fetch</div>
           <div class="col-md fs-3">
-            Will start the operation and fetch the image from Nasa's API
-            according to your start and end date.
+            <p>
+              Will start the operation and fetch the image from Nasa's API
+              according to your start and end date.
+            </p>
           </div>
         </div>
         <div class="row border-bottom py-3 info-box info-info">
           <div class="col-md"><i class="fa-solid fa-dice" /> Randomize</div>
           <div class="col-md fs-3">
-            Will randomize the start date from any date starting from June 16th,
-            1995 until the current date, then set the end date 30 days after
-            that. Automatically fetches after that.
+            <p>
+              Will randomize the start date from any date starting from June
+              16th, 1995 until the current date, then set the end date 30 days
+              after that. Automatically fetches after that.
+            </p>
           </div>
         </div>
         <div class="row border-bottom py-3 info-box info-light">
@@ -512,9 +520,12 @@
             <i class="fa-solid fa-plug-circle-xmark" /> Not working button
           </div>
           <div class="col-md fs-3">
-            In the case that the API key is broken, this button will trigger the
-            same operation with Nasa's demo key. Not reccomended, as there is a
-            35 time fetching limit per day for every IP using the demo key.
+            <p>
+              In the case that the API key is broken, or the limit has been
+              reached, this button will trigger the same operation with Nasa's
+              demo key. Not recommended, as there is a 35 time fetching limit
+              per day for every IP using the demo key.
+            </p>
           </div>
         </div>
         <div class="py-3 fs-3">
@@ -522,7 +533,7 @@
           <ul>
             <li>
               Keep the start date and end date range as low as possible, as the
-              API cannot handle long time ranges. Reccomended maximum is a one
+              API cannot handle long time ranges. Recommended maximum is a one
               year difference.
             </li>
             <li>
