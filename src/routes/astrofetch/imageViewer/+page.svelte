@@ -147,8 +147,8 @@
     max-height: 95vh;
   }
   img:hover {
-    border-radius: 0px;
-    scale: 101%;
+    border-radius: 5px;
+    scale: 103%;
   }
   .btn {
     border-radius: 20px;
