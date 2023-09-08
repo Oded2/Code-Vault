@@ -69,59 +69,40 @@
     <div class="container-fluid">
       <div class="text-center py-4">
         <h1 class="font-google-comfortaa fw-bold title">{title}</h1>
+        {#if copyright != "undefined"}
+          <span class="font-google-comfortaa fs-6">&copy; {copyright}</span>
+        {/if}
       </div>
       <div class="d-flex justify-content-center">
         <img {src} alt={title} class="img-fluid object-fit-contain" />
       </div>
     </div>
-    <div class="container">
-      <div class="row py-xl-5 mt-5 mt-xl-0">
-        <div class="col-xl-6 col-xxl-7 mb-5 mb-xl-0">
-          <div class="card text-bg-dark h-100 px-xl-5 py-3">
-            <div class="card-header border-light">
-              <h1 class="font-google-comfortaa fw-bold">Explanation</h1>
-            </div>
-            <div class="card-body">
-              <p class="fs-3 font-google-quicksand fw-500">{explanation}</p>
-            </div>
-          </div>
+    <div class="container py-5">
+      <div class="card text-bg-dark h-100 px-sm-4 px-lg-5 py-3">
+        <div class="card-header border-light">
+          <h1 class="font-google-comfortaa fw-bold">Explanation</h1>
         </div>
-        <div class="col-xl-6 col-xxl-5 mb-5 mb-xl-0">
-          <div class="card text-bg-dark h-100 px-xl-5 py-3">
-            <div class="card-header border-light">
-              <h1 class="font-google-comfortaa fw-bold">More</h1>
-            </div>
-            <div class="card-body">
-              <ul
-                class="list-group list-group-flush fs-3 font-google-quicksand fw-500"
+        <div class="card-body">
+          <p class="fs-3 font-google-quicksand fw-500">{explanation}</p>
+        </div>
+        <div class="card-footer border-white">
+          <p class="font-google-quicksand fw-500 fs-4 text-center">
+            APOD from <span class="fw-bold">{date}</span>
+          </p>
+          <div class="row pt-2 font-google-quicksand">
+            <div class="col-lg mb-4 my-lg-0">
+              <button
+                class="btn btn-primary fs-3 w-100"
+                disabled={isCopy}
+                on:click={copy}>{copyText}</button
               >
-                <li class="list-group-item text-bg-dark px-0">
-                  APOD from <span class="fw-bold">{date}</span>
-                </li>
-                {#if copyright != "undefined"}
-                  <li class="list-group-item text-bg-dark px-0">
-                    Copyright: <span class="fw-bold">{copyright}</span>
-                  </li>
-                {/if}
-
-                <li class="list-group-item text-bg-dark px-0">
-                  <button
-                    class="btn btn-primary fs-3 w-100 my-1"
-                    disabled={isCopy}
-                    on:click={copy}>{copyText}</button
-                  >
-                  <span class="font-google-quicksand fw-light fs-6"
-                    >Powered by TinyUrl</span
-                  >
-                </li>
-                <li class="list-group-item text-bg-dark px-0">
-                  <a
-                    href={hrefs["astrofetch"]["home"]["link"]}
-                    class="btn btn-primary fs-3 w-100 my-1"
-                    ><i class="fa-solid fa-user-astronaut" /> Return to AstroFetch</a
-                  >
-                </li>
-              </ul>
+            </div>
+            <div class="col-lg">
+              <a
+                href={hrefs["astrofetch"]["home"]["link"]}
+                class="btn btn-secondary fs-3 w-100"
+                ><i class="fa-solid fa-user-astronaut" /> Return to AstroFetch</a
+              >
             </div>
           </div>
         </div>
@@ -148,7 +129,7 @@
     max-height: 95vh;
   }
   img:hover {
-    border-radius: 5px;
+    border-radius: 8px;
     scale: 103%;
   }
   .btn {
