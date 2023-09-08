@@ -75,7 +75,7 @@
       </div>
     </div>
     <div class="container">
-      <div class="row p-xl-5 mt-5 mt-xl-0">
+      <div class="row py-xl-5 mt-5 mt-xl-0">
         <div class="col-xl-6 col-xxl-7 mb-5 mb-xl-0">
           <div class="card text-bg-dark h-100 px-xl-5 py-3">
             <div class="card-header border-light">
