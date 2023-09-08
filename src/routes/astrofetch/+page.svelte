@@ -462,7 +462,7 @@
   </section>
   <section>
     <div class="container my-5 pt-5">
-      <h1 class="font-google-quicksand fw-bold">How to use</h1>
+      <h1 class="font-google-quicksand fw-bold">Guide</h1>
       <div class="fs-1 font-google-quicksand fw-600 mt-4">
         <div class="row border-bottom d-none d-md-flex">
           <div class="col-md">Input</div>
@@ -500,8 +500,8 @@
           <div class="col-md"><i class="fa-solid fa-rocket" /> Fetch</div>
           <div class="col-md fs-3">
             <p>
-              Will start the operation and fetch the image from Nasa's API
-              according to your start and end date.
+              This action will commence the operation and retrieve an image from
+              NASA's API based on the specified start and end dates.
             </p>
           </div>
         </div>
@@ -509,9 +509,10 @@
           <div class="col-md"><i class="fa-solid fa-dice" /> Randomize</div>
           <div class="col-md fs-3">
             <p>
-              Will randomize the start date from any date starting from June
-              16th, 1995 until the current date, then set the end date 30 days
-              after that. Automatically fetches after that.
+              This feature will randomly select a start date ranging from June
+              16th, 1995, to the current date and then automatically sets the
+              end date 30 days after the chosen start date. Subsequently, it
+              initiates the fetching process.
             </p>
           </div>
         </div>
@@ -521,10 +522,11 @@
           </div>
           <div class="col-md fs-3">
             <p>
-              In the case that the API key is broken, or the limit has been
-              reached, this button will trigger the same operation with Nasa's
-              demo key. Not recommended, as there is a 35 time fetching limit
-              per day for every IP using the demo key.
+              If the API key is invalid or the request limit has been reached,
+              clicking this button will initiate the same operation using NASA's
+              demo key. However, it's worth noting that this is not the
+              recommended option, as the demo key has a daily fetching limit of
+              35 times for every IP address.
             </p>
           </div>
         </div>
