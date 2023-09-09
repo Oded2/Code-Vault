@@ -1,5 +1,6 @@
 <script>
   import Header from "../../../components/Header.svelte";
+  import { randomNum } from "../../../hooks.client.js";
   import hrefs from "../../../data/hrefs.json";
   const directory = hrefs["fun-games"];
   let minNum = 0;
@@ -18,7 +19,7 @@
   const startGame = () => {
     gameBefore = false;
     gameAfter = true;
-    winningNum = randomNum(minNum, maxNum);
+    winningNum = randomNum(minNum, maxNum + 1);
   };
   const hint = () => {
     if (!win) {
@@ -63,12 +64,6 @@
     if (key == "Enter") {
       checkNum();
     }
-  }
-  function randomNum(min, max) {
-    max++;
-    const difference = max - min;
-    let rand = Math.floor(Math.random() * difference) + min;
-    return rand;
   }
 </script>
 

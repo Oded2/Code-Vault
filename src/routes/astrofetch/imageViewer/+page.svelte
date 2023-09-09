@@ -1,5 +1,6 @@
 <script>
   import { page } from "$app/stores";
+  import { addParams } from "../../../hooks.client.js";
   import hrefs from "../../../data/hrefs.json";
   export let data;
   const url = $page.url;
@@ -28,15 +29,6 @@
       copyText = "Copy Link";
       isCopy = false;
     }, 3000);
-  }
-  function addParams(link, params) {
-    let value;
-    for (let key in params) {
-      value = params[key];
-
-      link.searchParams.append(key, value);
-    }
-    return link.toString();
   }
 
   async function fetchTinyurl() {

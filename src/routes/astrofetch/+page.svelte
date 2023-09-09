@@ -1,5 +1,7 @@
 <script>
   import Header from "../../components/Header.svelte";
+  import { addParams } from "../../hooks.client.js";
+  import { addParamsString } from "../../hooks.client.js";
   import hrefs from "../../data/hrefs.json";
   import nasaLogo from "../../images/svg/NASA.svg";
   import rocketImg from "../../images/svg/rocket.svg";
@@ -80,21 +82,6 @@
     await insertImages(isDemo);
   };
 
-  function addParams(link, params) {
-    link = new URL(link);
-    let value;
-    for (let key in params) {
-      value = params[key];
-
-      link.searchParams.append(key, value);
-    }
-    return link.toString();
-  }
-  function addParamsString(string, params) {
-    const link = "https://codevault.com";
-    const linkWithParams = addParams(link, params);
-    return linkWithParams.replace("https://codevault.com", string);
-  }
   function removeLineBreak(string) {
     if (!string) {
       return;

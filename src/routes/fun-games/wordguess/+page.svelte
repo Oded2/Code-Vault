@@ -1,6 +1,7 @@
 <script>
   import Header from "../../../components/Header.svelte";
   import Switch from "../../../components/Switch.svelte";
+  import { addParams } from "../../../hooks.client.js";
   import wordGuess from "../../../images/svg/word_guess.svg";
   import hrefs from "../../../data/hrefs.json";
   const directory = hrefs["fun-games"];
@@ -117,16 +118,6 @@
   }
   async function fetchWords() {
     totalWords = await getWords();
-  }
-  function addParams(link, params) {
-    link = new URL(link);
-    let value;
-    for (let key in params) {
-      value = params[key];
-
-      link.searchParams.append(key, value);
-    }
-    return link.toString();
   }
   function chooseWordNow() {
     let randomIndex = Math.floor(Math.random() * totalWords.length);

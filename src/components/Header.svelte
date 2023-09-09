@@ -1,19 +1,12 @@
 <script>
+  import { addParams } from "../hooks.client.js";
+  import { addParamsString } from "../hooks.client.js";
   import hrefs from "../data/hrefs.json";
   export let title = null;
   export let directory = null;
   export let isHome = false;
   const newTitle = !title ? "Code Vault" : title + " - Code Vault";
-  function addParams(link, params) {
-    link = new URL(link);
-    let value;
-    for (let key in params) {
-      value = params[key];
 
-      link.searchParams.append(key, value);
-    }
-    return link.toString();
-  }
   let breakpoint;
   let pages = [];
   for (let i in directory) {
@@ -46,10 +39,10 @@
       "https://facebook.com/share.php",
       shareParams["facebook"]
     ),
-    mail: "mailto:?subject=Check Out Code Vault!&body=Code Vault is Oded's coding portfolio. Check it out at https://oded.benamotz.com".replace(
-      / /g,
-      "%20"
-    ),
+    mail: addParamsString("mailto:", {
+      subject: "Check out Code Vault!",
+      body: "Code Vault is Oded's coding portfolio, full of unique projects. Check it out at https://oded.benamotz.com",
+    }),
   };
   function copyLink() {
     navigator.clipboard.writeText("https://oded.benamotz.com");

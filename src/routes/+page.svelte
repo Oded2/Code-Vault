@@ -8,7 +8,6 @@
 
   let showFilters = false;
   let filter = { html: true, python: true };
-
   const responsiveModal = "sm";
 
   const toggleFilters = () => {

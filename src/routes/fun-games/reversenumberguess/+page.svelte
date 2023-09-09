@@ -1,8 +1,10 @@
 <script>
   import Header from "../../../components/Header.svelte";
   import Modal from "../../../components/Modal.svelte";
+  import { randomNum } from "../../../hooks.client.js";
   import hrefs from "../../../data/hrefs.json";
   import explanations from "./explananations.json";
+
   let i = 0;
   const description =
     "Hello I am Numbo, and welcome to the reverse number guesser. Please provide me with a maximum and minimum number and I will use my complex algorithmic skills to guess your number as quickly as possible, and don't worry, I'm not cheating. To start, enter a number and a viable range of the number.";
@@ -109,11 +111,6 @@
   function isHigher() {
     minNum = guessed;
     guessNum();
-  }
-  function randomNum(min, max) {
-    const difference = max - min;
-    let rand = Math.floor(Math.random() * difference) + min;
-    return rand;
   }
   function randomizeUserNum() {
     if (!minNum) {

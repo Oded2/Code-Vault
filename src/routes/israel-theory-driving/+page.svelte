@@ -2,6 +2,7 @@
   import Header from "../../components/Header.svelte";
   import Modal from "../../components/Modal.svelte";
   import DarkModeSwitch from "../../components/DarkModeSwitch.svelte";
+  import { addParams } from "../../hooks.client.js";
   import hrefs from "../../data/hrefs.json";
   let questions,
     questionArr,
@@ -125,15 +126,6 @@
       str = str.replace(/\s/g, "").toLowerCase();
     }
     return str;
-  }
-  function addParams(link, params) {
-    link = new URL(link);
-    let value;
-    for (let key in params) {
-      value = params[key];
-      link.searchParams.append(key, value);
-    }
-    return link.toString();
   }
 
   const handleCheck = () => {
