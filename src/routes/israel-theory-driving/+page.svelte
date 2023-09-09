@@ -365,9 +365,6 @@
       {:else}
         <form on:submit|preventDefault={handleStart}>
           <div class="card-body px-4">
-            <!-- <h1 class="text-center font-google-quicksand">
-              The Israeli Driver Test
-            </h1> -->
             <div>
               <p class="font-google-quicksand fw-500 fs-4">
                 Please note that the real test consists of 30 questions, so for
