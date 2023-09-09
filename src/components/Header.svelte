@@ -24,7 +24,7 @@
   }
   const shareParams = {
     twitter: {
-      text: 'Check out "' + newTitle + "\", from Oded's coding portfolio!",
+      text: 'Check out "' + newTitle + "\" from Oded's coding portfolio!",
       url: url,
     },
     facebook: {
