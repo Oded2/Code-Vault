@@ -105,7 +105,7 @@
     const formatDate = date.toLocaleDateString("en-US", dateOptions);
     return formatDate;
   }
-  function validateDates(start, end, mindate = "1996-06-16") {
+  function validateDates(start, end, mindate = "1995-06-16") {
     let valid = true;
     let message;
     if (start < mindate) {
