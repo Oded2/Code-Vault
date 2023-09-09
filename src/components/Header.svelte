@@ -1,4 +1,5 @@
 <script>
+  import { page } from "$app/stores";
   import { addParams } from "../hooks.client.js";
   import { addParamsString } from "../hooks.client.js";
   import hrefs from "../data/hrefs.json";
@@ -6,7 +7,7 @@
   export let directory = null;
   export let isHome = false;
   const newTitle = !title ? "Code Vault" : title + " - Code Vault";
-
+  const url = $page.url["href"];
   let breakpoint;
   let pages = [];
   for (let i in directory) {
@@ -23,11 +24,11 @@
   }
   const shareParams = {
     twitter: {
-      text: "Check out Oded's code portfolio at Code Vault!",
-      url: "oded.benamotz.com",
+      text: 'Check out "' + newTitle + "\", from Oded's coding portfolio!",
+      url: url,
     },
     facebook: {
-      u: "oded.benamotz.com",
+      u: url,
     },
   };
   const shareLinks = {
@@ -40,12 +41,14 @@
       shareParams["facebook"]
     ),
     mail: addParamsString("mailto:", {
-      subject: "Check out Code Vault!",
-      body: "Code Vault is Oded's coding portfolio, full of unique projects. Check it out at https://oded.benamotz.com",
+      subject: "Check out " + newTitle,
+      body:
+        "Code Vault is Oded's coding portfolio, full of unique projects! Check it out at " +
+        url,
     }),
   };
   function copyLink() {
-    navigator.clipboard.writeText("https://oded.benamotz.com");
+    navigator.clipboard.writeText(url);
   }
 </script>
 
