@@ -370,7 +370,7 @@
                   class="form-select form-select-lg"
                   class:text-bg-dark={darkMode}
                 >
-                  <option value="he" lang="he">עִברִית</option>
+                  <option value="he" lang="he">עברית</option>
                   <option value="en" selected>English</option>
                   <option value="ar" lang="ar">عربي</option>
                   <option value="fr" lang="fr">Français</option>
