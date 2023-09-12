@@ -233,7 +233,7 @@
       class:vh-90={start}
       bind:this={questionDiv}
     >
-      <div class="card-header">
+      <div class="card-header" class:border-light={darkMode}>
         <div class="row px-4">
           {#if start}
             <div class="col-sm text-center">
