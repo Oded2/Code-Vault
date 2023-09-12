@@ -323,7 +323,7 @@
             <div class="h-100 d-flex justify-content-center">
               {#each astroData as currentItem, index}
                 <a
-                  class="d-flex justify-content-center"
+                  class="h-100"
                   href={addParamsString("/astrofetch/imageViewer", {
                     title: currentItem["title"],
                     url: currentItem["url"],
