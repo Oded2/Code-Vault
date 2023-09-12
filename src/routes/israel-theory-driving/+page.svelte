@@ -169,15 +169,6 @@
     questionDiv.scrollIntoView();
   };
   const handleEnd = () => {
-    if (!isFinished) {
-      if (
-        !confirm(
-          "Are you sure you want to end your test early? All progress you made up until now will NOT be saved."
-        )
-      ) {
-        return;
-      }
-    }
     start = false;
     toggleScore();
   };
