@@ -249,7 +249,10 @@
             </div>
           {/if}
 
-          <div class="col-sm d-flex justify-content-center">
+          <div
+            class="col-sm d-flex justify-content-center"
+            class:align-items-center={!start}
+          >
             <DarkModeSwitch bind:checked={darkMode} />
           </div>
         </div>
