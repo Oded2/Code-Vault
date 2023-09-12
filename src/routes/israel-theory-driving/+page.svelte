@@ -236,10 +236,10 @@
       <div class="card-header">
         <div class="row px-4">
           {#if start}
-            <div class="col d-flex align-items-center justify-content-start">
+            <div class="col-sm text-center">
               <span>Question {current + 1} out of {maxQuestions}</span>
             </div>
-            <div class="col d-flex align-items-center justify-content-center">
+            <div class="col-sm text-center py-2 py-sm-0">
               <span>{category}</span>
             </div>
           {:else}
@@ -249,11 +249,7 @@
             </div>
           {/if}
 
-          <div
-            class="col d-flex justify-content-md-end align-items-center"
-            class:justify-content-end={start}
-            class:justify-content-center={!start}
-          >
+          <div class="col-sm d-flex justify-content-center">
             <DarkModeSwitch bind:checked={darkMode} />
           </div>
         </div>
