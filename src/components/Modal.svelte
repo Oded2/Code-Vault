@@ -9,7 +9,7 @@
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div
     class="backdrop d-flex align-items-center justify-content-center"
-    out:fade={{ duration: 100 }}
+    transition:fade={{ duration: 100 }}
     on:click|self
   >
     <div
