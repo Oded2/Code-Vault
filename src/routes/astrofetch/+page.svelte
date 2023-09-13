@@ -2,6 +2,7 @@
   import Header from "../../components/Header.svelte";
   import { addParams } from "../../hooks.client.js";
   import { addParamsString } from "../../hooks.client.js";
+  import { fetchData } from "../../hooks.client.js";
   import hrefs from "../../data/hrefs.json";
   import nasaLogo from "../../images/svg/NASA.svg";
   import rocketImg from "../../images/svg/rocket.svg";
@@ -46,23 +47,6 @@
     return newSrc;
   }
   const apiUrl = new URL("https://api.nasa.gov/planetary/apod");
-  async function fetchData(url) {
-    let response;
-    try {
-      response = await fetch(url);
-    } catch {
-      alert("Unknown error.");
-      return false;
-    }
-    if (response.status != 200) {
-      {
-        alert("Error. Error code: " + response.status);
-      }
-      return false;
-    }
-    const currentData = await response.json();
-    return currentData;
-  }
   async function insertImages(isDemo) {
     isLoading = true;
     const url = addParams(apiUrl, {

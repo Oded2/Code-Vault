@@ -18,3 +18,18 @@ export function addParamsString(string, params) {
   const linkWithParams = addParams(link, params);
   return linkWithParams.replace("https://codevault.com", string);
 }
+
+export async function fetchData(url) {
+  let response;
+  try {
+    response = await fetch(url);
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+  if (response.status != 200) {
+    console.error(response.status);
+    return false;
+  }
+  return response.json();
+}
