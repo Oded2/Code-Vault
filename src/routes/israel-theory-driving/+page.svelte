@@ -349,11 +349,14 @@
           <div class="card-body px-4">
             <div>
               <p class="font-google-quicksand fw-500 fs-4">
-                Please note that the real test consists of 30 questions, so for
-                the most realistic version of the test it is recommended to set
-                the questions to 30. Do your best and remember, this is not the
-                actual test! Try your best and remember each question you get
-                wrong. <span class="text-success">Good luck!</span>
+                Please take into consideration that the genuine test contains 30
+                questions. To optimize your practice experience, it's advisable
+                to configure the questions to a total of 30. Give it your utmost
+                effort, and always bear in mind, this is a practice test, not
+                the real deal! Strive to perform at your best and make note of
+                any questions you happen to answer incorrectly. <span
+                  class="text-success">Good Luck!</span
+                >
               </p>
             </div>
 
