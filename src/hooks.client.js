@@ -1,3 +1,5 @@
+import { compress, decompress } from "brotli-compress";
+
 export function randomNum(min, max) {
   const difference = max - min;
   let rand = Math.floor(Math.random() * difference) + min;
@@ -32,4 +34,12 @@ export async function fetchData(url) {
     return false;
   }
   return response.json();
+}
+
+export async function brotliCompress(text) {
+  let a = await compress(text);
+  return Buffer.from(a);
+}
+export async function brotliDecompress(block) {
+  return await decompress(block);
 }

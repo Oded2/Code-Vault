@@ -2,7 +2,7 @@
   import Header from "../../components/Header.svelte";
   import Modal from "../../components/Modal.svelte";
   import DarkModeSwitch from "../../components/DarkModeSwitch.svelte";
-  import { addParams } from "../../hooks.client.js";
+  import { addParams, addParamsString } from "../../hooks.client.js";
   import hrefs from "../../data/hrefs.json";
   let questions,
     questionArr,
@@ -23,7 +23,6 @@
   let questionsDone = [];
   let darkMode = false;
   let questionDiv;
-
   let isFinished = false;
 
   $: percent = parseInt((score / maxQuestions) * 100);
@@ -137,8 +136,10 @@
     }
     questionsDone[current] = {
       isCorrect: correct,
-      correctAnswer: correctAnswer,
+      correct: correctAnswer,
       user: userAnswer,
+      question: question,
+      answers: answers,
     };
     checkIfFinished();
   };
@@ -198,9 +199,18 @@
     <div class="my-5">
       <h2>You scored {percent}%</h2>
       <h4>You got {score} out of {maxQuestions} questions correct.</h4>
+      <!-- <a
+        href={addParamsString("/israel-theory-driving/results", {
+          percent: percent,
+          questions: JSON.stringify(questionsDone),
+        })}
+        target="_blank"
+        class="btn btn-primary fs-1">Results Analysis</a
+      > -->
     </div>
   </div>
 </Modal>
+
 <main class="text-bg-dark full-background">
   <Header title={hrefs["israeli-driver-test"]["home"]["title"]} />
   <div class="container">
