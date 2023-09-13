@@ -124,10 +124,12 @@
         icon="user-astronaut"
         mainLink={hrefs["astrofetch"]["home"]["link"]}
         sourceLink={hrefs["github"]["astrofetch"]["source"]}
-        secondLink={hrefs["github"]["astrofetch"]["download"]}
-        secondIcon={"python"}
-        secondName={"Python"}
-      />
+        ><a
+          href={hrefs["github"]["astrofetch"]["download"]}
+          class="btn btn-outline-primary fs-5 w-100"
+          ><i class="fa-brands fa-python" />&nbsp; Download Python Version</a
+        ></HomeCard
+      >
       <HomeCard
         show={filter["html"]}
         title={hrefs["israeli-driver-test"]["home"]["title"]}
