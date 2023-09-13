@@ -1,4 +1,6 @@
 <script>
+  import { fly } from "svelte/transition";
+  import { fade } from "svelte/transition";
   export let showModal = false;
 </script>
 
@@ -7,9 +9,13 @@
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div
     class="backdrop d-flex align-items-center justify-content-center"
+    out:fade={{ duration: 100 }}
     on:click|self
   >
-    <div class=" container bg-light rounded card">
+    <div
+      class=" container bg-light rounded card"
+      in:fly={{ duration: 300, y: 200 }}
+    >
       <div class="card-body">
         <slot />
       </div>
