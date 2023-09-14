@@ -2,7 +2,7 @@
   import Header from "../../components/Header.svelte";
   import Modal from "../../components/Modal.svelte";
   import DarkModeSwitch from "../../components/DarkModeSwitch.svelte";
-  import { addParams, addParamsString } from "../../hooks.client.js";
+  import { addParams, randomNum } from "../../hooks.client.js";
   import hrefs from "../../data/hrefs.json";
   let questions,
     questionArr,
@@ -173,11 +173,6 @@
     start = false;
     toggleScore();
   };
-  function randomNum(min, max) {
-    const difference = max - min;
-    let rand = Math.floor(Math.random() * difference) + min;
-    return rand;
-  }
 </script>
 
 <Modal showModal={showScore} on:click={toggleScore}>
