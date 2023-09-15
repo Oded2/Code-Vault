@@ -2,6 +2,8 @@
   import Header from "../../components/Header.svelte";
   import Modal from "../../components/Modal.svelte";
   import DarkModeSwitch from "../../components/DarkModeSwitch.svelte";
+  import Fullscreen from "../../components/Fullscreen.svelte";
+  import Results from "../../components/Results.svelte";
   import { addParams, randomNum } from "../../hooks.client.js";
   import hrefs from "../../data/hrefs.json";
   let questions,
@@ -24,7 +26,7 @@
   let darkMode = false;
   let questionDiv;
   let isFinished = false;
-
+  let showResults = false;
   $: percent = parseInt((score / maxQuestions) * 100);
   $: manualDir = language == "he" || language == "ar" ? "rtl" : "ltr";
   const languageResourceId = {
@@ -46,6 +48,9 @@
   }
   function toggleScore() {
     showScore = !showScore;
+  }
+  function toggleResults() {
+    showResults = !showResults;
   }
   function parseQuestions(data) {
     return data.result.records.map((record) => {
@@ -194,19 +199,26 @@
     <div class="my-5">
       <h2>You scored {percent}%</h2>
       <h4>You got {score} out of {maxQuestions} questions correct.</h4>
-      <!-- <a
-        href={addParamsString("/israel-theory-driving/results", {
-          percent: percent,
-          questions: JSON.stringify(questionsDone),
-        })}
-        target="_blank"
-        class="btn btn-primary fs-1">Results Analysis</a
-      > -->
+      <button
+        class="btn btn-primary fs-3"
+        on:click={() => {
+          toggleResults();
+          toggleScore();
+        }}>Show Results</button
+      >
     </div>
   </div>
 </Modal>
 
-<main class="text-bg-dark full-background">
+<Fullscreen showFullScreen={showResults} on:click={toggleResults}>
+  <Results {percent} questions={questionsDone} />
+</Fullscreen>
+
+<main
+  class="text-bg-dark full-background"
+  class:vh-100={showResults}
+  class:overflow-hidden={showResults}
+>
   <Header title={hrefs["israeli-driver-test"]["home"]["title"]} />
   <div class="container">
     <div class="ms-0 ms-sm-2">

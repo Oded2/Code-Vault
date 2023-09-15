@@ -1,9 +1,6 @@
 <script>
-  import { page } from "$app/stores";
-  const url = $page.url;
-  const pageHref = url["href"];
-  const questions = JSON.parse(url.searchParams.get("questions"));
-  const percent = url.searchParams.get("percent");
+  export let percent = NaN;
+  export let questions = [];
 </script>
 
 <main>
@@ -58,11 +55,7 @@
             {/each}
           </div>
         </div>
-        <!-- <div class="border-dark border-bottom" /> -->
       {/each}
     </div>
   </div>
 </main>
-
-<style>
-</style>
