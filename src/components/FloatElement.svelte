@@ -1,7 +1,7 @@
 <script>
 </script>
 
-<div class="parent mx-5 mb-3 d-print-none">
+<div class="parent m-3 d-print-none">
   <slot />
 </div>
 
