@@ -1,4 +1,6 @@
 <script>
+  import { simplifyString } from "../hooks.client.js";
+
   export let percent = NaN;
   export let questions = [];
 </script>
@@ -16,19 +18,24 @@
       <h4 class="font-google-quicksand fw-bld text-center">{percent}%</h4>
     </div>
     <div class="font-google-quicksand fw-600 fs-4 px-sm-4 px-md-5 rounded">
-      <div class="row border-bottom py-3 my-4 fw-bold d-none d-xl-flex fs-3">
+      <div class="row border-bottom py-3 mt-4 fw-bold d-none d-xl-flex fs-3">
         <div class="col">Question</div>
         <div class="col">User's Answer</div>
         <div class="col">Correct Answer</div>
         <div class="col-5">Answers</div>
       </div>
       {#each questions as question, index}
-        <div class="row border-bottom border-dark my-5">
+        <div class="row border-bottom border-dark mb-5">
           <div class="d-flex d-xl-none fw-bold my-2 border-bottom">
             Question ({index + 1})
           </div>
           <div class="col-xl border-xl-start border-xl-end">
             {question["question"]}
+            <div class="d-flex justify-content-center py-2">
+              {#if question["image"]}
+                <img src={question["image"]} alt="Question" class="img-fluid" />
+              {/if}
+            </div>
           </div>
           <div class="d-flex d-xl-none fw-bold my-2 border-bottom">
             User's Answer
@@ -50,7 +57,14 @@
           <div class="col-xl-5 border-xl-start border-xl-end fs-5 py-2">
             {#each question["answers"] as answer}
               <ul>
-                <li>{answer}</li>
+                <li
+                  class:bg-danger-subtle={simplifyString(answer) ==
+                    simplifyString(question["user"]) && !question["isCorrect"]}
+                  class:bg-success-subtle={simplifyString(answer) ==
+                    simplifyString(question["correct"])}
+                >
+                  {answer}
+                </li>
               </ul>
             {/each}
           </div>

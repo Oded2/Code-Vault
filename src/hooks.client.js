@@ -33,3 +33,10 @@ export async function fetchData(url) {
   }
   return response.json();
 }
+
+export function simplifyString(str) {
+  for (let i = 0; i < str.length; i++) {
+    str = str.replace(/\s/g, "").toLowerCase();
+  }
+  return str;
+}

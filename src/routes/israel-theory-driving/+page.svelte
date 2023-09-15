@@ -4,7 +4,7 @@
   import DarkModeSwitch from "../../components/DarkModeSwitch.svelte";
   import Fullscreen from "../../components/Fullscreen.svelte";
   import Results from "../../components/Results.svelte";
-  import { addParams, randomNum } from "../../hooks.client.js";
+  import { addParams, randomNum, simplifyString } from "../../hooks.client.js";
   import hrefs from "../../data/hrefs.json";
   let questions,
     questionArr,
@@ -125,12 +125,6 @@
     category = questionArr["category"];
     userAnswer = null;
   }
-  function simplifyString(str) {
-    for (let i = 0; i < str.length; i++) {
-      str = str.replace(/\s/g, "").toLowerCase();
-    }
-    return str;
-  }
 
   const handleCheck = () => {
     let tempCorrect = simplifyString(correctAnswer);
@@ -145,6 +139,7 @@
       user: userAnswer,
       question: question,
       answers: answers,
+      image: image,
     };
     checkIfFinished();
   };
