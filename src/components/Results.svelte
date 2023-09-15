@@ -1,10 +1,25 @@
 <script>
+  import Modal from "./Modal.svelte";
   import { simplifyString } from "../hooks.client.js";
 
   export let percent = NaN;
   export let questions = [];
+  let showModal = false;
+  let currentImg = "";
+  function fullScreenImage(imageUrl) {
+    currentImg = imageUrl;
+    toggleModal();
+  }
+  function toggleModal() {
+    showModal = !showModal;
+  }
 </script>
 
+<Modal {showModal} on:click={toggleModal}>
+  <div class="d-flex justify-content-center">
+    <img src={currentImg} alt="Question" class="img-fluid" />
+  </div>
+</Modal>
 <main>
   <div class="container-fluid pt-3 pb-5 px-xl-5">
     <div>
@@ -33,7 +48,14 @@
             {question["question"]}
             <div class="d-flex justify-content-center py-2">
               {#if question["image"]}
-                <img src={question["image"]} alt="Question" class="img-fluid" />
+                <!-- svelte-ignore a11y-click-events-have-key-events -->
+                <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+                <img
+                  on:click={() => fullScreenImage(question["image"])}
+                  src={question["image"]}
+                  alt="Question"
+                  class="img-fluid"
+                />
               {/if}
             </div>
           </div>
