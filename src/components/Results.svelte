@@ -19,7 +19,7 @@
 </script>
 
 <FloatElement
-  ><button on:click={print} class="btn btn-primary fs-4"
+  ><button on:click={print} class="btn btn-primary fs-4 shadow-lg"
     ><i class="fa-solid fa-print" /> Print Results</button
   ></FloatElement
 >
