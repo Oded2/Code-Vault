@@ -15,7 +15,7 @@
       </h1>
       <h4 class="font-google-quicksand fw-bld text-center">{percent}%</h4>
     </div>
-    <div class="font-google-quicksand fw-600 fs-4 px-5 rounded">
+    <div class="font-google-quicksand fw-600 fs-4 px-sm-4 px-md-5 rounded">
       <div class="row border-bottom py-3 my-4 fw-bold d-none d-xl-flex fs-3">
         <div class="col">Question</div>
         <div class="col">User's Answer</div>
