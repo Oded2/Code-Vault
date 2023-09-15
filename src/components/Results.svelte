@@ -1,7 +1,7 @@
 <script>
   import Modal from "./Modal.svelte";
   import { simplifyString } from "../hooks.client.js";
-
+  import FloatElement from "./FloatElement.svelte";
   export let percent = NaN;
   export let questions = [];
   let showModal = false;
@@ -13,7 +13,16 @@
   function toggleModal() {
     showModal = !showModal;
   }
+  function print() {
+    window.print();
+  }
 </script>
+
+<FloatElement
+  ><button on:click={print} class="btn btn-outline-primary fs-4"
+    ><i class="fa-solid fa-print" /> Print Results</button
+  ></FloatElement
+>
 
 <Modal {showModal} on:click={toggleModal}>
   <div class="d-flex justify-content-center h-100">
