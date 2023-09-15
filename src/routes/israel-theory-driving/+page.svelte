@@ -205,7 +205,11 @@
   </div>
 </Modal>
 
-<Fullscreen showFullScreen={showResults} on:click={toggleResults}>
+<Fullscreen
+  showFullScreen={showResults}
+  dark={darkMode}
+  on:click={toggleResults}
+>
   <Results {percent} questions={questionsDone} />
 </Fullscreen>
 

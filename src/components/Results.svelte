@@ -63,7 +63,7 @@
             User's Answer
           </div>
           <div
-            class="col-xl border-xl-start border-xl-end"
+            class="col-xl border-xl-start border-xl-end text-dark"
             class:bg-danger-subtle={!question["isCorrect"]}
             class:bg-success-subtle={question["isCorrect"]}
           >
@@ -84,6 +84,10 @@
                     simplifyString(question["user"]) && !question["isCorrect"]}
                   class:bg-success-subtle={simplifyString(answer) ==
                     simplifyString(question["correct"])}
+                  class:text-dark={simplifyString(answer) ==
+                    simplifyString(question["user"]) ||
+                    simplifyString(answer) ==
+                      simplifyString(question["correct"])}
                 >
                   {answer}
                 </li>
