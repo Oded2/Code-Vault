@@ -7,8 +7,10 @@
   <main class="fullscreen {dark ? 'text-bg-dark' : 'text-bg-light'}">
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
-    <div class="w-100 fs-4 text-bg-danger text-center exit-div" on:click>
-      Exit
+    <div class="p-1">
+      <button class="w-100 fs-4 btn btn-outline-danger exit" on:click>
+        Exit
+      </button>
     </div>
     <slot />
   </main>
@@ -22,8 +24,7 @@
     max-width: 100%;
     position: absolute;
   }
-  div.exit-div {
-    cursor: pointer;
-    user-select: none;
+  button.exit {
+    border-radius: 0;
   }
 </style>
