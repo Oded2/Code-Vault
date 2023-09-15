@@ -16,7 +16,7 @@
 </script>
 
 <Modal {showModal} on:click={toggleModal}>
-  <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-center h-100">
     <img src={currentImg} alt="Question" class="img-fluid" />
   </div>
 </Modal>

@@ -16,7 +16,7 @@
       class=" container bg-light rounded card"
       in:fly={{ duration: 300, y: 200 }}
     >
-      <div class="card-body overflow-hidden">
+      <div class="card-body overflow-hidden d-grid">
         <slot />
       </div>
       <div class="card-footer text-center">
