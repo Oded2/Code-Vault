@@ -54,7 +54,7 @@
                   on:click={() => fullScreenImage(question["image"])}
                   src={question["image"]}
                   alt="Question"
-                  class="img-fluid"
+                  class="img-fluid question shadow-sm"
                 />
               {/if}
             </div>
@@ -99,3 +99,14 @@
     </div>
   </div>
 </main>
+
+<style>
+  img.question {
+    cursor: pointer;
+    transition: 0.5s;
+  }
+  img.question:hover {
+    cursor: pointer;
+    scale: 105%;
+  }
+</style>
