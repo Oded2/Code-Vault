@@ -1,6 +1,6 @@
 <script>
   import Header from "../../../components/Header.svelte";
-  import CardInfo from "../../../components/funProjects/CardInfo.svelte";
+  import CreditCardInfo from "../../../components/cards/CreditCardInfo.svelte";
   import hrefs from "../../../data/hrefs.json";
 
   let sum;
@@ -92,6 +92,6 @@
         </div>
       </div>
     </div>
-    <CardInfo {CreditCard} sumOfDigits={sum} />
+    <CreditCardInfo {CreditCard} sumOfDigits={sum} />
   </div>
 </main>
