@@ -1,13 +1,5 @@
 <script>
   import { page } from "$app/stores";
-  import { onMount } from "svelte";
-  import { brotliCompress, brotliDecompress } from "../../../hooks.client.js";
-  onMount(async () => {
-    let a = await brotliCompress("Hello");
-    console.log(a);
-    let b = await brotliDecompress(a);
-    console.log(b);
-  });
   const url = $page.url;
   const pageHref = url["href"];
   const questions = JSON.parse(url.searchParams.get("questions"));
