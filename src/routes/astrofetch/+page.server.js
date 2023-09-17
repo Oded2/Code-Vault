@@ -1,4 +1,5 @@
-import { NASA } from "$env/static/private";
+import { redirect } from "@sveltejs/kit";
+
 export function load() {
-  return { api: NASA };
+  throw redirect(307, "astrofetch/APOD");
 }

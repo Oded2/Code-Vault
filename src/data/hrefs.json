@@ -73,11 +73,10 @@
             "link": "/astrofetch",
             "title": "AstroFetch"
         },
-        "viewer": {
-            "link": "/astrofetch/imageViewer",
-            "title": "Astrofetch"
-        },
-        "nasaApi": "https://api.nasa.gov"
+        "APOD": {
+            "link": "/astrofetch/APOD",
+            "title": "APOD"
+        }
     },
     "israeli-driver-test": {
         "home": {
@@ -92,6 +91,7 @@
     "external": {
         "bootstrap": "https://getbootstrap.com/",
         "fontAwesome": "https://fontawesome.com/",
-        "exifJs": "https://github.com/exif-js/exif-js"
+        "exifJs": "https://github.com/exif-js/exif-js",
+        "nasaApi": "https://api.nasa.gov"
     }
 }
