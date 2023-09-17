@@ -85,16 +85,6 @@
             "title": "Israeli Driver Theory"
         }
     },
-    "convenientTools": {
-        "home": {
-            "link": "/convenientTools",
-            "title": "Convenient Tools"
-        },
-        "markdown": {
-            "link": "/convenientTools/markdownGenerator",
-            "title": "Markdown Generator"
-        }
-    },
     "email": {
         "address": "odedconnect@gmail.com",
         "mailto": "mailto:odedconnect@gmail.com"
