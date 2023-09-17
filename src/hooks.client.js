@@ -4,7 +4,6 @@ export function randomNum(min, max) {
   return rand;
 }
 export function addParams(link, params) {
-  link = new URL(link);
   let value;
   for (let key in params) {
     value = params[key];
@@ -14,7 +13,7 @@ export function addParams(link, params) {
   return link.toString();
 }
 export function addParamsString(string, params) {
-  const link = "https://codevault.com";
+  const link = new URL("https://codevault.com");
   const linkWithParams = addParams(link, params);
   return linkWithParams.replace("https://codevault.com", string);
 }

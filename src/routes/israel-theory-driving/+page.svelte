@@ -92,10 +92,13 @@
   }
   async function fetchQuestions(lang = "en") {
     const resourceId = languageResourceId[lang];
-    const url = addParams("https://data.gov.il/api/3/action/datastore_search", {
-      resource_id: resourceId,
-      limit: 5000,
-    });
+    const url = addParams(
+      new URL("https://data.gov.il/api/3/action/datastore_search"),
+      {
+        resource_id: resourceId,
+        limit: 5000,
+      }
+    );
     const data = await fetch(url).then((response) => response.json());
     questions = shuffleArray(parseQuestions(data), maxQuestions);
     updateQuestion();

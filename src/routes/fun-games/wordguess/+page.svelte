@@ -105,7 +105,7 @@
   async function getWords() {
     try {
       const response = await fetch(
-        addParams("https://random-word-api.herokuapp.com/word", {
+        addParams(new URL("https://random-word-api.herokuapp.com/word"), {
           number: 9999,
         })
       );

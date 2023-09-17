@@ -33,11 +33,11 @@
   };
   const shareLinks = {
     twitter: addParams(
-      "https://twitter.com/intent/tweet",
+      new URL("https://twitter.com/intent/tweet"),
       shareParams["twitter"]
     ),
     facebook: addParams(
-      "https://facebook.com/share.php",
+      new URL("https://facebook.com/share.php"),
       shareParams["facebook"]
     ),
     mail: addParamsString("mailto:", {
