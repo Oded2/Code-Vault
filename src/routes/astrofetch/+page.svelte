@@ -31,7 +31,7 @@
       {#each pages as page}
         <div class="col-lg-6 pb-5 px-0 px-md-3">
           <div class="card text-light border-light h-100">
-            <div class="card-header border-light pt-3">
+            <div class="card-header pt-3">
               <h2 class="font-google-comfortaa fw-bold text-center">
                 {page.title}
               </h2>
@@ -41,7 +41,7 @@
                 {page.description}
               </p>
             </div>
-            <div class="card-footer border-light text-center">
+            <div class="card-footer py-3 border-light text-center">
               <a
                 href={page.link}
                 class="custom btn btn-primary w-75 fs-3 font-google-quicksand fw-bold"
