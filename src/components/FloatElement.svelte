@@ -7,6 +7,7 @@
 
 <style>
   div.parent {
+    z-index: 1;
     position: fixed;
     bottom: 0;
     right: 0;
