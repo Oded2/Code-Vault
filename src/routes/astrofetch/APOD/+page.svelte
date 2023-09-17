@@ -164,15 +164,12 @@
     <div class="container">
       <div class="d-sm-flex align-items-center justify-content-between">
         <div>
-          <h1>Astro <span class="text-primary">Fetch</span></h1>
+          <h1 class="font-google-comfortaa fw-bold">
+            {hrefs.astrofetch.APOD.title}
+          </h1>
           <div class="container-fluid border-info custom-text">
             <p class="fs-5 text-start font-google-quicksand fw-500">
-              AstroFetch is a powerful tool that utilizes the Nasa api (<a
-                href={hrefs.external.nasaApi}
-                class="link-light">api.nasa.gov</a
-              >) and fetches the Astronomy Picture Of the Day (APOD) from your
-              start date to your end date, allowing you to browse the pictures
-              seamlessly.
+              {hrefs.astrofetch.APOD.description}
             </p>
           </div>
           <div class="container-fluid">

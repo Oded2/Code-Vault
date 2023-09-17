@@ -1,7 +1,7 @@
 <script>
   import { page } from "$app/stores";
-  import { addParams } from "../../../../hooks.client.js";
-  import hrefs from "../../../../data/hrefs.json";
+  import { addParams } from "../../../hooks.client.js";
+  import hrefs from "../../../data/hrefs.json";
   export let data;
   const url = $page.url;
   const pageLink = url["href"];

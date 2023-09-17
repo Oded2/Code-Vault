@@ -75,7 +75,8 @@
         },
         "APOD": {
             "link": "/astrofetch/APOD",
-            "title": "APOD"
+            "title": "APOD",
+            "description": "Explore the cosmos with APOD. NASA's Astronomy Picture of the Day API lets you browse stunning celestial images by selecting start and end dates. Witness daily wonders from distant galaxies to our solar system's beauty. Dive into the universe effortlessly, whether you're an astronomer or a curious explorer."
         }
     },
     "israeli-driver-test": {
