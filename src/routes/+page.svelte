@@ -122,7 +122,7 @@
         provides access to captivating and up-to-date astronomical
         imagery."
         icon="user-astronaut"
-        mainLink={hrefs["astrofetch"]["home"]["link"]}
+        mainLink={hrefs["astrofetch"]["APOD"]["link"]}
         sourceLink={hrefs["github"]["astrofetch"]["source"]}
         ><a
           href={hrefs["github"]["astrofetch"]["download"]}
