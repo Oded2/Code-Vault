@@ -36,6 +36,7 @@
 	"types": "./dist/index.d.ts",
 	"type": "module",
 	"dependencies": {
+		"firebase": "^10.4.0",
 		"svelte-toasts": "^1.1.2"
 	}
 }
