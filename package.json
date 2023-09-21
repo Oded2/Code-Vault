@@ -37,7 +37,7 @@
 	"types": "./dist/index.d.ts",
 	"type": "module",
 	"dependencies": {
-		"firebase": "^10.4.0",
+		"@supabase/supabase-js": "^2.36.0",
 		"md5": "^2.3.0",
 		"svelte-toasts": "^1.1.2"
 	}

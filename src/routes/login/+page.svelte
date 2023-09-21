@@ -1,35 +1,34 @@
 <script>
   import Header from "../../components/Header.svelte";
   import hrefs from "../../data/hrefs.json";
-  import { createSbClient } from "../../hooks.client.js";
+  import { createSbClient, addParamsString } from "../../hooks.client.js";
+  import { goto } from "$app/navigation";
   export let data;
-  const apiKey = data.apiKey;
-  const sb = createSbClient(apiKey);
+  const api = data.api;
+  const sb = createSbClient(api);
   let email = "",
-    username = "",
-    fName = "",
-    lName = "",
     password = "";
-  let isSubmit = false;
   async function handleSubmit() {
-    isSubmit = true;
-    const { data, error } = await sb.auth.signUp({
+    const { data, error } = await sb.auth.signInWithPassword({
       email: email,
       password: password,
-      options: {
-        data: { username: username, first_name: fName, last_name: lName },
-      },
     });
-    isSubmit = false;
+    console.log("Here");
+    const redirect = addParamsString("", {
+      token: data.session.provider_token,
+    });
+    console.log(redirect);
+    goto(redirect);
   }
 </script>
 
 <main class="full-background">
-  <Header title={hrefs.signup.title} />
+  <Header title={hrefs.login.title} />
+
   <div class="container mb-5">
     <div class="py-5 text-center">
       <h1 class="font-google-quicksand fw-bold display-3">
-        {hrefs.signup.title}
+        {hrefs.login.title}
       </h1>
     </div>
     <div class="card shadow">
@@ -50,36 +49,6 @@
               bind:value={email}
             />
           </div>
-          <div class="mb-4">
-            <label for="username" class="form-label">Username</label>
-            <input
-              type="text"
-              class="form-control"
-              id="username"
-              bind:value={username}
-            />
-            <div class="form-text fs-6">
-              Must be unique, and must use latin alphabet.
-            </div>
-          </div>
-          <div class="mb-3">
-            <label class="form-label" for="fname">First Name</label>
-            <input
-              class="form-control"
-              type="text"
-              id="fname"
-              bind:value={fName}
-            />
-          </div>
-          <div class="mb-3">
-            <label class="form-label" for="lname">Last Name</label>
-            <input
-              class="form-control"
-              type="text"
-              id="lname"
-              bind:value={lName}
-            />
-          </div>
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <input
@@ -95,8 +64,7 @@
         <div class="card-footer">
           <button
             class="btn btn-primary w-100 fs-4 font-google-quicksand fw-bold"
-            type="submit"
-            disabled={isSubmit}>Sign Up</button
+            type="submit">Login</button
           >
         </div>
       </form>

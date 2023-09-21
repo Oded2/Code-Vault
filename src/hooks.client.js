@@ -1,54 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, child, get } from "firebase/database";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-
-export function writeUserData(apiKey, userID, email, username, name, password) {
-  const firebaseConfig = {
-    apiKey: apiKey,
-    authDomain: "code-vault-c5663.firebaseapp.com",
-    databaseURL:
-      "https://code-vault-c5663-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "code-vault-c5663",
-    storageBucket: "code-vault-c5663.appspot.com",
-    messagingSenderId: "74765715916",
-    appId: "1:74765715916:web:657ef2ac13479130753569",
-    measurementId: "G-FF0CTW4C4G",
-  };
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-  set(ref(db, "users/" + userID), {
-    email: email,
-    username: username,
-    name: name,
-    password: password,
-  });
-}
-
-export async function readUserData(apiKey, userId = "") {
-  let final;
-  const firebaseConfig = {
-    apiKey: apiKey,
-    authDomain: "code-vault-c5663.firebaseapp.com",
-    databaseURL:
-      "https://code-vault-c5663-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "code-vault-c5663",
-    storageBucket: "code-vault-c5663.appspot.com",
-    messagingSenderId: "74765715916",
-    appId: "1:74765715916:web:657ef2ac13479130753569",
-    measurementId: "G-FF0CTW4C4G",
-  };
-  const app = initializeApp(firebaseConfig);
-  const dbRef = ref(getDatabase(app));
-  await get(child(dbRef, `users/${userId}`)).then((snapshot) => {
-    final = snapshot.val();
-  });
-  return final;
-}
-
+import { createClient } from "@supabase/supabase-js";
+const sbUrl = "https://eflhfylvtszcepnfrccy.supabase.co";
 export function randomNum(min, max) {
   const difference = max - min;
   let rand = parseInt(Math.random() * difference + min);
@@ -89,4 +40,7 @@ export function simplifyString(str) {
     str = str.replace(/\s/g, "").toLowerCase();
   }
   return str;
+}
+export function createSbClient(api) {
+  return createClient(sbUrl, api);
 }

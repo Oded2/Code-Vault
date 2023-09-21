@@ -5,7 +5,15 @@
   import HomeCard from "../components/cards/HomeCard.svelte";
   import learningImg from "../images/svg/learning.svg";
   import hrefs from "../data/hrefs.json";
-
+  import { createSbClient } from "../hooks.client.js";
+  export let data;
+  const api = data.api;
+  const sb = createSbClient(api);
+  async function getUser() {
+    const { sbData, error } = await sb.auth.getSession();
+    console.log(sbData);
+  }
+  getUser();
   let showFilters = false;
   let filter = { html: true, python: true };
   const responsiveModal = "sm";

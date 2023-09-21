@@ -12,6 +12,10 @@
         "link": "/signup",
         "title": "Sign Up"
     },
+    "login": {
+        "link": "/login",
+        "title": "Login"
+    },
     "github": {
         "profile": "https://github.com/Oded2",
         "astrofetch": {
