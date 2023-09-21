@@ -8,6 +8,10 @@
         "link": "/contact",
         "title": "Contact"
     },
+    "signup": {
+        "link": "/signup",
+        "title": "Sign Up"
+    },
     "github": {
         "profile": "https://github.com/Oded2",
         "astrofetch": {
