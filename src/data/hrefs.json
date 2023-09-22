@@ -16,6 +16,14 @@
         "link": "/login",
         "title": "Login"
     },
+    "signout": {
+        "link": "/signout",
+        "title": "Signout"
+    },
+    "account": {
+        "link": "/account",
+        "title": "Account"
+    },
     "github": {
         "profile": "https://github.com/Oded2",
         "astrofetch": {

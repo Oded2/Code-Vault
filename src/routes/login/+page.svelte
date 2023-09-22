@@ -13,12 +13,6 @@
       email: email,
       password: password,
     });
-    console.log("Here");
-    const redirect = addParamsString("", {
-      token: data.session.provider_token,
-    });
-    console.log(redirect);
-    goto(redirect);
   }
 </script>
 

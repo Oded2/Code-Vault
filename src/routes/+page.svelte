@@ -5,15 +5,9 @@
   import HomeCard from "../components/cards/HomeCard.svelte";
   import learningImg from "../images/svg/learning.svg";
   import hrefs from "../data/hrefs.json";
-  import { createSbClient } from "../hooks.client.js";
   export let data;
   const api = data.api;
-  const sb = createSbClient(api);
-  async function getUser() {
-    const { sbData, error } = await sb.auth.getSession();
-    console.log(sbData);
-  }
-  getUser();
+  let currentSession;
   let showFilters = false;
   let filter = { html: true, python: true };
   const responsiveModal = "sm";
@@ -66,13 +60,16 @@
     </div>
   </div></Modal
 >
-<Header isHome={true} />
+<Header isHome={true} sbApi={api} />
 
 <main class="bg-light">
   <section class="text-bg-dark p-5 p-lg-1 text-center text-sm-start">
     <div class="container">
       <div class="d-sm-flex align-items-center justify-content-between">
         <div>
+          {#if currentSession}
+            <h1>Hello {currentSession}</h1>
+          {/if}
           <h1>The Code <span class="text-warning">Vault</span></h1>
           <p class="my-4 font-google-quicksand">
             Check out my coding projects as a learning developer.
