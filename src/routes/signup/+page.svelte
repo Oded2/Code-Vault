@@ -21,6 +21,7 @@
     password = "",
     confirmPass = "";
   let isSubmit = false;
+  let isComplete = false;
   function validatePass() {
     if (password == confirmPass) {
       return true;
@@ -33,17 +34,20 @@
       return;
     }
     isSubmit = true;
-    const { data, error } = await sb.auth.signUp({
+    const { error } = await sb.auth.signUp({
       email: email,
       password: password,
       options: {
         data: { first_name: fName, last_name: lName },
       },
     });
-    isSubmit = false;
+
     if (error) {
+      isSubmit = false;
       showToast("error", `Error: ${error.status}`, error.message);
+      return;
     }
+    isComplete = true;
   }
   function showToast(
     type = "error",
@@ -62,99 +66,116 @@
   }
 </script>
 
-<main class="full-background">
+<main class="full-background" class:text-bg-dark={isComplete}>
   <Header title={hrefs.signup.title} sbApi={apiKey} />
-  <div class="container mb-5">
-    <div class="py-5 text-center">
-      <h1 class="font-google-quicksand fw-bold display-3">
-        {hrefs.signup.title}
-      </h1>
-    </div>
-    <div class="card shadow">
-      <div class="card-header">
-        <span class="font-google-quicksand fw-light"
-          >Already have an account? <a
-            href={hrefs.login.link}
-            class="text-reset">Login</a
-          ></span
-        >
+  {#if !isComplete}
+    <div class="container mb-5">
+      <div class="py-5 text-center">
+        <h1 class="font-google-quicksand fw-bold display-3">
+          {hrefs.signup.title}
+        </h1>
       </div>
-
-      <form on:submit|preventDefault={handleSubmit}>
-        <div class="card-body fs-4">
-          <div class="mb-3">
-            <label class="form-label" for="userEmail">Email</label>
-            <input
-              class="form-control"
-              type="email"
-              id="userEmail"
-              bind:value={email}
-              required
-            />
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label" for="fname">First Name</label>
-            <input
-              class="form-control"
-              type="text"
-              id="fname"
-              bind:value={fName}
-              required
-            />
-          </div>
-          <div class="mb-3">
-            <label class="form-label" for="lname">Last Name</label>
-            <input
-              class="form-control"
-              type="text"
-              id="lname"
-              bind:value={lName}
-              required
-            />
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input
-              class="form-control"
-              type="password"
-              id="password"
-              minlength="8"
-              bind:value={password}
-              required
-            />
-            <div class="form-text fs-6">Must be at least 8 chracters long.</div>
-          </div>
-          <div class="mb-3">
-            <label for="confirm" class="form-label"
-              >Confirm Password
-              {#if password == confirmPass}
-                <i class="fa-solid fa-circle-check" style="color: #198754;" />
-              {:else}
-                <i class="fa-solid fa-circle-xmark" style="color: #dc3545;" />
-              {/if}
-            </label>
-
-            <input
-              class="form-control"
-              type="password"
-              id="confirm"
-              minlength="8"
-              bind:value={confirmPass}
-            />
-            <div class="form-text fs-6">Match your password.</div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <button
-            class="btn btn-primary w-100 fs-4 font-google-quicksand fw-bold"
-            type="submit"
-            disabled={isSubmit || password != confirmPass}>Sign Up</button
+      <div class="card shadow">
+        <div class="card-header">
+          <span class="font-google-quicksand fw-light"
+            >Already have an account? <a
+              href={hrefs.login.link}
+              class="text-reset">Login</a
+            ></span
           >
         </div>
-      </form>
+
+        <form on:submit|preventDefault={handleSubmit}>
+          <div class="card-body fs-4">
+            <div class="mb-3">
+              <label class="form-label" for="userEmail">Email</label>
+              <input
+                class="form-control"
+                type="email"
+                id="userEmail"
+                bind:value={email}
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="fname">First Name</label>
+              <input
+                class="form-control"
+                type="text"
+                id="fname"
+                bind:value={fName}
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="lname">Last Name</label>
+              <input
+                class="form-control"
+                type="text"
+                id="lname"
+                bind:value={lName}
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                class="form-control"
+                type="password"
+                id="password"
+                minlength="8"
+                bind:value={password}
+                required
+              />
+              <div class="form-text fs-6">
+                Must be at least 8 chracters long.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="confirm" class="form-label"
+                >Confirm Password
+                {#if password == confirmPass}
+                  <i class="fa-solid fa-circle-check" style="color: #198754;" />
+                {:else}
+                  <i class="fa-solid fa-circle-xmark" style="color: #dc3545;" />
+                {/if}
+              </label>
+
+              <input
+                class="form-control"
+                type="password"
+                id="confirm"
+                minlength="8"
+                bind:value={confirmPass}
+              />
+              <div class="form-text fs-6">Match your password.</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button
+              class="btn btn-primary w-100 fs-4 font-google-quicksand fw-bold"
+              type="submit"
+              disabled={isSubmit || password != confirmPass}>Sign Up</button
+            >
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
+  {:else}
+    <div class="container py-5 overflow-auto">
+      <div class="text-center font-google-quicksand">
+        <div>
+          <h1 class="display-2 fw-600">Thank you!</h1>
+          <h1 class=" fw-bold">
+            A verification email was sent to
+            <span class="text-warning">{email}</span>. Click the link and you
+            will be signed in automatically.
+          </h1>
+        </div>
+      </div>
+    </div>
+  {/if}
 </main>
 
 <ToastContainer>
