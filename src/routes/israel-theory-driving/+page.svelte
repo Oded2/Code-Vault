@@ -6,6 +6,7 @@
   import Results from "../../components/Results.svelte";
   import { addParams, randomNum, simplifyString } from "../../hooks.client.js";
   import hrefs from "../../data/hrefs.json";
+  export let data;
   let questions,
     questionArr,
     question,
@@ -217,7 +218,10 @@
   class:vh-100={showResults}
   class:overflow-hidden={showResults}
 >
-  <Header title={hrefs["israeli-driver-test"]["home"]["title"]} />
+  <Header
+    title={hrefs["israeli-driver-test"]["home"]["title"]}
+    sbApi={data.sbApi}
+  />
   <div class="container">
     <div class="ms-0 ms-sm-2">
       <h1>The Israeli Driver Test</h1>

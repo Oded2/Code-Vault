@@ -155,7 +155,7 @@
 </script>
 
 <main class="text-bg-dark full-background">
-  <Header title={hrefs.astrofetch.home.title} />
+  <Header title={hrefs.astrofetch.home.title} sbApi={data.sbApi} />
   <section class="p-lg-5 text-center text-lg-start">
     <div class="container">
       <div class="d-sm-flex align-items-center justify-content-between">

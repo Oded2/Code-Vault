@@ -3,13 +3,14 @@
   import hrefs from "../../data/hrefs.json";
   import startup from "../../images/svg/startup.svg";
   import launch from "../../images/svg/launch.svg";
-  import data from "../../images/svg/data.svg";
+  import dataImg from "../../images/svg/data.svg";
   import settings from "../../images/svg/settings.svg";
   import email from "../../images/svg/email.svg";
+  export let data;
 </script>
 
 <main class="full-background text-bg-dark">
-  <Header title={hrefs["about"]["title"]} />
+  <Header title={hrefs["about"]["title"]} sbApi={data.sbApi} />
   <section class="p-1">
     <div class="container">
       <div class="row p-3">
@@ -49,7 +50,7 @@
           </p>
         </div>
         <div class="col-md d-md-block d-flex justify-content-center">
-          <img class="w-50 float-end img-fluid" src={data} alt="Data" />
+          <img class="w-50 float-end img-fluid" src={dataImg} alt="Data" />
         </div>
       </div>
       <div class="row p-3">
