@@ -63,7 +63,7 @@
 </script>
 
 <main class="full-background">
-  <Header title={hrefs.signup.title} />
+  <Header title={hrefs.signup.title} sbApi={apiKey} />
   <div class="container mb-5">
     <div class="py-5 text-center">
       <h1 class="font-google-quicksand fw-bold display-3">

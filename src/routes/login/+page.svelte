@@ -48,7 +48,7 @@
 </script>
 
 <main class="full-background">
-  <Header title={hrefs.login.title} />
+  <Header title={hrefs.login.title} sbApi={api} />
 
   <div class="container mb-5">
     <div class="py-5 text-center">
