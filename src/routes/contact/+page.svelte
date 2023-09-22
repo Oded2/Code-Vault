@@ -1,12 +1,16 @@
 <script>
+  import { onMount } from "svelte";
+  import { createSbClient } from "../../hooks.client.js";
   import { toasts, ToastContainer, FlatToast } from "svelte-toasts";
   import Header from "../../components/Header.svelte";
   import hrefs from "../../data/hrefs.json";
+  export let data;
+  const api = data.api;
+  const sb = createSbClient(api);
   const mailTo = hrefs["email"]["mailto"];
   const mail = hrefs["email"]["address"];
   const maxLengthShort = 50;
   const maxLengthLong = 5000;
-
   const formUrl = "https://formspree.io/f/mnqkqrgg";
   let toast;
   let email = "";
@@ -18,7 +22,15 @@
   let nameError = { error: false, message: "" };
   let topicError = { error: false, message: "" };
   let messageError = { error: false, message: "" };
-
+  onMount(async () => {
+    const { data, error } = await sb.auth.getSession();
+    if (!data.session) {
+      return;
+    }
+    const user = data.session.user;
+    email = user.email;
+    name = `${user.user_metadata.first_name} ${user.user_metadata.last_name}`;
+  });
   function validateValues() {
     let valid = true;
     const emailValid = validateValue(email, maxLengthShort, "Email", "email");
@@ -129,7 +141,7 @@
   }
 </script>
 
-<Header title={hrefs["contact"]["title"]} />
+<Header title={hrefs["contact"]["title"]} sbApi={api} />
 <main>
   <div class="container">
     <form on:submit|preventDefault={onSubmit}>
