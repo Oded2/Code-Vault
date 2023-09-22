@@ -6,10 +6,10 @@
   const apiKey = data.apiKey;
   const sb = createSbClient(apiKey);
   let email = "",
-    username = "",
     fName = "",
     lName = "",
-    password = "";
+    password = "",
+    confirmPass = "";
   let isSubmit = false;
   async function handleSubmit() {
     isSubmit = true;
@@ -17,7 +17,7 @@
       email: email,
       password: password,
       options: {
-        data: { username: username, first_name: fName, last_name: lName },
+        data: { first_name: fName, last_name: lName },
       },
     });
     isSubmit = false;
@@ -50,18 +50,7 @@
               bind:value={email}
             />
           </div>
-          <div class="mb-4">
-            <label for="username" class="form-label">Username</label>
-            <input
-              type="text"
-              class="form-control"
-              id="username"
-              bind:value={username}
-            />
-            <div class="form-text fs-6">
-              Must be unique, and must use latin alphabet.
-            </div>
-          </div>
+
           <div class="mb-3">
             <label class="form-label" for="fname">First Name</label>
             <input
@@ -91,12 +80,22 @@
             />
             <div class="form-text fs-6">Must be at least 8 chracters long.</div>
           </div>
+          <div class="mb-3">
+            <label for="confirm" class="form-label">Confirm Password</label>
+            <input
+              class="form-control"
+              type="password"
+              id="confirm"
+              minlength="8"
+              bind:value={confirmPass}
+            />
+            <div class="form-text fs-6">Must be at least 8 chracters long.</div>
+          </div>
         </div>
         <div class="card-footer">
           <button
             class="btn btn-primary w-100 fs-4 font-google-quicksand fw-bold"
-            type="submit"
-            disabled={isSubmit}>Sign Up</button
+            type="submit">Sign Up</button
           >
         </div>
       </form>
