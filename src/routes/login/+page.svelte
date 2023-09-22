@@ -1,12 +1,18 @@
 <script>
+  import { onMount } from "svelte";
   import { toasts, ToastContainer, FlatToast } from "svelte-toasts";
   import Header from "../../components/Header.svelte";
   import hrefs from "../../data/hrefs.json";
-  import { createSbClient, addParamsString } from "../../hooks.client.js";
+  import { createSbClient, isLoggedIn } from "../../hooks.client.js";
   import { goto } from "$app/navigation";
   export let data;
   const api = data.api;
   const sb = createSbClient(api);
+  onMount(async () => {
+    if (await isLoggedIn(sb)) {
+      goto(hrefs.home);
+    }
+  });
   let toast;
   let email = "",
     password = "";

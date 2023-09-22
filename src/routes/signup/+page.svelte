@@ -1,12 +1,19 @@
 <script>
+  import { onMount } from "svelte";
+  import { goto } from "$app/navigation";
   import { toasts, ToastContainer, FlatToast } from "svelte-toasts";
   import Header from "../../components/Header.svelte";
   import hrefs from "../../data/hrefs.json";
-  import { createSbClient } from "../../hooks.client.js";
+  import { createSbClient, isLoggedIn } from "../../hooks.client.js";
 
   export let data;
   const apiKey = data.apiKey;
   const sb = createSbClient(apiKey);
+  onMount(async () => {
+    if (await isLoggedIn(sb)) {
+      goto(hrefs.home);
+    }
+  });
   let toast;
   let email = "",
     fName = "",
@@ -82,6 +89,7 @@
               type="email"
               id="userEmail"
               bind:value={email}
+              required
             />
           </div>
 
@@ -92,6 +100,7 @@
               type="text"
               id="fname"
               bind:value={fName}
+              required
             />
           </div>
           <div class="mb-3">
@@ -101,6 +110,7 @@
               type="text"
               id="lname"
               bind:value={lName}
+              required
             />
           </div>
           <div class="mb-3">
@@ -111,6 +121,7 @@
               id="password"
               minlength="8"
               bind:value={password}
+              required
             />
             <div class="form-text fs-6">Must be at least 8 chracters long.</div>
           </div>
@@ -138,7 +149,7 @@
           <button
             class="btn btn-primary w-100 fs-4 font-google-quicksand fw-bold"
             type="submit"
-            disabled={isSubmit}>Sign Up</button
+            disabled={isSubmit || password != confirmPass}>Sign Up</button
           >
         </div>
       </form>
