@@ -1,17 +1,30 @@
 <script>
+  import { toasts, ToastContainer, FlatToast } from "svelte-toasts";
   import Header from "../../components/Header.svelte";
   import hrefs from "../../data/hrefs.json";
   import { createSbClient } from "../../hooks.client.js";
+
   export let data;
   const apiKey = data.apiKey;
   const sb = createSbClient(apiKey);
+  let toast;
   let email = "",
     fName = "",
     lName = "",
     password = "",
     confirmPass = "";
   let isSubmit = false;
+  function validatePass() {
+    if (password == confirmPass) {
+      return true;
+    }
+    return false;
+  }
   async function handleSubmit() {
+    if (!validatePass()) {
+      showToast("error", "Signup Failed", "Passwords must be matching.");
+      return;
+    }
     isSubmit = true;
     const { data, error } = await sb.auth.signUp({
       email: email,
@@ -21,6 +34,24 @@
       },
     });
     isSubmit = false;
+    if (error) {
+      showToast("error", `Error: ${error.status}`, error.message);
+    }
+  }
+  function showToast(
+    type = "error",
+    title = "Signup failed",
+    description = "Failed to signup"
+  ) {
+    toast = toasts.add({
+      title: title,
+      description: description,
+      duration: 5000,
+      placement: "bottom-center",
+      type: type,
+      theme: "dark",
+      showProgress: true,
+    });
   }
 </script>
 
@@ -35,7 +66,10 @@
     <div class="card shadow">
       <div class="card-header">
         <span class="font-google-quicksand fw-light"
-          >Sign up for Code Vault</span
+          >Already have an account? <a
+            href={hrefs.login.link}
+            class="text-reset">Login</a
+          ></span
         >
       </div>
 
@@ -81,7 +115,15 @@
             <div class="form-text fs-6">Must be at least 8 chracters long.</div>
           </div>
           <div class="mb-3">
-            <label for="confirm" class="form-label">Confirm Password</label>
+            <label for="confirm" class="form-label"
+              >Confirm Password
+              {#if password == confirmPass}
+                <i class="fa-solid fa-circle-check" style="color: #198754;" />
+              {:else}
+                <i class="fa-solid fa-circle-xmark" style="color: #dc3545;" />
+              {/if}
+            </label>
+
             <input
               class="form-control"
               type="password"
@@ -89,16 +131,21 @@
               minlength="8"
               bind:value={confirmPass}
             />
-            <div class="form-text fs-6">Must be at least 8 chracters long.</div>
+            <div class="form-text fs-6">Match your password.</div>
           </div>
         </div>
         <div class="card-footer">
           <button
             class="btn btn-primary w-100 fs-4 font-google-quicksand fw-bold"
-            type="submit">Sign Up</button
+            type="submit"
+            disabled={isSubmit}>Sign Up</button
           >
         </div>
       </form>
     </div>
   </div>
 </main>
+
+<ToastContainer>
+  <FlatToast data={toast} />
+</ToastContainer>

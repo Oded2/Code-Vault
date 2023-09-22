@@ -34,7 +34,9 @@
     <div class="card shadow">
       <div class="card-header">
         <span class="font-google-quicksand fw-light"
-          >Sign up for Code Vault</span
+          >Don't have an account? <a href={hrefs.signup.link} class="text-reset"
+            >Sign Up</a
+          ></span
         >
       </div>
 

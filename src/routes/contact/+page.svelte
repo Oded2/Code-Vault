@@ -215,11 +215,9 @@
     </form>
   </div>
 </main>
-<div>
-  <ToastContainer>
-    <FlatToast data={toast} />
-  </ToastContainer>
-</div>
+<ToastContainer>
+  <FlatToast data={toast} />
+</ToastContainer>
 
 <style>
   .border-error {
