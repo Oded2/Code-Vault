@@ -1,4 +1,5 @@
 <script>
+  import { toasts, ToastContainer, FlatToast } from "svelte-toasts";
   import Header from "../../components/Header.svelte";
   import hrefs from "../../data/hrefs.json";
   import { createSbClient, addParamsString } from "../../hooks.client.js";
@@ -6,12 +7,36 @@
   export let data;
   const api = data.api;
   const sb = createSbClient(api);
+  let toast;
   let email = "",
     password = "";
+  let isSubmit = false;
   async function handleSubmit() {
-    const { data, error } = await sb.auth.signInWithPassword({
+    isSubmit = true;
+    const { error } = await sb.auth.signInWithPassword({
       email: email,
       password: password,
+    });
+    isSubmit = false;
+    if (error) {
+      showToast("error", "Login Failed", error.message);
+      return;
+    }
+    goto(hrefs.home);
+  }
+  function showToast(
+    type = "error",
+    title = "Login Failed",
+    description = "Failed to Login"
+  ) {
+    toast = toasts.add({
+      title: title,
+      description: description,
+      duration: 5000,
+      placement: "bottom-center",
+      type: type,
+      theme: "dark",
+      showProgress: true,
     });
   }
 </script>
@@ -60,10 +85,13 @@
         <div class="card-footer">
           <button
             class="btn btn-primary w-100 fs-4 font-google-quicksand fw-bold"
-            type="submit">Login</button
+            type="submit"
+            disabled={isSubmit}>Login</button
           >
         </div>
       </form>
     </div>
   </div>
 </main>
+
+<ToastContainer><FlatToast data={toast} /></ToastContainer>

@@ -19,7 +19,9 @@
     if (sbApi) {
       const sb = createSbClient(sbApi);
       const { data, error } = await sb.auth.getSession();
-      userData = data.session.user;
+      if (data.session) {
+        userData = data.session.user;
+      }
     }
   });
 
@@ -102,6 +104,33 @@
         </ul>
       {/if}
       <ul class="navbar-nav ms-auto">
+        {#if sbApi}
+          {#if !userData}
+            <a
+              href={hrefs.signup.link}
+              class="nav-link"
+              class:active={title == hrefs.signup.title}>{hrefs.signup.title}</a
+            >
+            <a
+              href={hrefs.login.link}
+              class="nav-link"
+              class:active={title == hrefs.login.title}>{hrefs.login.title}</a
+            >
+          {:else}
+            <a
+              href={hrefs.account.link}
+              class="nav-link"
+              class:active={title == hrefs.account.title}
+              >{hrefs.account.title}</a
+            >
+            <a
+              href={hrefs.signout.link}
+              class="nav-link"
+              class:active={title == hrefs.signout.title}
+              >{hrefs.signout.title}</a
+            >
+          {/if}
+        {/if}
         <li>
           <a
             href={hrefs["about"]["link"]}
@@ -116,29 +145,7 @@
             class:active={title == hrefs["contact"]["title"]}>Contact</a
           >
         </li>
-        {#if !userData}
-          <a
-            href={hrefs.signup.link}
-            class="nav-link"
-            class:active={title == hrefs.signup.title}>{hrefs.signup.title}</a
-          >
-          <a
-            href={hrefs.login.link}
-            class="nav-link"
-            class:active={title == hrefs.login.title}>{hrefs.login.title}</a
-          >
-        {:else}
-          <a
-            href={hrefs.account.link}
-            class="nav-link"
-            class:active={title == hrefs.account.title}>{hrefs.account.title}</a
-          >
-          <a
-            href={hrefs.signout.link}
-            class="nav-link"
-            class:active={title == hrefs.signout.title}>{hrefs.signout.title}</a
-          >
-        {/if}
+
         <!-- <li class="d-none d-{breakpoint}-block">
           <div class="btn-group mx-{breakpoint}-2">
             <button

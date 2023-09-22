@@ -18,7 +18,7 @@
     },
     "signout": {
         "link": "/signout",
-        "title": "Signout"
+        "title": "Sign Out"
     },
     "account": {
         "link": "/account",
