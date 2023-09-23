@@ -61,12 +61,15 @@
         last_name: newValues.lname,
       },
     });
+
     toChange.name = false;
     toggleName();
     if (error) {
       toast = showToast("error", "Couldn't change name", error.message);
       return;
     }
+    values.fname = newValues.fname;
+    values.lname = newValues.lname;
 
     toast = showToast(
       "success",
