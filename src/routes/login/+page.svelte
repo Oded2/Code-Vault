@@ -35,10 +35,12 @@
     }
     goto(hrefs.home);
   }
-  async function restPassword() {
+  async function resetPassword() {
+    isReset = true;
     const { error } = await sb.auth.resetPasswordForEmail(resetemail, {
       redirectTo: hrefs.resetpassword.webLink,
     });
+    isReset = false;
     if (error) {
       toast = showToast("error", "Error", error.message);
       return;
@@ -55,7 +57,7 @@
 </script>
 
 <Modal {showModal} on:click={toggleModal}>
-  <div class="p-sm-5 fs-4">
+  <div class="p-sm-5 fs-3">
     <label for="resetemail" class="font-google-quicksand fw-600"
       >Enter your email</label
     >
@@ -68,7 +70,7 @@
     <button
       class="btn btn-primary font-google-quicksand fw-bold fs-4 my-2 w-100"
       disabled={isReset || resetemail.length == 0}
-      on:click={restPassword}>Send link</button
+      on:click={resetPassword}>Send link</button
     >
   </div>
 </Modal>
