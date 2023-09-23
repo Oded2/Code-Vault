@@ -3,8 +3,6 @@
   import { goto } from "$app/navigation";
   import { FlatToast, ToastContainer } from "svelte-toasts";
   import Header from "../../components/Header.svelte";
-  import FloatElement from "../../components/FloatElement.svelte";
-  import DarkModeSwitch from "../../components/DarkModeSwitch.svelte";
   import Modal from "../../components/Modal.svelte";
   import { createSbClient, showToast } from "../../hooks.client.js";
   import hrefs from "../../data/hrefs.json";
@@ -12,17 +10,14 @@
   const api = data.sbApi;
   const sb = createSbClient(api);
   let toast;
-  let dark = false,
-    showEmail = false,
+  let showEmail = false,
     showName = false;
-
-  //   toggleModal();
   let userData;
   let values = { email: "", fname: "", lname: "" };
   let newValues = { email: "", fname: "", lname: "" };
   let toChange = { email: false, name: false, password: false };
   onMount(async () => {
-    const { data, error } = await sb.auth.getSession();
+    const { data } = await sb.auth.getSession();
     if (!data.session) {
       goto(hrefs.home);
       return;
@@ -134,15 +129,14 @@
     >
   </div>
 </Modal>
-<FloatElement><DarkModeSwitch bind:checked={dark} /></FloatElement>
-<main class="full-background" class:text-bg-dark={dark}>
+<main class="full-background">
   <Header title={hrefs.account.title} sbApi={api} />
   {#if userData}
     <div class="container py-5">
       <div class="font-google-quicksand">
         <h1 class="display-4 fw-600">Hello {values.fname}!</h1>
       </div>
-      <div class="card shadow my-5" class:text-bg-secondary={dark}>
+      <div class="card shadow my-5">
         <div class="card-header">
           <span class="font-google-quicksand">Account Settings</span>
         </div>
