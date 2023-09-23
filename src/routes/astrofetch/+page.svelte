@@ -1,12 +1,30 @@
 <script>
   import Header from "../../components/Header.svelte";
-  import { addParams, addParamsString, fetchData } from "../../hooks.client.js";
+  import {
+    addParams,
+    addParamsString,
+    fetchData,
+    createSbClient,
+    showToast,
+  } from "../../hooks.client.js";
   import hrefs from "../../data/hrefs.json";
   import nasaLogo from "../../images/svg/NASA.svg";
   import rocketImg from "../../images/svg/rocket.svg";
+  import FloatElement from "../../components/FloatElement.svelte";
+  import { onMount } from "svelte";
+  import { FlatToast, ToastContainer } from "svelte-toasts";
   export let data;
-  const nasaApiKey = data["api"];
+  const nasaApiKey = data.api;
+  const sbApi = data.sbApi;
+  const sb = createSbClient(sbApi);
   const today = new Date().toISOString().split("T")[0];
+  let sessionData;
+  let inProgress = false;
+  let toast;
+  onMount(async () => {
+    const { data } = await sb.auth.getSession();
+    sessionData = data.session;
+  });
   let startDate = today;
   let endDate = today;
   let astroData = [0];
@@ -152,10 +170,26 @@
     changeEndDate(30);
     submit(false);
   }
+  async function saveToVault() {
+    inProgress = true;
+    const { error } = await sb
+      .from("Vaults")
+      .update({ astrofetch: current })
+      .eq("user_id", sessionData.user.id);
+    inProgress = false;
+    if (error) {
+      toast = showToast("error", "Error", error.message);
+    }
+    toast = showToast(
+      "success",
+      "Added to Vault",
+      "Current astrofetch has been saved to your personal vault"
+    );
+  }
 </script>
 
 <main class="text-bg-dark full-background">
-  <Header title={hrefs.astrofetch.home.title} sbApi={data.sbApi} />
+  <Header title={hrefs.astrofetch.home.title} {sbApi} />
   <section class="p-lg-5 text-center text-lg-start">
     <div class="container">
       <div class="d-sm-flex align-items-center justify-content-between">
@@ -517,6 +551,18 @@
     </div>
   </section>
 </main>
+
+{#if isData && sessionData}
+  <FloatElement
+    ><button
+      class="btn btn-outline-light fs-2"
+      on:click={saveToVault}
+      disabled={inProgress}><i class="fa-solid fa-vault" /></button
+    ></FloatElement
+  >
+{/if}
+
+<ToastContainer><FlatToast data={toast} /></ToastContainer>
 
 <style>
   .custom-text {

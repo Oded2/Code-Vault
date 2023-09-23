@@ -103,9 +103,10 @@
     <!-- <div class="row">
       <div class="col">
         <div class="card">
-          <div class="card-header">
-            <h5 class="fw-600">Your favorite website</h5>
+          <div class="card-header text-center">
+            <h2>AstroFetch</h2>
           </div>
+          <div class="card-body"></div>
         </div>
       </div>
     </div> -->
