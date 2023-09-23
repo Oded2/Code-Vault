@@ -20,8 +20,6 @@
   let email = "",
     password = "",
     resetemail = "";
-
-  toggleModal();
   let isSubmit = false,
     isReset = false;
   async function handleSubmit() {
