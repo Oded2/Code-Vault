@@ -24,6 +24,11 @@
         "link": "/account",
         "title": "Account"
     },
+    "resetpassword": {
+        "link": "/resetpassword",
+        "title": "Password Reset",
+        "webLink": "https://oded.benamotz.com/passwordreset"
+    },
     "github": {
         "profile": "https://github.com/Oded2",
         "astrofetch": {

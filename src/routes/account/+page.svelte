@@ -20,7 +20,7 @@
   let userData;
   let values = { email: "", fname: "", lname: "" };
   let newValues = { email: "", fname: "", lname: "" };
-  let toChange = { email: false, name: false, password: true };
+  let toChange = { email: false, name: false, password: false };
   onMount(async () => {
     const { data, error } = await sb.auth.getSession();
     if (!data.session) {
@@ -54,7 +54,7 @@
 
     toast = showToast(
       "info",
-      "Check email",
+      "Check Email",
       `Validate your new email by checking the inbox on ${newValues.email}`
     );
   }
@@ -79,7 +79,6 @@
       `You will now be known as ${newValues.fname} ${newValues.lname}`
     );
   }
-  async function resetPassword() {}
 </script>
 
 <Modal showModal={showEmail} on:click={toggleEmail}>
@@ -173,10 +172,10 @@
             </div>
           </div>
           <div class="pt-3 text-center border-top">
-            <button
+            <a
+              href={hrefs.resetpassword.link}
               class="btn btn-outline-danger font-google-quicksand fw-bold fs-4 w-100"
-              disabled={toChange.password}
-              ><i class="fa-solid fa-pen-to-square" /> Reset Password</button
+              >Reset Password</a
             >
           </div>
         </div>
