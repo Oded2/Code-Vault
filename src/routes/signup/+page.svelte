@@ -1,10 +1,10 @@
 <script>
   import { onMount } from "svelte";
   import { goto } from "$app/navigation";
-  import { toasts, ToastContainer, FlatToast } from "svelte-toasts";
+  import { ToastContainer, FlatToast } from "svelte-toasts";
   import Header from "../../components/Header.svelte";
   import hrefs from "../../data/hrefs.json";
-  import { createSbClient, isLoggedIn } from "../../hooks.client.js";
+  import { createSbClient, isLoggedIn, showToast } from "../../hooks.client.js";
 
   export let data;
   const apiKey = data.apiKey;
@@ -30,7 +30,11 @@
   }
   async function handleSubmit() {
     if (!validatePass()) {
-      showToast("error", "Signup Failed", "Passwords must be matching.");
+      toast = showToast(
+        "error",
+        "Signup Failed",
+        "Passwords must be matching."
+      );
       return;
     }
     isSubmit = true;
@@ -44,25 +48,10 @@
 
     if (error) {
       isSubmit = false;
-      showToast("error", `Error: ${error.status}`, error.message);
+      toast = showToast("error", `Error: ${error.status}`, error.message);
       return;
     }
     isComplete = true;
-  }
-  function showToast(
-    type = "error",
-    title = "Signup failed",
-    description = "Failed to signup"
-  ) {
-    toast = toasts.add({
-      title: title,
-      description: description,
-      duration: 5000,
-      placement: "bottom-center",
-      type: type,
-      theme: "dark",
-      showProgress: true,
-    });
   }
 </script>
 

@@ -44,6 +44,12 @@
             "download": "https://github.com/Oded2/Python-Encryption/archive/refs/heads/master.zip"
         }
     },
+    "vault": {
+        "home": {
+            "link": "/vault",
+            "title": "Personal Vault"
+        }
+    },
     "fun-projects": {
         "home": {
             "link": "/fun-projects",
