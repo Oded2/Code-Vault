@@ -46,7 +46,7 @@
     toast = showToast(
       "info",
       "Check Email",
-      "A password reset link has been sent to your email"
+      `A password reset link has been sent to ${resetemail}`
     );
   }
   function toggleModal() {
