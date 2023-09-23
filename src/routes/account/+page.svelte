@@ -13,13 +13,14 @@
   const sb = createSbClient(api);
   let toast;
   let dark = false,
-    showEmail = false;
+    showEmail = false,
+    showName = false;
 
   //   toggleModal();
   let userData;
   let values = { email: "", fname: "", lname: "" };
   let newValues = { email: "", fname: "", lname: "" };
-  let toChange = { email: false, fname: false, lname: false };
+  let toChange = { email: false, name: false, password: true };
   onMount(async () => {
     const { data, error } = await sb.auth.getSession();
     if (!data.session) {
@@ -30,9 +31,14 @@
     values.email = userData.email;
     values.fname = userData.user_metadata.first_name;
     values.lname = userData.user_metadata.last_name;
+    newValues.fname = values.fname;
+    newValues.lname = values.lname;
   });
   function toggleEmail() {
     showEmail = !showEmail;
+  }
+  function toggleName() {
+    showName = !showName;
   }
   async function updateEmail() {
     toChange.email = true;
@@ -52,6 +58,28 @@
       `Validate your new email by checking the inbox on ${newValues.email}`
     );
   }
+  async function updateName() {
+    toChange.name = true;
+    const { data, error } = await sb.auth.updateUser({
+      data: {
+        first_name: newValues.fname,
+        last_name: newValues.lname,
+      },
+    });
+    toChange.name = false;
+    toggleName();
+    if (error) {
+      toast = showToast("error", "Couldn't change name", error.message);
+      return;
+    }
+
+    toast = showToast(
+      "success",
+      "Your name has been changed",
+      `You will now be known as ${newValues.fname} ${newValues.lname}`
+    );
+  }
+  async function resetPassword() {}
 </script>
 
 <Modal showModal={showEmail} on:click={toggleEmail}>
@@ -69,6 +97,41 @@
       class="btn btn-primary fs-4 font-google-quicksand fw-bold w-100 my-2"
       on:click={updateEmail}
       disabled={toChange.email}>Confirm</button
+    >
+  </div>
+</Modal>
+
+<Modal showModal={showName} on:click={toggleName}>
+  <div class="p-sm-5 mx-sm-5 text-center">
+    <h1 class="font-google-quicksand fw-bold">Edit name</h1>
+    <h4 class="font-google-quicksand fw-600">
+      Old name: {values.fname}
+      {values.lname}
+    </h4>
+    <div class="row">
+      <div class="col-md">
+        <input
+          type="text"
+          class="form-control fs-4"
+          placeholder="Type your new first name here"
+          bind:value={newValues.fname}
+          disabled={toChange.name}
+        />
+      </div>
+      <div class="col-md">
+        <input
+          type="text"
+          class="form-control fs-4"
+          placeholder="Type your new last name here"
+          bind:value={newValues.lname}
+          disabled={toChange.name}
+        />
+      </div>
+    </div>
+    <button
+      class="btn btn-primary fs-4 font-google-quicksand fw-bold w-100 my-2"
+      on:click={updateName}
+      disabled={toChange.name}>Confirm</button
     >
   </div>
 </Modal>
@@ -98,26 +161,23 @@
             </div>
           </div>
           <div class="row mb-3 pt-3 text-center border-top">
-            <div class="col-lg-3 fw-bold">First name</div>
-            <div class="col-lg-6 fw-500">{values.fname}</div>
+            <div class="col-lg-3 fw-bold">Name</div>
+            <div class="col-lg-6 fw-500">{values.fname} {values.lname}</div>
 
             <div class="col-lg-3">
               <button
                 class="btn btn-primary font-google-quicksand fw-bold fs-4 w-100"
+                on:click={toggleName}
                 ><i class="fa-solid fa-pen-to-square" /> Edit</button
               >
             </div>
           </div>
-          <div class="row pt-3 text-center border-top">
-            <div class="col-lg-3 fw-bold">Last name</div>
-            <div class="col-lg-6 fw-500">{values.lname}</div>
-
-            <div class="col-lg-3">
-              <button
-                class="btn btn-primary font-google-quicksand fw-bold fs-4 w-100"
-                ><i class="fa-solid fa-pen-to-square" /> Edit</button
-              >
-            </div>
+          <div class="pt-3 text-center border-top">
+            <button
+              class="btn btn-outline-danger font-google-quicksand fw-bold fs-4 w-100"
+              disabled={toChange.password}
+              ><i class="fa-solid fa-pen-to-square" /> Reset Password</button
+            >
           </div>
         </div>
       </div>
