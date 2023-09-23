@@ -5,13 +5,21 @@
   import HomeCard from "../components/cards/HomeCard.svelte";
   import learningImg from "../images/svg/learning.svg";
   import hrefs from "../data/hrefs.json";
+  import { createSbClient } from "../hooks.client.js";
+  import { onMount } from "svelte";
   export let data;
   const api = data.api;
+  const sb = createSbClient(api);
   let currentSession;
   let showFilters = false;
-  let filter = { html: true, python: true };
-  const responsiveModal = "sm";
-
+  let filter = { html: true, python: true, login: false };
+  onMount(async () => {
+    const { data, error } = await sb.auth.getSession();
+    if (!data.session) {
+      return;
+    }
+    filter.login = true;
+  });
   const toggleFilters = () => {
     showFilters = !showFilters;
   };
@@ -49,13 +57,17 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-{responsiveModal}"><h3>Webpages</h3></div>
-      <div class="col-{responsiveModal}">
-        <Switch bind:checked={filter["html"]} />
+      <div class="col-sm-6 col-md-3"><h3>Webpages</h3></div>
+      <div class="col-sm-6 col-md-3">
+        <Switch bind:checked={filter.html} />
       </div>
-      <div class="col-{responsiveModal}"><h3>Python</h3></div>
-      <div class="col-{responsiveModal}">
-        <Switch bind:checked={filter["python"]} />
+      <div class="col-sm-6 col-md-3"><h3>Python</h3></div>
+      <div class="col-sm-6 col-md-3">
+        <Switch bind:checked={filter.python} />
+      </div>
+      <div class="col-sm-6 col-md-3"><h3>Account Required</h3></div>
+      <div class="col-sm-6 col-md-3">
+        <Switch bind:checked={filter.login} />
       </div>
     </div>
   </div></Modal
@@ -101,6 +113,13 @@
       >
     </div>
     <div class="row">
+      <HomeCard
+        show={filter.html && filter.login}
+        title={hrefs.vault.home.title}
+        description="Access your personal vault! Customized to your preference, and good for saving stuff for later."
+        icon="vault"
+        mainLink={hrefs.vault.home.link}
+      />
       <HomeCard
         show={filter["html"]}
         title={hrefs["fun-projects"]["home"]["title"]}
