@@ -118,16 +118,16 @@
             >
           {:else}
             <a
-              href={hrefs.account.link}
-              class="nav-link"
-              class:active={title == hrefs.account.title}
-              >{hrefs.account.title}</a
-            >
-            <a
               href={hrefs.signout.link}
               class="nav-link"
               class:active={title == hrefs.signout.title}
               >{hrefs.signout.title}</a
+            >
+            <a
+              href={hrefs.account.link}
+              class="nav-link"
+              class:active={title == hrefs.account.title}
+              >{hrefs.account.title}</a
             >
           {/if}
         {/if}

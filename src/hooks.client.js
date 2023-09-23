@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { toasts } from "svelte-toasts";
 const sbUrl = "https://eflhfylvtszcepnfrccy.supabase.co";
 export function randomNum(min, max) {
   const difference = max - min;
@@ -51,4 +52,16 @@ export async function isLoggedIn(sbClient) {
     return true;
   }
   return false;
+}
+
+export function showToast(type = "success", title = "Success", description) {
+  return toasts.add({
+    title: title,
+    description: description,
+    duration: 5000,
+    placement: "bottom-center",
+    type: type,
+    theme: "dark",
+    showProgress: true,
+  });
 }
