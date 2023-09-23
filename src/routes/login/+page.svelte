@@ -1,13 +1,16 @@
 <script>
   import { onMount } from "svelte";
-  import { toasts, ToastContainer, FlatToast } from "svelte-toasts";
+  import { ToastContainer, FlatToast } from "svelte-toasts";
   import Header from "../../components/Header.svelte";
+  import Modal from "../../components/Modal.svelte";
   import hrefs from "../../data/hrefs.json";
-  import { createSbClient, isLoggedIn } from "../../hooks.client.js";
+  import { createSbClient, isLoggedIn, showToast } from "../../hooks.client.js";
   import { goto } from "$app/navigation";
+  import { error } from "@sveltejs/kit";
   export let data;
   const api = data.api;
   const sb = createSbClient(api);
+  let showModal = false;
   onMount(async () => {
     if (await isLoggedIn(sb)) {
       goto(hrefs.home);
@@ -15,8 +18,12 @@
   });
   let toast;
   let email = "",
-    password = "";
-  let isSubmit = false;
+    password = "",
+    resetemail = "";
+
+  toggleModal();
+  let isSubmit = false,
+    isReset = false;
   async function handleSubmit() {
     isSubmit = true;
     const { error } = await sb.auth.signInWithPassword({
@@ -25,31 +32,50 @@
     });
     isSubmit = false;
     if (error) {
-      showToast("error", "Login Failed", error.message);
+      toast = showToast("error", "Login Failed", error.message);
       return;
     }
     goto(hrefs.home);
   }
-  function showToast(
-    type = "error",
-    title = "Login Failed",
-    description = "Failed to Login"
-  ) {
-    toast = toasts.add({
-      title: title,
-      description: description,
-      duration: 5000,
-      placement: "bottom-center",
-      type: type,
-      theme: "dark",
-      showProgress: true,
+  async function restPassword() {
+    const { error } = await sb.auth.resetPasswordForEmail(resetemail, {
+      redirectTo: hrefs.resetpassword.webLink,
     });
+    if (error) {
+      toast = showToast("error", "Error", error.message);
+      return;
+    }
+    toast = showToast(
+      "info",
+      "Check Email",
+      "A password reset link has been sent to your email"
+    );
+  }
+  function toggleModal() {
+    showModal = !showModal;
   }
 </script>
 
+<Modal {showModal} on:click={toggleModal}>
+  <div class="p-sm-5 fs-4">
+    <label for="resetemail" class="font-google-quicksand fw-600"
+      >Enter your email</label
+    >
+    <input
+      type="email"
+      class="form-control"
+      id="resetemail"
+      bind:value={resetemail}
+    />
+    <button
+      class="btn btn-primary font-google-quicksand fw-bold fs-4 my-2 w-100"
+      disabled={isReset || resetemail.length == 0}
+      on:click={restPassword}>Send link</button
+    >
+  </div>
+</Modal>
 <main class="full-background">
   <Header title={hrefs.login.title} sbApi={api} />
-
   <div class="container mb-5">
     <div class="py-5 text-center">
       <h1 class="font-google-quicksand fw-bold display-3">
@@ -64,7 +90,6 @@
           ></span
         >
       </div>
-
       <form on:submit|preventDefault={handleSubmit}>
         <div class="card-body fs-4">
           <div class="mb-3">
@@ -73,6 +98,7 @@
               class="form-control"
               type="email"
               id="userEmail"
+              required
               bind:value={email}
             />
           </div>
@@ -83,16 +109,24 @@
               type="password"
               id="password"
               minlength="8"
+              required
               bind:value={password}
             />
             <div class="form-text fs-6">Must be at least 8 chracters long.</div>
           </div>
+
+          <button
+            class="btn btn-outline-danger"
+            on:click={toggleModal}
+            type="reset">Forgot Password?</button
+          >
         </div>
         <div class="card-footer">
           <button
             class="btn btn-primary w-100 fs-4 font-google-quicksand fw-bold"
             type="submit"
-            disabled={isSubmit}>Login</button
+            disabled={isSubmit || email.length == 0 || password.length == 0}
+            >Login</button
           >
         </div>
       </form>
