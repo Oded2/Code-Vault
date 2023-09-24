@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
-  import { createSbClient } from "../../hooks.client.js";
-  import { toasts, ToastContainer, FlatToast } from "svelte-toasts";
+  import { createSbClient, showToast } from "../../hooks.client.js";
+  import { ToastContainer, FlatToast } from "svelte-toasts";
   import Header from "../../components/Header.svelte";
   import hrefs from "../../data/hrefs.json";
   export let data;
@@ -23,7 +23,7 @@
   let topicError = { error: false, message: "" };
   let messageError = { error: false, message: "" };
   onMount(async () => {
-    const { data, error } = await sb.auth.getSession();
+    const { data } = await sb.auth.getSession();
     if (!data.session) {
       return;
     }
@@ -117,27 +117,15 @@
       });
       clearErrors();
       clearValues();
-      showToast();
+      toast = showToast("success", "Success", "Message sent successfully");
     } catch {
-      showToast("error", "Form not submitted", "There was an unexpected error");
+      toast = showToast(
+        "error",
+        "Form not submitted",
+        "There was an unexpected error"
+      );
     }
     isSubmit = false;
-  }
-
-  function showToast(
-    type = "success",
-    title = "Success",
-    description = "Message sent successfully"
-  ) {
-    toast = toasts.add({
-      title: title,
-      description: description,
-      duration: 5000,
-      placement: "bottom-center",
-      type: type,
-      theme: "dark",
-      showProgress: true,
-    });
   }
 </script>
 

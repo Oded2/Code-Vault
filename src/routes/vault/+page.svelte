@@ -7,6 +7,7 @@
   import Modal from "../../components/Modal.svelte";
   import { ToastContainer, FlatToast } from "svelte-toasts";
   export let data;
+  const vaultRef = hrefs.vault;
   const api = data.api;
   const sb = createSbClient(api);
   let fname = "",
@@ -19,7 +20,6 @@
   onMount(async () => {
     const { data, error } = await sb.auth.getSession();
     if (!data.session) {
-      goto(hrefs.login.link);
       return;
     }
     userId = data.session.user.id;
@@ -47,7 +47,7 @@
     return false;
   }
   async function getDescription() {
-    const { data, error } = await sb
+    const { data } = await sb
       .from("Vaults")
       .select("description")
       .eq("user_id", userId);
@@ -75,7 +75,12 @@
 </script>
 
 <main class="full-background text-bg-light">
-  <Header title={hrefs.vault.home.title} sbApi={api} />
+  <Header
+    title={vaultRef.home.title}
+    directory={vaultRef}
+    sbApi={api}
+    isProtected={true}
+  />
   <div class="text-bg-dark">
     <div
       class="container py-5 font-google-quicksand d-flex justify-content-between"
@@ -100,16 +105,24 @@
         Save your favorite items from the website and save them here.
       </h3>
     </div>
-    <!-- <div class="row">
-      <div class="col">
+    <div class="row">
+      <div class="col-md-3">
         <div class="card">
           <div class="card-header text-center">
             <h2>AstroFetch</h2>
           </div>
-          <div class="card-body"></div>
+          <div class="card-body">
+            <p class="fw-500 fs-4">See your favorite astrofetch images</p>
+          </div>
+          <div class="card-footer">
+            <a
+              href={vaultRef.astrofetch.link}
+              class="btn btn-primary fs-4 fw-bold w-100">Show Me</a
+            >
+          </div>
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
 </main>
 

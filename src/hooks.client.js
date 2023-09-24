@@ -46,14 +46,6 @@ export function createSbClient(api) {
   return createClient(sbUrl, api);
 }
 
-export async function isLoggedIn(sbClient) {
-  const isSession = await sbClient.auth.getSession();
-  if (isSession.data.session) {
-    return true;
-  }
-  return false;
-}
-
 export function showToast(type = "success", title = "Success", description) {
   return toasts.add({
     title: title,

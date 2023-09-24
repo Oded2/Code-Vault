@@ -18,12 +18,15 @@
   const sbApi = data.sbApi;
   const sb = createSbClient(sbApi);
   const today = new Date().toISOString().split("T")[0];
-  let sessionData;
+  let userId;
   let inProgress = false;
   let toast;
   onMount(async () => {
     const { data } = await sb.auth.getSession();
-    sessionData = data.session;
+    if (!data.session) {
+      return;
+    }
+    userId = data.session.user.id;
   });
   let startDate = today;
   let endDate = today;
@@ -172,19 +175,30 @@
   }
   async function saveToVault() {
     inProgress = true;
+    let currentData = await readFromVault();
+    currentData.push(current);
     const { error } = await sb
       .from("Vaults")
-      .update({ astrofetch: current })
-      .eq("user_id", sessionData.user.id);
+      .update({ astrofetch: currentData })
+      .eq("user_id", userId);
     inProgress = false;
     if (error) {
+      console.error(error.message);
       toast = showToast("error", "Error", error.message);
+      return;
     }
     toast = showToast(
       "success",
       "Added to Vault",
-      "Current astrofetch has been saved to your personal vault"
+      "Added to your personal vault"
     );
+  }
+  async function readFromVault() {
+    const { data } = await sb
+      .from("Vaults")
+      .select("astrofetch")
+      .eq("user_id", userId);
+    return data[0].astrofetch;
   }
 </script>
 
@@ -552,10 +566,10 @@
   </section>
 </main>
 
-{#if isData && sessionData}
+{#if isData && userId}
   <FloatElement
     ><button
-      class="btn btn-outline-light fs-2"
+      class="btn btn-light fs-2"
       on:click={saveToVault}
       disabled={inProgress}><i class="fa-solid fa-vault" /></button
     ></FloatElement

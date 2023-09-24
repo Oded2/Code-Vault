@@ -7,20 +7,32 @@
     createSbClient,
   } from "../hooks.client.js";
   import hrefs from "../data/hrefs.json";
-  import { SupabaseClient } from "@supabase/supabase-js";
+  import { goto } from "$app/navigation";
   export let title = null;
   export let directory = null;
   export let isHome = false;
   export let sbApi;
+  export let isProtected = false,
+    noAccount = false;
   const newTitle = !title ? "Code Vault" : title + " - Code Vault";
   const url = $page.url["href"];
   let userData;
   onMount(async () => {
     if (sbApi) {
       const sb = createSbClient(sbApi);
-      const { data, error } = await sb.auth.getSession();
+      const { data } = await sb.auth.getSession();
       if (data.session) {
+        if (noAccount) {
+          goto(hrefs.home);
+          return;
+        }
         userData = data.session.user;
+        return;
+      }
+
+      if (isProtected) {
+        goto(hrefs.login.link);
+        return;
       }
     }
   });

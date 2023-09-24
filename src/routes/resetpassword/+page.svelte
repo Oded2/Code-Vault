@@ -1,9 +1,8 @@
 <script>
   import { goto } from "$app/navigation";
-  import { createSbClient, isLoggedIn, showToast } from "../../hooks.client.js";
+  import { createSbClient, showToast } from "../../hooks.client.js";
   import { FlatToast, ToastContainer } from "svelte-toasts";
   import Header from "../../components/Header.svelte";
-  import { onMount } from "svelte";
   import hrefs from "../../data/hrefs.json";
 
   export let data;
@@ -14,11 +13,6 @@
     confirmPass = "";
 
   let isSubmit = false;
-  onMount(async () => {
-    if (!(await isLoggedIn(sb))) {
-      goto(hrefs.home);
-    }
-  });
   async function updatePass() {
     isSubmit = true;
     const { data, error } = await sb.auth.updateUser({ password: password });
@@ -39,7 +33,7 @@
 </script>
 
 <main>
-  <Header sbApi={api} title={hrefs.resetpassword.title} />
+  <Header sbApi={api} title={hrefs.resetpassword.title} isProtected={true} />
   <div class="container py-5 font-google-quicksand fs-4">
     <form on:submit|preventDefault={updatePass}>
       <div class="card">

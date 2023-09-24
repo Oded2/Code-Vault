@@ -48,6 +48,10 @@
         "home": {
             "link": "/vault",
             "title": "Personal Vault"
+        },
+        "astrofetch": {
+            "link": "/vault/astrofetch",
+            "title": "AstroVault"
         }
     },
     "fun-projects": {

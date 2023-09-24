@@ -1,19 +1,12 @@
 <script>
-  import { onMount } from "svelte";
-  import { goto } from "$app/navigation";
   import { ToastContainer, FlatToast } from "svelte-toasts";
   import Header from "../../components/Header.svelte";
   import hrefs from "../../data/hrefs.json";
-  import { createSbClient, isLoggedIn, showToast } from "../../hooks.client.js";
+  import { createSbClient, showToast } from "../../hooks.client.js";
 
   export let data;
   const apiKey = data.apiKey;
   const sb = createSbClient(apiKey);
-  onMount(async () => {
-    if (await isLoggedIn(sb)) {
-      goto(hrefs.home);
-    }
-  });
   let toast;
   let email = "",
     fName = "",
@@ -56,7 +49,7 @@
 </script>
 
 <main class="full-background" class:text-bg-dark={isComplete}>
-  <Header title={hrefs.signup.title} sbApi={apiKey} />
+  <Header title={hrefs.signup.title} sbApi={apiKey} noAccount={true} />
   {#if !isComplete}
     <div class="container mb-5">
       <div class="py-5 text-center">
