@@ -6,6 +6,7 @@
     createSbClient,
     showToast,
     formatDate,
+    maxLen,
   } from "../../hooks.client.js";
   import hrefs from "../../data/hrefs.json";
   import nasaLogo from "../../images/svg/NASA.svg";
@@ -186,7 +187,10 @@
     toast = showToast(
       "success",
       "Added to Vault",
-      "Added to your personal vault"
+      `Image "${maxLen(
+        currentTitle,
+        20
+      )}" has been added to your personal vault.`
     );
   }
   async function readFromVault() {
