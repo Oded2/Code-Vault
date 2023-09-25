@@ -58,6 +58,9 @@ export function showToast(type = "success", title = "Success", description) {
 }
 
 export function maxLen(string = "", maxLen = NaN) {
+  if (maxLen >= string.length) {
+    return string;
+  }
   let newString = "";
   for (let i in string) {
     if (i == maxLen - 3) {
