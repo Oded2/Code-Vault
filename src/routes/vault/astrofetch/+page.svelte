@@ -10,7 +10,6 @@
     showToast,
   } from "../../../hooks.client.js";
   import { ToastContainer, FlatToast } from "svelte-toasts";
-  import FloatElement from "../../../components/FloatElement.svelte";
   import { page } from "$app/stores";
   export let data;
   const api = data.api;
@@ -19,10 +18,13 @@
   let astroArr = [];
   let userId = "";
   let isDelete = false;
-  $: isValid = astroArr.length > 0;
+  let isValid = false;
   onMount(async () => {
     userId = await getUserId();
     astroArr = await readFromVault(userId);
+    if (astroArr) {
+      isValid = true;
+    }
   });
   const getUserId = async () => {
     const { data } = await sb.auth.getSession();
