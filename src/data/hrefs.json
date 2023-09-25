@@ -51,7 +51,7 @@
         },
         "astrofetch": {
             "link": "/vault/astrofetch",
-            "title": "AstroVault"
+            "title": "AstroFetch"
         }
     },
     "fun-projects": {
@@ -103,6 +103,10 @@
         "home": {
             "link": "/astrofetch",
             "title": "AstroFetch"
+        },
+        "viewer": {
+            "link": "/astrofetch/imageViewer",
+            "title": "Image Viewer"
         }
     },
     "israeli-driver-test": {

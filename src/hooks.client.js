@@ -57,3 +57,21 @@ export function showToast(type = "success", title = "Success", description) {
     showProgress: true,
   });
 }
+
+export function maxLen(string = "", maxLen = NaN) {
+  let newString = "";
+  for (let i in string) {
+    if (i == maxLen) {
+      return newString + "...";
+    }
+    newString += string[i];
+  }
+  return string;
+}
+
+export function formatDate(dateStr) {
+  const date = new Date(dateStr);
+  const dateOptions = { month: "long", day: "numeric", year: "numeric" };
+  const formatDate = date.toLocaleDateString("en-US", dateOptions);
+  return formatDate;
+}

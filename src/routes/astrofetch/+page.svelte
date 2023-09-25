@@ -6,6 +6,7 @@
     fetchData,
     createSbClient,
     showToast,
+    formatDate,
   } from "../../hooks.client.js";
   import hrefs from "../../data/hrefs.json";
   import nasaLogo from "../../images/svg/NASA.svg";
@@ -46,6 +47,7 @@
   $: currentCopyright = removeLineBreak(current["copyright"]);
   $: youtubeUrl = showVideo(currentUrl);
   $: isLoading = false;
+  const apiUrl = new URL("https://api.nasa.gov/planetary/apod");
   function showVideo(originalLink) {
     if (!isVideo) {
       return;
@@ -64,7 +66,7 @@
     }
     return newSrc;
   }
-  const apiUrl = new URL("https://api.nasa.gov/planetary/apod");
+
   async function insertImages(isDemo) {
     isLoading = true;
     const url = addParams(apiUrl, {
@@ -100,12 +102,6 @@
     let day = String(date.getDate()).padStart(2, "0");
 
     return year + "-" + month + "-" + day;
-  }
-  function formatDate(dateStr) {
-    const date = new Date(dateStr);
-    const dateOptions = { month: "long", day: "numeric", year: "numeric" };
-    const formatDate = date.toLocaleDateString("en-US", dateOptions);
-    return formatDate;
   }
   function validateDates(start, end, mindate = "1995-06-16") {
     let valid = true;
@@ -355,7 +351,7 @@
               {#each astroData as currentItem, index}
                 <a
                   class="h-100"
-                  href={addParamsString("/astrofetch/imageViewer", {
+                  href={addParamsString(hrefs.astrofetch.viewer.link, {
                     title: currentItem["title"],
                     url: currentItem["url"],
                     explanation: currentItem["explanation"],
@@ -566,7 +562,7 @@
   </section>
 </main>
 
-{#if isData && userId}
+{#if isData && userId && isImage}
   <FloatElement
     ><button
       class="btn btn-light fs-2"
