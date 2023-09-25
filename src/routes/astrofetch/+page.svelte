@@ -79,6 +79,7 @@
     isLoading = false;
   }
   const submit = async (isDemo = false) => {
+    currentImg = 0;
     const validation = validateDates(startDate, endDate);
     if (!validation["valid"]) {
       alert(validation["message"]);
@@ -198,7 +199,11 @@
       .from("Vaults")
       .select("astrofetch")
       .eq("user_id", userId);
-    return data[0].astrofetch;
+    const result = data[0].astrofetch;
+    if (result) {
+      return result;
+    }
+    return [];
   }
 </script>
 
