@@ -106,10 +106,10 @@
       </h3>
     </div>
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-6">
         <div class="card">
           <div class="card-header text-center">
-            <h2>AstroFetch</h2>
+            <h2><i class="fa-solid fa-user-astronaut" /> AstroFetch</h2>
           </div>
           <div class="card-body">
             <p class="fw-500 fs-4">See your favorite astrofetch images</p>
