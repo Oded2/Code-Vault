@@ -71,7 +71,7 @@
     {#if isValid}
       <div class="row">
         {#each astroArr as item, index}
-          <div class="col-sm-6 col-lg-4">
+          <div class="col-sm-6 col-lg-4 mb-5">
             <div class="card h-100 shadow">
               <img src={item.url} alt={item.title} class="card-img-top" />
               <div class="card-header h-100">
