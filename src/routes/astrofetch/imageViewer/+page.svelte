@@ -10,7 +10,8 @@
   const explanation = url.searchParams.get("explanation");
   const date = url.searchParams.get("date");
   const copyright = url.searchParams.get("copyright");
-  const valid = url && title && src && explanation && date && copyright;
+  const rel = url.searchParams.get("rel");
+  const valid = url && title && src && explanation && date && copyright && rel;
   const apiKey = data["api"];
   let shortUrl = null;
   let isCopy = false;
@@ -90,10 +91,8 @@
               >
             </div>
             <div class="col-lg">
-              <a
-                href={hrefs["astrofetch"]["home"]["link"]}
-                class="btn btn-secondary fs-3 w-100"
-                ><i class="fa-solid fa-user-astronaut" /> Return to AstroFetch</a
+              <a href={rel} class="btn btn-secondary fs-3 w-100"
+                ><i class="fa-solid fa-rotate-left" /> Return</a
               >
             </div>
           </div>
@@ -102,9 +101,7 @@
     </div>
   </main>
 {:else}
-  <a class="fs-1" href={hrefs["astrofetch"]["home"]["link"]}
-    >Click here to return to Astrofetch</a
-  >
+  <a class="fs-1" href={rel}>Click here to return</a>
 {/if}
 
 <svelte:head>
@@ -127,11 +124,5 @@
   .btn {
     border-radius: 20px;
     transition: 0.5s;
-  }
-  .btn:hover {
-    scale: 102%;
-  }
-  .btn:active {
-    scale: 104%;
   }
 </style>

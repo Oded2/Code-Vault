@@ -11,6 +11,7 @@
   } from "../../../hooks.client.js";
   import { ToastContainer, FlatToast } from "svelte-toasts";
   import FloatElement from "../../../components/FloatElement.svelte";
+  import { page } from "$app/stores";
   export let data;
   const api = data.api;
   const sb = createSbClient(api);
@@ -88,6 +89,7 @@
                     explanation: item.explanation,
                     date: formatDate(item.date),
                     copyright: item.copyright,
+                    rel: $page.url,
                   })}
                   target="_blank"
                   class="btn btn-primary fs-4 fw-bold w-100 mb-2"

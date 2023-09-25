@@ -14,6 +14,7 @@
   import FloatElement from "../../components/FloatElement.svelte";
   import { onMount } from "svelte";
   import { FlatToast, ToastContainer } from "svelte-toasts";
+  import { page } from "$app/stores";
   export let data;
   const nasaApiKey = data.api;
   const sbApi = data.sbApi;
@@ -357,6 +358,7 @@
                     explanation: currentItem["explanation"],
                     date: formatDate(currentItem["date"]),
                     copyright: currentItem["copyright"],
+                    rel: $page.url,
                   })}
                   target="_blank"
                 >
