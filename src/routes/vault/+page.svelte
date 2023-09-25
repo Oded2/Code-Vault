@@ -131,7 +131,7 @@
     <div class="m-md-5">
       <h1 class="fw-bold">Enter your new description</h1>
       <h2 class="fw-600">
-        Old description: <span class="fw-bold">{description}</span>
+        Current description: <span class="fw-bold">{description}</span>
       </h2>
     </div>
     <input
