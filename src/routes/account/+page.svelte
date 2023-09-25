@@ -55,7 +55,7 @@
   }
   async function updateName() {
     toChange.name = true;
-    const { data, error } = await sb.auth.updateUser({
+    const { error } = await sb.auth.updateUser({
       data: {
         first_name: newValues.fname,
         last_name: newValues.lname,
@@ -82,7 +82,7 @@
 <Modal showModal={showEmail} on:click={toggleEmail}>
   <div class="p-sm-5 mx-sm-5 text-center">
     <h1 class="font-google-quicksand fw-bold">Edit email</h1>
-    <h4 class="font-google-quicksand fw-600">Old email: {values.email}</h4>
+    <h4 class="font-google-quicksand fw-600">Current email: {values.email}</h4>
     <input
       type="email"
       class="form-control fs-4"
@@ -102,7 +102,7 @@
   <div class="p-sm-5 mx-sm-5 text-center">
     <h1 class="font-google-quicksand fw-bold">Edit name</h1>
     <h4 class="font-google-quicksand fw-600">
-      Old name: {values.fname}
+      Current name: {values.fname}
       {values.lname}
     </h4>
     <div class="row">
