@@ -6,10 +6,9 @@ export function randomNum(min, max) {
   let rand = parseInt(Math.random() * difference + min);
   return rand;
 }
-export function addParams(link, params) {
-  let value;
-  for (let key in params) {
-    value = params[key];
+export function addParams(link = new URL(), params) {
+  for (const key in params) {
+    const value = params[key];
 
     link.searchParams.append(key, value);
   }

@@ -1,7 +1,6 @@
 <script>
   import Header from "../../components/Header.svelte";
   import {
-    addParams,
     addParamsString,
     fetchData,
     createSbClient,
@@ -48,7 +47,7 @@
   $: currentCopyright = removeLineBreak(current["copyright"]);
   $: youtubeUrl = showVideo(currentUrl);
   $: isLoading = false;
-  const apiUrl = new URL("https://api.nasa.gov/planetary/apod");
+  const apiUrl = "https://api.nasa.gov/planetary/apod";
   function showVideo(originalLink) {
     if (!isVideo) {
       return;
@@ -58,19 +57,19 @@
 
     let newSrc = originalLink;
     if (newSrc.includes("youtube.com")) {
-      newSrc = addParams(newSrc, youtubeParams).replace(
+      newSrc = addParamsString(newSrc, youtubeParams).replace(
         /youtube.com/g,
         "youtube-nocookie.com"
       );
     } else if (newSrc.includes("vimeo.com")) {
-      newSrc = addParams(newSrc, vimeoParams);
+      newSrc = addParamsString(newSrc, vimeoParams);
     }
     return newSrc;
   }
 
   async function insertImages(isDemo) {
     isLoading = true;
-    const url = addParams(apiUrl, {
+    const url = addParamsString(apiUrl, {
       api_key: isDemo ? "DEMO_KEY" : nasaApiKey,
       start_date: startDate,
       end_date: endDate,
