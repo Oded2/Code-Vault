@@ -21,8 +21,9 @@
       email: email,
       password: password,
     });
-    isSubmit = false;
+
     if (error) {
+      isSubmit = false;
       toast = showToast("error", "Login Failed", error.message);
       return;
     }
