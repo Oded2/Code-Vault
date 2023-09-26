@@ -107,7 +107,9 @@
               required
               bind:value={password}
             />
-            <div class="form-text fs-6">Must be at least 8 chracters long.</div>
+            <div class="form-text fs-6">
+              Must be at least 8 characters long.
+            </div>
           </div>
 
           <button

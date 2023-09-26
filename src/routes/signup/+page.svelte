@@ -114,7 +114,7 @@
                 required
               />
               <div class="form-text fs-6">
-                Must be at least 8 chracters long.
+                Must be at least 8 characters long.
               </div>
             </div>
             <div class="mb-3">
