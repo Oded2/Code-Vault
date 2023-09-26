@@ -79,12 +79,12 @@
     isLoading = false;
   }
   const submit = async (isDemo = false) => {
-    currentImg = 0;
     const validation = validateDates(startDate, endDate);
     if (!validation["valid"]) {
       alert(validation["message"]);
       return;
     }
+    currentImg = 0;
     await insertImages(isDemo);
   };
 
