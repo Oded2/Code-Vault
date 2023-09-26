@@ -93,7 +93,6 @@
                     copyright: item.copyright,
                     rel: $page.url,
                   })}
-                  target="_blank"
                   class="btn btn-primary fs-4 fw-bold w-100 mb-2"
                   ><i class="fa-solid fa-arrow-up-right-from-square" /> View</a
                 >
