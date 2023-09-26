@@ -1,6 +1,7 @@
 <script>
   import { page } from "$app/stores";
   import { addParams } from "../../../hooks.client.js";
+  import hrefs from "../../../data/hrefs.json";
   export let data;
   const url = $page.url;
   const pageLink = url["href"];
@@ -100,7 +101,7 @@
     </div>
   </main>
 {:else}
-  <a class="fs-1" href={rel}>Click here to return</a>
+  <a class="fs-1" href={hrefs.astrofetch.home.link}>Click here to return</a>
 {/if}
 
 <svelte:head>
