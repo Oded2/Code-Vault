@@ -137,7 +137,13 @@
   {#if userData}
     <div class="container py-5">
       <div class="font-google-quicksand">
-        <h1 class="display-4 fw-600">Hello {values.fname}!</h1>
+        <h1 class="display-4 fw-600">Welcome back, {values.fname}.</h1>
+        <h3 class="fw-600">
+          Looking for your personal vault? <a
+            href={hrefs.vault.home.link}
+            class="text-reset">Click Here</a
+          >.
+        </h3>
       </div>
       <div class="card shadow my-5">
         <div class="card-header">
