@@ -11,7 +11,7 @@
   const copyright = url.searchParams.get("copyright");
   const rel = url.searchParams.get("rel");
   const valid = url && title && src && explanation && date && copyright && rel;
-  const apiKey = data["api"];
+  const apiKey = data.api;
   let shortUrl = null;
   let isCopy = false;
   let copyText = "Copy Link";
