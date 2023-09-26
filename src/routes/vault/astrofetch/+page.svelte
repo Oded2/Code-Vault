@@ -2,6 +2,8 @@
   import { onMount } from "svelte";
   import Header from "../../../components/Header.svelte";
   import hrefs from "../../../data/hrefs.json";
+  import { fade } from "svelte/transition";
+  import { flip } from "svelte/animate";
   import {
     addParamsString,
     createSbClient,
@@ -18,13 +20,10 @@
   let astroArr = [];
   let userId = "";
   let isDelete = false;
-  let isValid = false;
+  $: isValid = astroArr.length > 0;
   onMount(async () => {
     userId = await getUserId();
     astroArr = await readFromVault(userId);
-    if (astroArr) {
-      isValid = true;
-    }
   });
   const getUserId = async () => {
     const { data } = await sb.auth.getSession();
@@ -37,7 +36,8 @@
       .eq("user_id", userId);
     return data[0].astrofetch;
   }
-  async function deleteFromVault(index = NaN) {
+  async function deleteFromVault(item = {}) {
+    const index = astroArr.indexOf(item);
     const deleted = astroArr.splice(index, 1);
     isDelete = true;
     const { error } = await sb
@@ -72,8 +72,12 @@
   <div class="container my-5 font-google-quicksand fw-600">
     {#if isValid}
       <div class="row">
-        {#each astroArr as item, index}
-          <div class="col-sm-6 col-lg-4 mb-5">
+        {#each astroArr as item (item)}
+          <div
+            class="col-sm-6 col-lg-4"
+            animate:flip={{ duration: 200 }}
+            transition:fade={{ duration: 200 }}
+          >
             <div class="card h-100 shadow">
               <img src={item.url} alt={item.title} class="card-img-top" />
               <div class="card-header h-100">
@@ -93,6 +97,7 @@
                     copyright: item.copyright,
                     rel: $page.url,
                   })}
+                  target="_blank"
                   class="btn btn-primary fs-4 fw-bold w-100 mb-2"
                   ><i class="fa-solid fa-arrow-up-right-from-square" /> View</a
                 >
@@ -100,7 +105,7 @@
                   class="btn btn-outline-danger fs-4 fw-bold w-100"
                   disabled={isDelete}
                   on:click={() => {
-                    deleteFromVault(index);
+                    deleteFromVault(item);
                   }}><i class="fa-solid fa-trash-can" /> Delete</button
                 >
               </div>
