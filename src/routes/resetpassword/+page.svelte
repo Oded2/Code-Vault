@@ -15,7 +15,7 @@
   let isSubmit = false;
   async function updatePass() {
     isSubmit = true;
-    const { data, error } = await sb.auth.updateUser({ password: password });
+    const { error } = await sb.auth.updateUser({ password: password });
     if (error) {
       isSubmit = false;
       toast = showToast("error", "Error", error.message);
@@ -30,6 +30,11 @@
       goto(hrefs.home);
     }, 5000);
   }
+  $: disabled =
+    isSubmit ||
+    password.length < 8 ||
+    confirmPass.length < 8 ||
+    password != confirmPass;
 </script>
 
 <main>
@@ -49,6 +54,7 @@
               required
               bind:value={password}
             />
+            <div class="form-text fs-6">Minimum 8 characters.</div>
           </div>
           <div class="mb-3">
             <label class="fw-bold" for="confirmpass"
@@ -72,8 +78,7 @@
           <button
             class="btn btn-primary fs-4 fw-bold w-100"
             type="submit"
-            disabled={password != confirmPass || isSubmit}
-            >Reset Password</button
+            {disabled}>Reset Password</button
           >
         </div>
       </div>

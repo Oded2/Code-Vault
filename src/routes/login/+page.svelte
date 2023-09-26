@@ -48,6 +48,7 @@
   function toggleModal() {
     showModal = !showModal;
   }
+  $: disabled = isSubmit || email.length == 0 || password.length == 0;
 </script>
 
 <Modal {showModal} on:click={toggleModal}>
@@ -119,8 +120,7 @@
           <button
             class="btn btn-primary w-100 fs-4 font-google-quicksand fw-bold"
             type="submit"
-            disabled={isSubmit || email.length == 0 || password.length == 0}
-            >Login</button
+            {disabled}>Login</button
           >
         </div>
       </form>

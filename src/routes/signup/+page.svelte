@@ -13,13 +13,10 @@
     lName = "",
     password = "",
     confirmPass = "";
-  let isSubmit = false;
-  let isComplete = false;
+  let isSubmit = false,
+    isComplete = false;
   function validatePass() {
-    if (password == confirmPass) {
-      return true;
-    }
-    return false;
+    return password == confirmPass;
   }
   async function handleSubmit() {
     if (!validatePass()) {
@@ -46,6 +43,12 @@
     }
     isComplete = true;
   }
+  $: disabled =
+    isSubmit ||
+    password.length < 8 ||
+    confirmPass.length < 8 ||
+    password != confirmPass ||
+    email.length == 0;
 </script>
 
 <main class="full-background" class:text-bg-dark={isComplete}>
@@ -138,7 +141,7 @@
             <button
               class="btn btn-primary w-100 fs-4 font-google-quicksand fw-bold"
               type="submit"
-              disabled={isSubmit || password != confirmPass}>Sign Up</button
+              {disabled}>Sign Up</button
             >
           </div>
         </form>
