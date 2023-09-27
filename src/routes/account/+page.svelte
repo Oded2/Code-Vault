@@ -1,11 +1,11 @@
 <script>
   import { onMount } from "svelte";
   import { goto } from "$app/navigation";
-  import { FlatToast, ToastContainer } from "svelte-toasts";
   import Header from "../../components/Header.svelte";
   import Modal from "../../components/Modal.svelte";
   import { createSbClient, showToast } from "../../hooks.client.js";
   import hrefs from "../../data/hrefs.json";
+  import ToastSetup from "../../components/setup/ToastSetup.svelte";
   export let data;
   const api = data.sbApi;
   const sb = createSbClient(api);
@@ -187,7 +187,7 @@
   {/if}
 </main>
 
-<ToastContainer><FlatToast data={toast} /></ToastContainer>
+<ToastSetup {toast} />
 
 <style>
   main {

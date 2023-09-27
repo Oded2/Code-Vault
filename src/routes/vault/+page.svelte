@@ -4,8 +4,8 @@
   import hrefs from "../../data/hrefs.json";
   import { createSbClient, showToast } from "../../hooks.client.js";
   import Modal from "../../components/Modal.svelte";
-  import { ToastContainer, FlatToast } from "svelte-toasts";
   import VaultCard from "../../components/cards/VaultCard.svelte";
+  import ToastSetup from "../../components/setup/ToastSetup.svelte";
   export let data;
   const vaultRef = hrefs.vault;
   const api = data.api;
@@ -144,6 +144,4 @@
   </div>
 </Modal>
 
-<ToastContainer>
-  <FlatToast data={toast} />
-</ToastContainer>
+<ToastSetup {toast} />

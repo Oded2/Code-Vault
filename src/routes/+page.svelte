@@ -14,7 +14,7 @@
   let showFilters = false;
   let filter = { html: true, python: true, login: false };
   onMount(async () => {
-    const { data, error } = await sb.auth.getSession();
+    const { data } = await sb.auth.getSession();
     if (!data.session) {
       return;
     }

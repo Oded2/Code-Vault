@@ -13,8 +13,8 @@
   import rocketImg from "../../images/svg/rocket.svg";
   import Vault from "../../components/Vault.svelte";
   import { onMount } from "svelte";
-  import { FlatToast, ToastContainer } from "svelte-toasts";
   import { page } from "$app/stores";
+  import ToastSetup from "../../components/setup/ToastSetup.svelte";
   export let data;
   const nasaApiKey = data.api;
   const sbApi = data.sbApi;
@@ -575,7 +575,7 @@
 
 <Vault {visible} {inProgress} on:click={saveToVault} />
 
-<ToastContainer><FlatToast data={toast} /></ToastContainer>
+<ToastSetup {toast} />
 
 <style>
   .custom-text {

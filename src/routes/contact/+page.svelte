@@ -1,9 +1,9 @@
 <script>
   import { onMount } from "svelte";
   import { createSbClient, showToast } from "../../hooks.client.js";
-  import { ToastContainer, FlatToast } from "svelte-toasts";
   import Header from "../../components/Header.svelte";
   import hrefs from "../../data/hrefs.json";
+  import ToastSetup from "../../components/setup/ToastSetup.svelte";
   export let data;
   const api = data.api;
   const sb = createSbClient(api);
@@ -215,9 +215,7 @@
     </form>
   </div>
 </main>
-<ToastContainer>
-  <FlatToast data={toast} />
-</ToastContainer>
+<ToastSetup {toast} />
 
 <style>
   .border-error {

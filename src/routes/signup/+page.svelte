@@ -1,6 +1,6 @@
 <script>
-  import { ToastContainer, FlatToast } from "svelte-toasts";
   import Header from "../../components/Header.svelte";
+  import ToastSetup from "../../components/setup/ToastSetup.svelte";
   import hrefs from "../../data/hrefs.json";
   import { createSbClient, showToast } from "../../hooks.client.js";
 
@@ -163,6 +163,4 @@
   {/if}
 </main>
 
-<ToastContainer>
-  <FlatToast data={toast} />
-</ToastContainer>
+<ToastSetup {toast} />
