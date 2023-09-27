@@ -30,7 +30,6 @@
   let showModal = false;
   let userDate = dateToStr();
   $: isValid = !!astroArr;
-  $: console.log(isValid);
   onMount(async () => {
     userId = await getUserId();
     astroArr = await readFromVault();
