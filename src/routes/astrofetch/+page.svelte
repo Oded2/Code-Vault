@@ -114,11 +114,7 @@
       valid = false;
     }
     if (start > endDate) {
-      if (start > today) {
-        message = "Starting date cannot be after today";
-      } else if (start > endDate) {
-        message = "Starting date cannot be after the end date";
-      }
+      message = "Starting date cannot be after the end date";
       valid = false;
     }
     if (end < startDate) {
@@ -133,11 +129,9 @@
     return { valid: valid, message: message };
   }
   const changeEndDate = (days) => {
-    const final = getDateAhead(startDate, days);
-    if (!validateDates(startDate, final)["valid"]) {
+    endDate = getDateAhead(startDate, days);
+    if (!validateDates(startDate, endDate).valid) {
       endDate = today;
-    } else {
-      endDate = final;
     }
   };
   function changeImg(plus) {
