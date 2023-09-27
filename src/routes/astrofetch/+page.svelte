@@ -7,6 +7,7 @@
     showToast,
     formatDateStr,
     maxLen,
+    dateToStr,
   } from "../../hooks.client.js";
   import hrefs from "../../data/hrefs.json";
   import nasaLogo from "../../images/svg/NASA.svg";
@@ -19,7 +20,7 @@
   const nasaApiKey = data.api;
   const sbApi = data.sbApi;
   const sb = createSbClient(sbApi);
-  const today = new Date().toISOString().split("T")[0];
+  const today = dateToStr();
   let userId;
   let inProgress = false;
   let toast;

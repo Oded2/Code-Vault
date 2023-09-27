@@ -5,8 +5,10 @@
   import { fade } from "svelte/transition";
   import { flip } from "svelte/animate";
   import {
+    GetSortOrder,
     addParamsString,
     createSbClient,
+    dateToStr,
     fetchData,
     formatDate,
     formatDateStr,
@@ -26,11 +28,15 @@
   let userId = "";
   let inProgress = false;
   let showModal = false;
-  let userDate = new Date().toISOString().split("T")[0];
-  $: isValid = astroArr.length > 0;
+  let userDate = dateToStr();
+  $: isValid = !!astroArr;
+  $: console.log(isValid);
   onMount(async () => {
     userId = await getUserId();
     astroArr = await readFromVault();
+    if (astroArr) {
+      sortArray();
+    }
   });
   const getUserId = async () => {
     const { data } = await sb.auth.getSession();
@@ -49,7 +55,7 @@
     inProgress = true;
     const { error } = await sb
       .from("Vaults")
-      .update({ astrofetch: astroArr })
+      .update({ astrofetch: astroArr.length > 0 ? astroArr : null })
       .eq("user_id", userId);
     inProgress = false;
     if (error) {
@@ -64,7 +70,7 @@
         10
       )} has been deleted from your personal vault.`
     );
-    astroArr = astroArr;
+    astroArr = astroArr.length > 0 ? astroArr : null;
   }
   function toggleModal() {
     showModal = !showModal;
@@ -96,6 +102,7 @@
     inProgress = true;
     const astroData = await fetchData(url);
     astroArr.push(astroData);
+    sortArray("title", false);
     const { error } = await sb
       .from("Vaults")
       .update({ astrofetch: astroArr })
@@ -113,27 +120,57 @@
     toggleModal();
     astroArr = astroArr;
   }
+  async function deleteAllImages() {
+    if (
+      !confirm(
+        "Are you sure you want to delete all of the images from your vault? This action cannot be reversed."
+      )
+    ) {
+      return;
+    }
+    inProgress = true;
+    const { error } = await sb
+      .from("Vaults")
+      .update({ astrofetch: null })
+      .eq("user_id", userId);
+    inProgress = false;
+    if (error) {
+      toast = showToast("error", "Error", error.message);
+      return;
+    }
+    toggleModal();
+    astroArr = null;
+    toast = showToast(
+      "success",
+      "Success",
+      "All of the images have been removed from your vault."
+    );
+  }
+  function sortArray(sort = "title", push = true) {
+    astroArr.sort(GetSortOrder(sort));
+    if (push) {
+      astroArr = astroArr;
+    }
+  }
 </script>
 
 <Modal {showModal} on:click={toggleModal}>
   <div class="p-3 font-google-quicksand">
     <h1 class="fw-bold text-center">Settings</h1>
-    <div class="row">
-      <div class="col-md-6">
-        <h3 class="fw-bold">Add image from specific date</h3>
-        <input type="date" class="form-control" bind:value={userDate} />
-        <button
-          class="btn btn-primary fs-4 fw-bold w-100 my-2"
-          disabled={inProgress}
-          on:click={fetchImage}><i class="fa-solid fa-rocket" /> Fetch</button
-        >
-      </div>
-      <!-- <div class="col-md-6">
-        <button class="btn btn-danger fs-4 fw-bold w-100"
-          ><i class="fa-solid fa-trash-can" /> Delete all images
-        </button>
-      </div> -->
-    </div>
+
+    <h3 class="fw-bold">Add image from specific date</h3>
+    <input type="date" class="form-control" bind:value={userDate} />
+    <button
+      class="btn btn-primary fs-4 fw-bold w-100 my-2"
+      disabled={inProgress}
+      on:click={fetchImage}><i class="fa-solid fa-rocket" /> Fetch</button
+    >
+    <button
+      class="btn btn-danger fs-4 fw-bold w-100"
+      disabled={inProgress}
+      on:click={deleteAllImages}
+      ><i class="fa-solid fa-trash-can" /> Delete all images
+    </button>
   </div>
 </Modal>
 <main>
@@ -146,10 +183,34 @@
 
   <div class="container mb-5 mt-3 font-google-quicksand fw-600">
     {#if isValid}
-      <div class="mb-3">
-        <button class="btn btn-outline-dark" on:click={toggleModal}
+      <div class="mb-3 d-flex">
+        <button class="btn btn-outline-dark me-5" on:click={toggleModal}
           ><i class="fa-solid fa-gear" /> Settings</button
         >
+        <div class="dropdown">
+          <button
+            class="btn btn-outline-dark dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Sort
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <button
+                class="btn btn-light w-100 text-start"
+                on:click={() => sortArray("title")}>Title</button
+              >
+            </li>
+            <li>
+              <button
+                class="btn btn-light w-100 text-start"
+                on:click={() => sortArray("date")}>Date</button
+              >
+            </li>
+          </ul>
+        </div>
       </div>
       <div class="row">
         {#each astroArr as item (item)}
@@ -163,6 +224,7 @@
 
               <div class="card-body fs-4">
                 <h3 class="fw-600">{item.title}</h3>
+                <h5>{formatDateStr(item.date)}</h5>
                 <p class="fw-500">{maxLen(item.explanation, 100)}</p>
               </div>
               <div class="card-footer">

@@ -73,12 +73,24 @@ export function maxLen(string = "", maxLen = NaN) {
 
 export function formatDateStr(dateStr) {
   const date = new Date(dateStr);
-  const dateOptions = { month: "long", day: "numeric", year: "numeric" };
-  const formatDate = date.toLocaleDateString("en-US", dateOptions);
-  return formatDate;
+  return formatDate(date);
 }
 export function formatDate(date = new Date()) {
   const dateOptions = { month: "long", day: "numeric", year: "numeric" };
   const formatDate = date.toLocaleDateString("en-US", dateOptions);
   return formatDate;
+}
+
+export function dateToStr(date = new Date()) {
+  return date.toISOString().split("T")[0];
+}
+export function GetSortOrder(prop) {
+  return function (a, b) {
+    if (a[prop] > b[prop]) {
+      return 1;
+    } else if (a[prop] < b[prop]) {
+      return -1;
+    }
+    return 0;
+  };
 }
