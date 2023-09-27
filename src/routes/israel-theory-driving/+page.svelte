@@ -260,7 +260,7 @@
           <button
             class="btn btn-secondary fs-3 w-100"
             on:click={saveToVault}
-            disabled={vaultProgress}
+            disabled={vaultProgress || !userId}
             ><i class="fa-solid fa-vault" /> Save to Personal Vault</button
           >
         </div>
