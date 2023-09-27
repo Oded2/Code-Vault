@@ -6,6 +6,8 @@
   import { onMount } from "svelte";
   import Fullscreen from "../../../components/Fullscreen.svelte";
   import ToastSetup from "../../../components/setup/ToastSetup.svelte";
+  import { fade } from "svelte/transition";
+  import { flip } from "svelte/animate";
   export let data;
   const api = data.api;
   const sb = createSbClient(api);
@@ -96,7 +98,11 @@
     {#if isValid}
       <div class="row">
         {#each dataArr as test (test)}
-          <div class="col-sm-6 col-lg-4 mb-5">
+          <div
+            class="col-sm-6 col-lg-4 mb-5"
+            animate:flip={{ duration: 200 }}
+            transition:fade={{ duration: 200 }}
+          >
             <div class="card fs-3">
               <div class="card-header text-center">
                 Test Result: <span
