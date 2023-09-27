@@ -74,7 +74,7 @@
       <div class="row">
         {#each astroArr as item (item)}
           <div
-            class="col-sm-6 col-lg-4"
+            class="col-sm-6 col-lg-4 mb-5"
             animate:flip={{ duration: 200 }}
             transition:fade={{ duration: 200 }}
           >
