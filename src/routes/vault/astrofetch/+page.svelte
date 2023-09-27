@@ -74,18 +74,16 @@
       <div class="row">
         {#each astroArr as item (item)}
           <div
-            class="col-sm-6 col-lg-4 mb-5"
+            class="col-sm-6 col-lg-4 mb-5 d-flex align-items-stretch"
             animate:flip={{ duration: 200 }}
             transition:fade={{ duration: 200 }}
           >
-            <div class="card h-100 shadow">
+            <div class="card shadow">
               <img src={item.url} alt={item.title} class="card-img-top" />
-              <div class="card-header h-100">
-                <h3>{item.title}</h3>
-              </div>
 
               <div class="card-body fs-4">
-                {maxLen(item.explanation, 100)}
+                <h3 class="fw-600">{item.title}</h3>
+                <p class="fw-500">{maxLen(item.explanation, 100)}</p>
               </div>
               <div class="card-footer">
                 <a
