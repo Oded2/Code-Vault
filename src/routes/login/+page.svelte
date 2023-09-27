@@ -52,7 +52,7 @@
 </script>
 
 <Modal {showModal} on:click={toggleModal}>
-  <div class="p-sm-5 fs-3">
+  <div class="p-sm-5 fs-2">
     <label for="resetemail" class="font-google-quicksand fw-600"
       >Enter your email</label
     >
@@ -67,6 +67,9 @@
       disabled={isReset || resetemail.length == 0}
       on:click={resetPassword}>Send link</button
     >
+    <div class="form-text fs-6">
+      Email might take up to a couple minutes to send.
+    </div>
   </div>
 </Modal>
 <main class="full-background">
