@@ -11,7 +11,7 @@
   import hrefs from "../../data/hrefs.json";
   import nasaLogo from "../../images/svg/NASA.svg";
   import rocketImg from "../../images/svg/rocket.svg";
-  import FloatElement from "../../components/FloatElement.svelte";
+  import Vault from "../../components/Vault.svelte";
   import { onMount } from "svelte";
   import { FlatToast, ToastContainer } from "svelte-toasts";
   import { page } from "$app/stores";
@@ -49,6 +49,7 @@
   $: youtubeUrl = showVideo(currentUrl);
   $: isLoading = false;
   const apiUrl = "https://api.nasa.gov/planetary/apod";
+  $: visible = isData && userId && isImage;
   function showVideo(originalLink) {
     if (!isVideo) {
       return;
@@ -572,15 +573,7 @@
   </section>
 </main>
 
-{#if isData && userId && isImage}
-  <FloatElement
-    ><button
-      class="btn btn-light fs-2"
-      on:click={saveToVault}
-      disabled={inProgress}><i class="fa-solid fa-vault" /></button
-    ></FloatElement
-  >
-{/if}
+<Vault {visible} {inProgress} on:click={saveToVault} />
 
 <ToastContainer><FlatToast data={toast} /></ToastContainer>
 
