@@ -236,8 +236,7 @@
                     copyright: item.copyright,
                     rel: $page.url,
                   })}
-                  class="btn btn-primary fs-4 fw-bold w-100 mb-2"
-                  ><i class="fa-solid fa-arrow-up-right-from-square" /> View</a
+                  class="btn btn-primary fs-4 fw-bold w-100 mb-2">View</a
                 >
                 <button
                   class="btn btn-outline-danger fs-4 fw-bold w-100"
