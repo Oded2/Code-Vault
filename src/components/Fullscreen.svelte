@@ -23,6 +23,7 @@
     width: 100vw;
     max-width: 100%;
     position: absolute;
+    top: 0;
   }
   button.exit {
     border-radius: 0;

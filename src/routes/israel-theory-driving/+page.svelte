@@ -4,9 +4,30 @@
   import DarkModeSwitch from "../../components/DarkModeSwitch.svelte";
   import Fullscreen from "../../components/Fullscreen.svelte";
   import Results from "../../components/Results.svelte";
-  import { addParams, randomNum, simplifyString } from "../../hooks.client.js";
+  import ToastSetup from "../../components/setup/ToastSetup.svelte";
+  import {
+    addParams,
+    createSbClient,
+    randomNum,
+    showToast,
+    simplifyString,
+  } from "../../hooks.client.js";
   import hrefs from "../../data/hrefs.json";
+  import { onMount } from "svelte";
+  import Vault from "../../components/Vault.svelte";
   export let data;
+  const sbApi = data.sbApi;
+  const sb = createSbClient(sbApi);
+  let toast;
+  let userId;
+  let vaultProgress = false;
+  onMount(async () => {
+    const { data } = await sb.auth.getSession();
+    if (!data.session) {
+      return;
+    }
+    userId = data.session.user.id;
+  });
   let questions,
     questionArr,
     question,
@@ -28,7 +49,7 @@
   let questionDiv;
   let isFinished = false;
   let showResults = false;
-  $: percent = parseInt((score / maxQuestions) * 100);
+  $: percent = parseInt((score / questionsDone.length) * 100);
   $: manualDir = language == "he" || language == "ar" ? "rtl" : "ltr";
   const languageResourceId = {
     en: "9a197011-adf9-45a2-81b9-d17dabdf990b",
@@ -37,7 +58,7 @@
     fr: "a106ea08-ff97-4971-8720-c85bdd3d2264",
     ru: "ca264280-1669-45ce-a96f-a4c9ed71e812",
   };
-
+  $: visible = showResults && userId;
   function checkIfFinished() {
     for (let i = 0; i < maxQuestions; i++) {
       if (!questionsDone[i]) {
@@ -177,6 +198,32 @@
     start = false;
     toggleScore();
   };
+  async function saveToVault() {
+    vaultProgress = true;
+    let currentData = await readFromVault();
+    currentData.push(JSON.stringify(questionsDone));
+    const { error } = await sb
+      .from("Vaults")
+      .update({ ildriver: currentData })
+      .eq("user_id", userId);
+    vaultProgress = false;
+    if (error) {
+      console.error(error.message);
+      return;
+    }
+    toast = showToast("success", "Success", "Results added to personal vault.");
+  }
+  async function readFromVault() {
+    const { data } = await sb
+      .from("Vaults")
+      .select("ildriver")
+      .eq("user_id", userId);
+    const result = data[0].ildriver;
+    if (result) {
+      return result;
+    }
+    return [];
+  }
 </script>
 
 <Modal showModal={showScore} on:click={toggleScore}>
@@ -197,7 +244,7 @@
     {/if}
     <div class="my-5">
       <h2>You scored {percent}%</h2>
-      <h4>You got {score} out of {maxQuestions} questions correct.</h4>
+      <h4>You got {score} out of {questionsDone.length} questions correct.</h4>
       <button
         class="btn btn-primary fs-3"
         on:click={() => {
@@ -210,7 +257,7 @@
 </Modal>
 
 <Fullscreen showFullScreen={showResults} on:click={toggleResults}>
-  <Results {percent} questions={questionsDone} />
+  <Results questions={questionsDone} />
 </Fullscreen>
 
 <main
@@ -218,10 +265,7 @@
   class:vh-100={showResults}
   class:overflow-hidden={showResults}
 >
-  <Header
-    title={hrefs["israeli-driver-test"]["home"]["title"]}
-    sbApi={data.sbApi}
-  />
+  <Header title={hrefs["israeli-driver-test"]["home"]["title"]} {sbApi} />
   <div class="container">
     <div class="ms-0 ms-sm-2">
       <h1>The Israeli Driver Test</h1>
@@ -470,6 +514,9 @@
     {/if}
   </div>
 </main>
+
+<Vault {visible} inProgress={vaultProgress} on:click={saveToVault} />
+<ToastSetup {toast} />
 
 <style>
   .answer {

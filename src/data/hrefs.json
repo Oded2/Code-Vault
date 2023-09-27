@@ -51,7 +51,19 @@
         },
         "astrofetch": {
             "link": "/vault/astrofetch",
-            "title": "AstroFetch"
+            "title": "AstroFetch",
+            "description": "See your favorite astrofetch images.",
+            "icon": {
+                "name": "user-astronaut"
+            }
+        },
+        "israeli-driver-test": {
+            "link": "/vault/ildrivingtheory",
+            "title": "Israeli Driver Theory Results",
+            "description": "See your saved results on your theory test.",
+            "icon": {
+                "name": "taxi"
+            }
         }
     },
     "fun-projects": {

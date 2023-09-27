@@ -1,0 +1,22 @@
+<script>
+  export let title, description, href;
+  export let iconType = "solid",
+    iconName;
+</script>
+
+<div class="col-md-6">
+  <div class="card">
+    <div class="card-header text-center">
+      <h2>
+        <i class="fa-{iconType} fa-{iconName}" />
+        {title}
+      </h2>
+    </div>
+    <div class="card-body">
+      <p class="fw-500 fs-4">{description}</p>
+    </div>
+    <div class="card-footer">
+      <a {href} class="btn btn-primary fs-4 fw-bold w-100">Show Me</a>
+    </div>
+  </div>
+</div>

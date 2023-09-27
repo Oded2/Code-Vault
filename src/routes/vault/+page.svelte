@@ -3,9 +3,9 @@
   import Header from "../../components/Header.svelte";
   import hrefs from "../../data/hrefs.json";
   import { createSbClient, showToast } from "../../hooks.client.js";
-  import { goto } from "$app/navigation";
   import Modal from "../../components/Modal.svelte";
   import { ToastContainer, FlatToast } from "svelte-toasts";
+  import VaultCard from "../../components/cards/VaultCard.svelte";
   export let data;
   const vaultRef = hrefs.vault;
   const api = data.api;
@@ -18,7 +18,7 @@
   let showDesc = false;
   let toast;
   onMount(async () => {
-    const { data, error } = await sb.auth.getSession();
+    const { data } = await sb.auth.getSession();
     if (!data.session) {
       return;
     }
@@ -106,22 +106,18 @@
       </h3>
     </div>
     <div class="row">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header text-center">
-            <h2><i class="fa-solid fa-user-astronaut" /> AstroFetch</h2>
-          </div>
-          <div class="card-body">
-            <p class="fw-500 fs-4">See your favorite astrofetch images</p>
-          </div>
-          <div class="card-footer">
-            <a
-              href={vaultRef.astrofetch.link}
-              class="btn btn-primary fs-4 fw-bold w-100">Show Me</a
-            >
-          </div>
-        </div>
-      </div>
+      <VaultCard
+        title={vaultRef.astrofetch.title}
+        description={vaultRef.astrofetch.description}
+        href={vaultRef.astrofetch.link}
+        iconName={vaultRef.astrofetch.icon.name}
+      />
+      <VaultCard
+        title={vaultRef["israeli-driver-test"].title}
+        description={vaultRef["israeli-driver-test"].description}
+        href={vaultRef["israeli-driver-test"].link}
+        iconName={vaultRef["israeli-driver-test"].icon.name}
+      />
     </div>
   </div>
 </main>

@@ -11,8 +11,8 @@
     maxLen,
     showToast,
   } from "../../../hooks.client.js";
-  import { ToastContainer, FlatToast } from "svelte-toasts";
   import { page } from "$app/stores";
+  import ToastSetup from "../../../components/setup/ToastSetup.svelte";
   export let data;
   const api = data.api;
   const sb = createSbClient(api);
@@ -97,7 +97,6 @@
                     copyright: item.copyright,
                     rel: $page.url,
                   })}
-                  target="_blank"
                   class="btn btn-primary fs-4 fw-bold w-100 mb-2"
                   ><i class="fa-solid fa-arrow-up-right-from-square" /> View</a
                 >
@@ -119,7 +118,7 @@
   </div>
 </main>
 
-<ToastContainer><FlatToast data={toast} /></ToastContainer>
+<ToastSetup {toast} />
 
 <style>
   img {
