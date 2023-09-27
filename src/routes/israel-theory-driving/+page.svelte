@@ -183,6 +183,7 @@
     score = 0;
     isFinished = false;
     questionsDone = [];
+    vaultProgress = false;
     await fetchQuestions(language, maxQuestions);
     inProgress = false;
 
@@ -206,9 +207,9 @@
       .from("Vaults")
       .update({ ildriver: currentData })
       .eq("user_id", userId);
-    vaultProgress = false;
     if (error) {
-      console.error(error.message);
+      vaultProgress = false;
+      toast = showToast("error", "Error", error.message);
       return;
     }
     toast = showToast("success", "Success", "Results added to personal vault.");
@@ -245,13 +246,25 @@
     <div class="my-5">
       <h2>You scored {percent}%</h2>
       <h4>You got {score} out of {questionsDone.length} questions correct.</h4>
-      <button
-        class="btn btn-primary fs-3"
-        on:click={() => {
-          toggleResults();
-          toggleScore();
-        }}>Show Results</button
-      >
+      <div class="row">
+        <div class="col-lg-6 mb-2 mb-lg-0">
+          <button
+            class="btn btn-primary fs-3 w-100"
+            on:click={() => {
+              toggleResults();
+              toggleScore();
+            }}>Show Results</button
+          >
+        </div>
+        <div class="col-lg-6">
+          <button
+            class="btn btn-secondary fs-3 w-100"
+            on:click={saveToVault}
+            disabled={vaultProgress}
+            ><i class="fa-solid fa-vault" /> Save to Personal Vault</button
+          >
+        </div>
+      </div>
     </div>
   </div>
 </Modal>
@@ -515,7 +528,12 @@
   </div>
 </main>
 
-<Vault {visible} inProgress={vaultProgress} on:click={saveToVault} />
+<Vault
+  {visible}
+  inProgress={vaultProgress}
+  on:click={saveToVault}
+  btnColor="dark"
+/>
 <ToastSetup {toast} />
 
 <style>

@@ -60,7 +60,7 @@
   };
   async function deleteFromVault(item = {}) {
     const index = dataArr.indexOf(item);
-    const deleted = dataArr.splice(index, 1);
+    dataArr.splice(index, 1);
     let updated = [];
     for (let i of dataArr) {
       updated.push(JSON.stringify(i));
