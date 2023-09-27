@@ -7,29 +7,36 @@
   import {
     addParamsString,
     createSbClient,
+    fetchData,
     formatDate,
+    formatDateStr,
     maxLen,
     showToast,
   } from "../../../hooks.client.js";
   import { page } from "$app/stores";
   import ToastSetup from "../../../components/setup/ToastSetup.svelte";
+  import Modal from "../../../components/Modal.svelte";
   export let data;
-  const api = data.api;
-  const sb = createSbClient(api);
+  const sbApi = data.api;
+  const nasaApi = data.nasaApi;
+  const sb = createSbClient(sbApi);
+  const nasaUrl = "https://api.nasa.gov/planetary/apod";
   let toast;
   let astroArr = [];
   let userId = "";
-  let isDelete = false;
+  let inProgress = false;
+  let showModal = false;
+  let userDate = new Date().toISOString().split("T")[0];
   $: isValid = astroArr.length > 0;
   onMount(async () => {
     userId = await getUserId();
-    astroArr = await readFromVault(userId);
+    astroArr = await readFromVault();
   });
   const getUserId = async () => {
     const { data } = await sb.auth.getSession();
     return data.session.user.id;
   };
-  async function readFromVault(userId) {
+  async function readFromVault() {
     const { data } = await sb
       .from("Vaults")
       .select("astrofetch")
@@ -39,12 +46,12 @@
   async function deleteFromVault(item = {}) {
     const index = astroArr.indexOf(item);
     const deleted = astroArr.splice(index, 1);
-    isDelete = true;
+    inProgress = true;
     const { error } = await sb
       .from("Vaults")
       .update({ astrofetch: astroArr })
       .eq("user_id", userId);
-    isDelete = false;
+    inProgress = false;
     if (error) {
       toast = showToast("error", "Error", error.message);
       return;
@@ -59,18 +66,91 @@
     );
     astroArr = astroArr;
   }
+  function toggleModal() {
+    showModal = !showModal;
+  }
+  async function fetchImage() {
+    const minDate = new Date("1995-06-16"),
+      maxDate = new Date(),
+      user = new Date(userDate);
+    const minValue = minDate.valueOf(),
+      maxValue = maxDate.valueOf(),
+      userValue = user.valueOf();
+    if (userValue < minValue) {
+      toast = showToast(
+        "error",
+        "Error",
+        `Date must be after ${formatDate(minDate)}`
+      );
+      return;
+    }
+    if (userValue > maxValue) {
+      toast = showToast(
+        "error",
+        "Error",
+        `Date must be before ${formatDate(maxDate)}`
+      );
+      return;
+    }
+    const url = addParamsString(nasaUrl, { api_key: nasaApi, date: userDate });
+    inProgress = true;
+    const astroData = await fetchData(url);
+    astroArr.push(astroData);
+    const { error } = await sb
+      .from("Vaults")
+      .update({ astrofetch: astroArr })
+      .eq("user_id", userId);
+    inProgress = false;
+    if (error) {
+      toast = showToast("error", "Error", error.message);
+      return;
+    }
+    toast = showToast(
+      "success",
+      "Added to personal vault",
+      `${maxLen(astroData.title, 20)} added to personal vault.`
+    );
+    toggleModal();
+    astroArr = astroArr;
+  }
 </script>
 
-<main class="full-background">
+<Modal {showModal} on:click={toggleModal}>
+  <div class="p-3 font-google-quicksand">
+    <h1 class="fw-bold text-center">Settings</h1>
+    <div class="row">
+      <div class="col-md-6">
+        <h3 class="fw-bold">Add image from specific date</h3>
+        <input type="date" class="form-control" bind:value={userDate} />
+        <button
+          class="btn btn-primary fs-4 fw-bold w-100 my-2"
+          disabled={inProgress}
+          on:click={fetchImage}><i class="fa-solid fa-rocket" /> Fetch</button
+        >
+      </div>
+      <!-- <div class="col-md-6">
+        <button class="btn btn-danger fs-4 fw-bold w-100"
+          ><i class="fa-solid fa-trash-can" /> Delete all images
+        </button>
+      </div> -->
+    </div>
+  </div>
+</Modal>
+<main>
   <Header
     title={hrefs.vault.astrofetch.title}
     directory={hrefs.vault}
-    sbApi={api}
+    {sbApi}
     isProtected={true}
   />
 
-  <div class="container my-5 font-google-quicksand fw-600">
+  <div class="container mb-5 mt-3 font-google-quicksand fw-600">
     {#if isValid}
+      <div class="mb-3">
+        <button class="btn btn-outline-dark" on:click={toggleModal}
+          ><i class="fa-solid fa-gear" /> Settings</button
+        >
+      </div>
       <div class="row">
         {#each astroArr as item (item)}
           <div
@@ -91,7 +171,7 @@
                     title: item.title,
                     url: item.url,
                     explanation: item.explanation,
-                    date: formatDate(item.date),
+                    date: formatDateStr(item.date),
                     copyright: item.copyright,
                     rel: $page.url,
                   })}
@@ -100,7 +180,7 @@
                 >
                 <button
                   class="btn btn-outline-danger fs-4 fw-bold w-100"
-                  disabled={isDelete}
+                  disabled={inProgress}
                   on:click={() => {
                     deleteFromVault(item);
                   }}><i class="fa-solid fa-trash-can" /> Delete</button

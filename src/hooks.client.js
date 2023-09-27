@@ -71,8 +71,13 @@ export function maxLen(string = "", maxLen = NaN) {
   return string;
 }
 
-export function formatDate(dateStr) {
+export function formatDateStr(dateStr) {
   const date = new Date(dateStr);
+  const dateOptions = { month: "long", day: "numeric", year: "numeric" };
+  const formatDate = date.toLocaleDateString("en-US", dateOptions);
+  return formatDate;
+}
+export function formatDate(date = new Date()) {
   const dateOptions = { month: "long", day: "numeric", year: "numeric" };
   const formatDate = date.toLocaleDateString("en-US", dateOptions);
   return formatDate;

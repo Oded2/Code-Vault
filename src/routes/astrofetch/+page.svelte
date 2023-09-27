@@ -5,7 +5,7 @@
     fetchData,
     createSbClient,
     showToast,
-    formatDate,
+    formatDateStr,
     maxLen,
   } from "../../hooks.client.js";
   import hrefs from "../../data/hrefs.json";
@@ -110,7 +110,7 @@
     let valid = true;
     let message;
     if (start < mindate) {
-      message = "Starting date cannot be before " + formatDate(mindate);
+      message = "Starting date cannot be before " + formatDateStr(mindate);
       valid = false;
     }
     if (start > endDate) {
@@ -359,7 +359,7 @@
                     title: currentItem["title"],
                     url: currentItem["url"],
                     explanation: currentItem["explanation"],
-                    date: formatDate(currentItem["date"]),
+                    date: formatDateStr(currentItem["date"]),
                     copyright: currentItem["copyright"],
                     rel: $page.url,
                   })}
@@ -416,7 +416,7 @@
             <div class="col-12 mb-2">
               <div class="row vh-rsm-10 overflow-auto">
                 <div class="col-auto">
-                  <h6>Date: {formatDate(currentDate)}</h6>
+                  <h6>Date: {formatDateStr(currentDate)}</h6>
                 </div>
                 {#if currentCopyright}
                   <div class="col-auto">
