@@ -234,7 +234,6 @@
               </div>
               <div class="card-body fs-4">
                 <h3 class="fw-600">{item.title}</h3>
-
                 <p class="fw-500">{maxLen(item.explanation, 100)}</p>
               </div>
               <div class="card-footer">
