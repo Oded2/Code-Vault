@@ -159,7 +159,13 @@
     <h1 class="fw-bold text-center">Settings</h1>
 
     <h3 class="fw-bold">Add image from specific date</h3>
-    <input type="date" class="form-control" bind:value={userDate} />
+    <input
+      type="date"
+      class="form-control"
+      min="1995-06-16"
+      max={dateToStr()}
+      bind:value={userDate}
+    />
     <button
       class="btn btn-primary fs-4 fw-bold w-100 my-2"
       disabled={inProgress}
