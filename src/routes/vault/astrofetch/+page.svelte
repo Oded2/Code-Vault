@@ -100,6 +100,7 @@
     const url = addParamsString(nasaUrl, { api_key: nasaApi, date: userDate });
     inProgress = true;
     const astroData = await fetchData(url);
+    astroArr = astroArr ? astroArr : [];
     astroArr.push(astroData);
     sortArray("title", false);
     const { error } = await sb
@@ -181,36 +182,36 @@
   />
 
   <div class="container mb-5 mt-3 font-google-quicksand fw-600">
-    {#if isValid}
-      <div class="mb-3 d-flex">
-        <button class="btn btn-outline-dark me-5" on:click={toggleModal}
-          ><i class="fa-solid fa-gear" /> Settings</button
+    <div class="mb-3 d-flex">
+      <button class="btn btn-outline-dark me-5" on:click={toggleModal}
+        ><i class="fa-solid fa-gear" /> Settings</button
+      >
+      <div class="dropdown">
+        <button
+          class="btn btn-outline-dark dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
         >
-        <div class="dropdown">
-          <button
-            class="btn btn-outline-dark dropdown-toggle"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Sort
-          </button>
-          <ul class="dropdown-menu">
-            <li>
-              <button
-                class="btn btn-light w-100 text-start"
-                on:click={() => sortArray("title")}>Title</button
-              >
-            </li>
-            <li>
-              <button
-                class="btn btn-light w-100 text-start"
-                on:click={() => sortArray("date")}>Date</button
-              >
-            </li>
-          </ul>
-        </div>
+          Sort
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <button
+              class="btn btn-light w-100 text-start"
+              on:click={() => sortArray("title")}>Title</button
+            >
+          </li>
+          <li>
+            <button
+              class="btn btn-light w-100 text-start"
+              on:click={() => sortArray("date")}>Date</button
+            >
+          </li>
+        </ul>
       </div>
+    </div>
+    {#if isValid}
       <div class="row">
         {#each astroArr as item (item)}
           <div
