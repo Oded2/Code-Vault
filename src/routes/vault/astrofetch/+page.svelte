@@ -102,7 +102,7 @@
     const astroData = await fetchData(url);
     astroArr = astroArr ? astroArr : [];
     astroArr.push(astroData);
-    sortArray("title", false);
+    sortArray("date", false);
     const { error } = await sb
       .from("Vaults")
       .update({ astrofetch: astroArr })
