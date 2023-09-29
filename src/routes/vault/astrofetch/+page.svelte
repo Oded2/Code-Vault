@@ -187,7 +187,9 @@
     isProtected={true}
   />
 
-  <div class="container mb-5 mt-3 font-google-quicksand fw-600">
+  <div
+    class="container-md px-sm-3 px-md-0 mb-5 mt-3 font-google-quicksand fw-600"
+  >
     <div class="mb-3 d-flex">
       <button class="btn btn-outline-dark me-5" on:click={toggleModal}
         ><i class="fa-solid fa-gear" /> Settings</button
@@ -227,10 +229,12 @@
           >
             <div class="card shadow">
               <img src={item.url} alt={item.title} class="card-img-top" />
-
+              <div class="card-header">
+                <span>{formatDateStr(item.date)}</span>
+              </div>
               <div class="card-body fs-4">
                 <h3 class="fw-600">{item.title}</h3>
-                <h5>{formatDateStr(item.date)}</h5>
+
                 <p class="fw-500">{maxLen(item.explanation, 100)}</p>
               </div>
               <div class="card-footer">
