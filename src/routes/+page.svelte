@@ -129,13 +129,7 @@
         icon="laptop"
         mainLink={hrefs["fun-projects"]["home"]["link"]}
       />
-      <HomeCard
-        show={filter["html"]}
-        title={hrefs["fun-games"]["home"]["title"]}
-        description="Discover a collection of fun browser games! No downloads required. Enjoy HTML, CSS, and JavaScript creations, all playable directly in your browser."
-        icon="gamepad"
-        mainLink={hrefs["fun-games"]["home"]["link"]}
-      />
+
       <HomeCard
         show={filter["html"] || filter["python"]}
         title={hrefs["astrofetch"]["home"]["title"]}
@@ -161,6 +155,14 @@
         icon="taxi"
         mainLink={hrefs["israeli-driver-test"]["home"]["link"]}
       />
+      <HomeCard
+        show={filter["html"]}
+        title={hrefs["fun-games"]["home"]["title"]}
+        description="Discover a collection of fun browser games! No downloads required. Enjoy HTML, CSS, and JavaScript creations, all playable directly in your browser."
+        icon="gamepad"
+        mainLink={hrefs["fun-games"]["home"]["link"]}
+      />
+
       <HomeCard
         show={filter["python"]}
         title="Python Encrypter"
