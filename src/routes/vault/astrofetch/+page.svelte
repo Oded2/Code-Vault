@@ -146,7 +146,7 @@
       "All of the images have been removed from your vault."
     );
   }
-  function sortArray(sort = "title", push = true) {
+  function sortArray(sort = "date", push = true) {
     astroArr.sort(GetSortOrder(sort));
     if (push) {
       astroArr = astroArr;
