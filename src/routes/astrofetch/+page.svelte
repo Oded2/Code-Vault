@@ -252,6 +252,19 @@
             type="date"
             class="form-control"
           />
+          <div class="row mt-2">
+            <div class="col-auto mb-2">
+              <button
+                class="btn btn-secondary"
+                on:click={() => {
+                  startDate = today;
+                  endDate = today;
+                }}
+              >
+                Set to Today
+              </button>
+            </div>
+          </div>
         </div>
         <div class="col-md-7 col-lg-6 mt-md-0 mt-5">
           <h2>Pick your end date</h2>
