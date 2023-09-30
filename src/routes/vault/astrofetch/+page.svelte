@@ -287,9 +287,9 @@
     aspect-ratio: 1/1;
     object-fit: cover;
     transition: 0.5s;
-    scale: 110%;
+    scale: 100%;
   }
   img:hover {
-    scale: 100%;
+    scale: 110%;
   }
 </style>
