@@ -247,6 +247,7 @@
           <input
             bind:value={startDate}
             min="1995-06-16"
+            max={today}
             type="date"
             class="form-control"
           />
@@ -268,6 +269,7 @@
           <h2>Pick your end date</h2>
           <input
             bind:value={endDate}
+            min="1995-06-16"
             max={today}
             type="date"
             class="form-control"
