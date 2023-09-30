@@ -80,8 +80,8 @@
   }
   const submit = async (isDemo = false) => {
     const validation = validateDates(startDate, endDate);
-    if (!validation["valid"]) {
-      alert(validation["message"]);
+    if (!validation.valid) {
+      toast = showToast("error", "Invalid Date", validation.message);
       return;
     }
     currentImg = 0;
