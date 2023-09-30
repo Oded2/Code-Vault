@@ -112,7 +112,7 @@
   img {
     border-radius: 10px;
     transition: 0.5s;
-    max-height: 95vh;
+    max-height: 80vh;
   }
   img:hover {
     border-radius: 8px;
