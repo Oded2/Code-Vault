@@ -7,8 +7,9 @@
   import VaultCard from "../../components/cards/VaultCard.svelte";
   import ToastSetup from "../../components/setup/ToastSetup.svelte";
   export let data;
+  const api = data.sbApi;
   const vaultRef = hrefs.vault;
-  const api = data.api;
+
   const sb = createSbClient(api);
   let fname = "",
     lname = "",

@@ -1,11 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { page } from "$app/stores";
-  import {
-    addParams,
-    addParamsString,
-    createSbClient,
-  } from "../hooks.client.js";
+  import { createSbClient } from "../hooks.client.js";
   import hrefs from "../data/hrefs.json";
   import { goto } from "$app/navigation";
   export let title = null;

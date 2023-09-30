@@ -7,7 +7,7 @@
   import ToastSetup from "../../components/setup/ToastSetup.svelte";
   import { toasts } from "svelte-toasts";
   export let data;
-  const api = data.api;
+  const api = data.sbApi;
   const sb = createSbClient(api);
   let showModal = false;
   let toast;

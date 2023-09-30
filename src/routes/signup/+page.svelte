@@ -3,9 +3,8 @@
   import ToastSetup from "../../components/setup/ToastSetup.svelte";
   import hrefs from "../../data/hrefs.json";
   import { createSbClient, showToast } from "../../hooks.client.js";
-
   export let data;
-  const apiKey = data.apiKey;
+  const apiKey = data.sbApi;
   const sb = createSbClient(apiKey);
   let toast;
   let email = "",

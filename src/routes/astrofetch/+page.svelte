@@ -17,7 +17,7 @@
   import { page } from "$app/stores";
   import ToastSetup from "../../components/setup/ToastSetup.svelte";
   export let data;
-  const nasaApiKey = data.api;
+  const nasaApiKey = data.nasaApi;
   const sbApi = data.sbApi;
   const sb = createSbClient(sbApi);
   const today = dateToStr();

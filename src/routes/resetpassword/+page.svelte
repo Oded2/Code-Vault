@@ -6,7 +6,7 @@
   import ToastSetup from "../../components/setup/ToastSetup.svelte";
 
   export let data;
-  const api = data.api;
+  const api = data.sbApi;
   const sb = createSbClient(api);
   let toast;
   let password = "",

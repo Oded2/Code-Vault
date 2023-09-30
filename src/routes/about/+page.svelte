@@ -7,10 +7,11 @@
   import settings from "../../images/svg/settings.svg";
   import email from "../../images/svg/email.svg";
   export let data;
+  const api = data.sbApi;
 </script>
 
 <main class="full-background text-bg-dark">
-  <Header title={hrefs["about"]["title"]} sbApi={data.sbApi} />
+  <Header title={hrefs["about"]["title"]} sbApi={api} />
   <section class="p-1">
     <div class="container">
       <div class="row p-3">

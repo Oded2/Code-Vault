@@ -19,7 +19,7 @@
   import ToastSetup from "../../../components/setup/ToastSetup.svelte";
   import Modal from "../../../components/Modal.svelte";
   export let data;
-  const sbApi = data.api;
+  const sbApi = data.sbApi;
   const nasaApi = data.nasaApi;
   const sb = createSbClient(sbApi);
   const nasaUrl = "https://api.nasa.gov/planetary/apod";

@@ -9,7 +9,7 @@
   import { fade } from "svelte/transition";
   import { flip } from "svelte/animate";
   export let data;
-  const api = data.api;
+  const api = data.sbApi;
   const sb = createSbClient(api);
   let toast;
   let dataArr = [];

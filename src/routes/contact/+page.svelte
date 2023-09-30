@@ -5,7 +5,7 @@
   import hrefs from "../../data/hrefs.json";
   import ToastSetup from "../../components/setup/ToastSetup.svelte";
   export let data;
-  const api = data.api;
+  const api = data.sbApi;
   const sb = createSbClient(api);
   const mailTo = hrefs["email"]["mailto"];
   const mail = hrefs["email"]["address"];
