@@ -18,14 +18,12 @@
   let copyText = "Copy Link";
   async function copy() {
     isCopy = true;
-
     if (!shortUrl) {
       copyText = "Fetching Link";
       await fetchTinyurl();
     }
     navigator.clipboard.writeText(shortUrl);
     copyText = "Copied to Clipboard";
-
     setTimeout(() => {
       copyText = "Copy Link";
       isCopy = false;
@@ -33,20 +31,17 @@
   }
 
   async function fetchTinyurl() {
-    await fetch(
-      addParams(new URL("https://api.tinyurl.com/create"), {
-        api_token: apiKey,
+    const url = new URL("https://api.tinyurl.com/create");
+    addParams(url, { api_token: apiKey });
+    await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        url: pageLink,
       }),
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          url: pageLink,
-        }),
-      }
-    )
+    })
       .then((response) => response.json())
       .then((data) => {
         shortUrl = data["data"]["tiny_url"];
