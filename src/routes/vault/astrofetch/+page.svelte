@@ -100,6 +100,15 @@
     const url = addParamsString(nasaUrl, { api_key: nasaApi, date: userDate });
     inProgress = true;
     const astroData = await fetchData(url);
+    if (!isImage(astroData.url)) {
+      inProgress = false;
+      toast = showToast(
+        "error",
+        "Error",
+        `The APOD at ${formatDate(user)} is not an image.`
+      );
+      return;
+    }
     astroArr = astroArr ? astroArr : [];
     astroArr.push(astroData);
     sortArray("date", false);
@@ -151,6 +160,9 @@
     if (push) {
       astroArr = astroArr;
     }
+  }
+  function isImage(url) {
+    return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
   }
 </script>
 
