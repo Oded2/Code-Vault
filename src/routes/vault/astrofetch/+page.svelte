@@ -240,7 +240,9 @@
             transition:fade={{ duration: 200 }}
           >
             <div class="card shadow">
-              <img src={item.url} alt={item.title} class="card-img-top" />
+              <div class="card-img-top overflow-hidden">
+                <img src={item.url} alt={item.title} class="img-fluid" />
+              </div>
               <div class="card-header">
                 <span>{formatDateStr(item.date)}</span>
               </div>
@@ -285,8 +287,9 @@
     aspect-ratio: 1/1;
     object-fit: cover;
     transition: 0.5s;
+    scale: 110%;
   }
   img:hover {
-    scale: 95%;
+    scale: 100%;
   }
 </style>
