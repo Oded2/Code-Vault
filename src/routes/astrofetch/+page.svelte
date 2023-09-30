@@ -333,6 +333,7 @@
         <div class="col-md">
           <button
             class="btn btn-info btn-interactive fs-4 p-2 font-google-quicksand fw-600 w-100 h-100"
+            disabled={isLoading}
             on:click={randomize}
             ><i class="fa-solid fa-dice" /> Randomize</button
           >
@@ -340,6 +341,7 @@
         <div class="col-md-4 col-xxl-6 mt-3 mt-md-0">
           <button
             on:click={() => submit(false)}
+            disabled={isLoading}
             class="btn btn-primary btn-interactive fs-4 p-2 font-google-quicksand fw-600 w-100 h-100"
           >
             <i class="fa-solid fa-rocket" /> Fetch
@@ -348,6 +350,7 @@
         <div class="col-md mt-3 mt-md-0">
           <button
             class="btn btn-light btn-interactive fs-4 p-2 font-google-quicksand fw-600 w-100 h-100"
+            disabled={isLoading}
             on:click={() => submit(true)}
             ><i class="fa-solid fa-plug-circle-xmark" /> Not working?</button
           >
