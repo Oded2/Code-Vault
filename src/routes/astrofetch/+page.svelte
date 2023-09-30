@@ -56,11 +56,9 @@
     if (!isVideo) {
       return;
     }
-
     const youtubeParams = { autoplay: 1, mute: 1 };
     const vimeoParams = { autoplay: 1, muted: 1, pip: 1 };
-    let urlLink = new URL(originalLink);
-
+    const urlLink = new URL(originalLink);
     if (originalLink.includes("youtube.com")) {
       addParams(urlLink, youtubeParams);
     } else if (newSrc.includes("vimeo.com")) {
