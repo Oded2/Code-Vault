@@ -8,6 +8,7 @@
     formatDateStr,
     maxLen,
     dateToStr,
+    addParams,
   } from "../../hooks.client.js";
   import hrefs from "../../data/hrefs.json";
   import nasaLogo from "../../images/svg/NASA.svg";
@@ -51,23 +52,22 @@
   $: isLoading = false;
   const apiUrl = "https://api.nasa.gov/planetary/apod";
   $: visible = isData && userId && isImage;
-  function showVideo(originalLink) {
+  function showVideo(originalLink = "") {
     if (!isVideo) {
       return;
     }
+
     const youtubeParams = { autoplay: 1, mute: 1 };
     const vimeoParams = { autoplay: 1, muted: 1, pip: 1 };
+    let urlLink = new URL(originalLink);
 
-    let newSrc = originalLink;
-    if (newSrc.includes("youtube.com")) {
-      newSrc = addParamsString(newSrc, youtubeParams).replace(
-        /youtube.com/g,
-        "youtube-nocookie.com"
-      );
+    if (originalLink.includes("youtube.com")) {
+      addParams(urlLink, youtubeParams);
     } else if (newSrc.includes("vimeo.com")) {
-      newSrc = addParamsString(newSrc, vimeoParams);
+      addParams(urlLink, vimeoParams);
     }
-    return newSrc;
+
+    return urlLink.toString().replace(/youtube.com/g, "youtube-nocookie.com");
   }
 
   async function insertImages(isDemo) {
