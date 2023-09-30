@@ -4,13 +4,15 @@
   import hrefs from "../../../data/hrefs.json";
   export let data;
   const url = $page.url;
-  const pageLink = url["href"];
+
   const title = url.searchParams.get("title");
   const src = url.searchParams.get("url");
   const explanation = url.searchParams.get("explanation");
   const date = url.searchParams.get("date");
   const copyright = url.searchParams.get("copyright");
   const rel = url.searchParams.get("rel");
+  url.searchParams.set("rel", hrefs.astrofetch.home.link);
+  const pageLink = url.href;
   const valid = url && title && src && explanation && date && copyright && rel;
   const apiKey = data.tinyurlApi;
   let shortUrl = null;
