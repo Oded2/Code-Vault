@@ -9,15 +9,13 @@ export function randomNum(min, max) {
 export function addParams(link = new URL(), params) {
   for (const key in params) {
     const value = params[key];
-
     link.searchParams.append(key, value);
   }
-  return link.toString();
 }
 export function addParamsString(string, params) {
   const link = new URL("https://codevault.com");
-  const linkWithParams = addParams(link, params);
-  return linkWithParams.replace("https://codevault.com", string);
+  addParams(link, params);
+  return link.toString().replace("https://codevault.com", string);
 }
 
 export async function fetchData(url) {
