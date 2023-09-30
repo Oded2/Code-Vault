@@ -4,7 +4,7 @@
     iconName;
 </script>
 
-<div class="col-md-6 mb-5">
+<div class="col-md-6 mb-5 d-flex align-items-stretch">
   <div class="card">
     <div class="card-header text-center">
       <h2>
