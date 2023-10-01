@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import Header from "../../components/Header.svelte.js";
+  import Header from "../../components/Header.svelte";
   import hrefs from "../../data/hrefs.json";
   import {
     addParams,
@@ -8,7 +8,7 @@
     dateToStr,
     fetchData,
   } from "../../hooks.client.js";
-  import ArticleCard from "../../components/cards/ArticleCard.svelte.js";
+  import ArticleCard from "../../components/cards/ArticleCard.svelte";
   export let data;
   const sbApi = data.sbApi;
   const newsApi = data.newsApi;
