@@ -241,7 +241,7 @@
           >
             <div class="card shadow">
               <div class="card-img-top overflow-hidden">
-                <img src={item.url} alt={item.title} class="img-fluid" />
+                <img src={item.url} alt={item.title} />
               </div>
               <div class="card-header">
                 <span>{formatDateStr(item.date)}</span>
@@ -284,6 +284,8 @@
 
 <style>
   img {
+    height: 100%;
+    width: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
     transition: 0.5s;
