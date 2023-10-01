@@ -127,6 +127,12 @@
             "title": "Israeli Driver Theory"
         }
     },
+    "newsApi": {
+        "home": {
+            "link": "/newsFinder",
+            "title": "News Finder"
+        }
+    },
     "email": {
         "address": "odedconnect@gmail.com",
         "mailto": "mailto:odedconnect@gmail.com"

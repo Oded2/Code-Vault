@@ -121,7 +121,7 @@
         mainLink={hrefs.vault.home.link}
       />
       <HomeCard
-        show={filter["html"]}
+        show={filter.html}
         title={hrefs["fun-projects"]["home"]["title"]}
         description="This website offers various features, including a Text Encrypter,
       Text Decrypter, Credit Card Validator, Credit Card Generator,
@@ -131,7 +131,7 @@
       />
 
       <HomeCard
-        show={filter["html"] || filter["python"]}
+        show={filter.html || filter.python}
         title={hrefs["astrofetch"]["home"]["title"]}
         description="AstroFetch is a versatile tool that retrieves the astronomy
         picture of the day within a specified date range. It comes in
@@ -149,14 +149,21 @@
         ></HomeCard
       >
       <HomeCard
-        show={filter["html"]}
+        show={filter.html}
         title={hrefs["israeli-driver-test"]["home"]["title"]}
         description="Pass the Israeli driver test in any language of your choice. Practice exams customized to your language preference. Overcome language barriers and drive with confidence. Start preparing now for a successful driving experience!"
         icon="taxi"
         mainLink={hrefs["israeli-driver-test"]["home"]["link"]}
       />
       <HomeCard
-        show={filter["html"]}
+        show={filter.html}
+        title={hrefs.newsApi.home.title}
+        description="**WORK IN PROGRESS** Search news articles in many languages, finding dozens of articles in just a few seconds."
+        icon="newspaper"
+        mainLink={hrefs.newsApi.home.link}
+      />
+      <HomeCard
+        show={filter.html}
         title={hrefs["fun-games"]["home"]["title"]}
         description="Discover a collection of fun browser games! No downloads required. Enjoy HTML, CSS, and JavaScript creations, all playable directly in your browser."
         icon="gamepad"
@@ -164,7 +171,7 @@
       />
 
       <HomeCard
-        show={filter["python"]}
+        show={filter.python}
         title="Python Encrypter"
         description="The Python code enables text file encryption with password
         protection. It utilizes a command line interface and requires
@@ -177,7 +184,7 @@
         type="download"
       />
       <HomeCard
-        show={filter["python"]}
+        show={filter.python}
         title="Python Hangman"
         description="The Hangman code for Python is a versatile program that enables
         you to play the popular word-guessing game. It incorporates
