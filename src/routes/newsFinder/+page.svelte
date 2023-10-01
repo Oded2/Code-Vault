@@ -50,8 +50,17 @@
     language ? newUrl.searchParams.append("lang", language) : false;
     inProgress = true;
     newsData = await fetchData(newUrl);
-    console.log(newsData);
     inProgress = false;
+    const total = newsData.totalArticles;
+    let x = 5;
+    toast =
+      total > 0
+        ? showToast(
+            "success",
+            "Success",
+            `Found ${total.toLocaleString()} articles from your search.`
+          )
+        : showToast("error", "No articles found", "Try changing your query.");
   }
   async function saveToVault(object = {}) {
     inProgress = true;
@@ -86,15 +95,6 @@
   function dateStrToISO(dateStr) {
     return new Date(dateStr).toISOString();
   }
-  function test() {
-    const x = new URL(
-      "https://gnews.io/api/v4/search?apikey=f434a47eed060b4ba596f7b81bcbfb3d&q=boeing+767&from=2023-09-01T00%3A00%3A00.000Z&to=2023-10-01T00%3A00%3A00.000Z&sortBy=relevance&language=en"
-    );
-    x.searchParams.forEach((key, value) => {
-      console.log(value, key);
-    });
-  }
-  test();
 </script>
 
 <main>
@@ -102,7 +102,7 @@
   <div class="container my-5 font-google-quicksand fw-600">
     <div class="mb-5 text-center">
       <h1 class="fw-bold display-4">{hrefs.gNews.home.title}</h1>
-      <div class="border-start text-start ps-sm-3">
+      <div class="border-start text-start ps-1 ps-sm-3">
         <p class="fs-4">{hrefs.gNews.home.description}</p>
       </div>
     </div>
