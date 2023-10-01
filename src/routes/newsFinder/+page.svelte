@@ -25,10 +25,10 @@
     }
   });
   const today = new Date();
-  const min = new Date(today.valueOf() - 2592000000);
+  const minDate = new Date(today.valueOf() - 2592000000);
   let query = "",
     language = "en",
-    startDate = dateToStr(min),
+    startDate = dateToStr(minDate),
     endDate = dateToStr(today),
     sortBy = "relevance";
   let newsData;
@@ -43,7 +43,7 @@
       q: query,
       from: dateStrToISO(startDate),
       to: dateStrToISO(endDate),
-      sortBy: sortBy,
+      sortby: sortBy,
       max: 9,
     });
 
@@ -52,15 +52,13 @@
     newsData = await fetchData(newUrl);
     inProgress = false;
     const total = newsData.totalArticles;
-    let x = 5;
-    toast =
-      total > 0
-        ? showToast(
-            "success",
-            "Success",
-            `Found ${total.toLocaleString()} articles from your search.`
-          )
-        : showToast("error", "No articles found", "Try changing your query.");
+    total == 0
+      ? (toast = showToast(
+          "error",
+          "No articles found",
+          "Try changing your query."
+        ))
+      : false;
   }
   async function saveToVault(object = {}) {
     inProgress = true;
@@ -93,7 +91,14 @@
     return data[0].news;
   }
   function dateStrToISO(dateStr) {
-    return new Date(dateStr).toISOString();
+    const date = new Date(dateStr);
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+    const day = String(date.getUTCDate()).padStart(2, "0");
+    const hours = String(date.getUTCHours()).padStart(2, "0");
+    const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+    const seconds = String(date.getUTCSeconds()).padStart(2, "0");
+    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}Z`;
   }
 </script>
 
@@ -127,7 +132,7 @@
             id="start"
             class="form-control fs-5"
             bind:value={startDate}
-            min={dateToStr(min)}
+            min={dateToStr(minDate)}
             max={dateToStr(today)}
           />
         </div>
@@ -138,7 +143,7 @@
             id="end"
             class="form-control fs-5"
             bind:value={endDate}
-            min={dateToStr(min)}
+            min={dateToStr(minDate)}
             max={dateToStr(today)}
           />
         </div>
