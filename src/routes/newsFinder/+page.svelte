@@ -103,17 +103,16 @@
             <option value={null}>Any</option>
             <option value="en" selected>English</option>
             <option value="ar">Arabic</option>
+            <option value="zh">Chinese</option>
+            <option value="nl">Dutch</option> <option value="fr">French</option>
             <option value="de">German</option>
-            <option value="es">Spanish</option>
-            <option value="fr">French</option>
             <option value="he">Hebrew</option>
             <option value="it">Italian</option>
-            <option value="nl">Dutch</option>
             <option value="no">Norweigan</option>
             <option value="pt">Portugese</option>
             <option value="ru">Russian</option>
+            <option value="es">Spanish</option>
             <option value="sv">Swedish</option>
-            <option value="zh">Chinese</option>
           </select>
         </div>
         <div class="mb-3 col-md-6">
