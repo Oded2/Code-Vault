@@ -14,7 +14,7 @@
   import ToastSetup from "../../components/setup/ToastSetup.svelte";
   export let data;
   const sbApi = data.sbApi;
-  const newsApi = data.newsApi;
+  const newsApi = data.gNewsApi;
   const sb = createSbClient(sbApi);
   let userId;
   let toast;
@@ -30,23 +30,28 @@
     language = "en",
     startDate = dateToStr(min),
     endDate = dateToStr(today),
-    sortBy = "relevancy";
+    sortBy = "relevance";
   let newsData;
   let inProgress = false;
-  const url = "https://newsapi.org/v2/everything";
+  const url = "https://gnews.io/api/v4/search";
   $: isRtl = language == "he" || language == "ar";
   async function submit() {
     const newUrl = new URL(url);
+
     addParams(newUrl, {
-      apiKey: newsApi,
+      apikey: newsApi,
       q: query,
-      from: startDate,
-      to: endDate,
+      from: dateStrToISO(startDate),
+      to: dateStrToISO(endDate),
       sortBy: sortBy,
+      max: 9,
     });
-    language ? newUrl.searchParams.append("language", language) : false;
+
+    language ? newUrl.searchParams.append("lang", language) : false;
+    console.log(newUrl.href);
     inProgress = true;
-    newsData = await fetchData(newUrl.href);
+    newsData = await fetchData(newUrl);
+    console.log(newsData);
     inProgress = false;
   }
   async function saveToVault(object = {}) {
@@ -79,15 +84,27 @@
     }
     return data[0].news;
   }
+  function dateStrToISO(dateStr) {
+    return new Date(dateStr).toISOString();
+  }
+  function test() {
+    const x = new URL(
+      "https://gnews.io/api/v4/search?apikey=f434a47eed060b4ba596f7b81bcbfb3d&q=boeing+767&from=2023-09-01T00%3A00%3A00.000Z&to=2023-10-01T00%3A00%3A00.000Z&sortBy=relevance&language=en"
+    );
+    x.searchParams.forEach((key, value) => {
+      console.log(value, key);
+    });
+  }
+  test();
 </script>
 
 <main>
-  <Header {sbApi} title={hrefs.newsApi.home.title} />
+  <Header {sbApi} title={hrefs.gNews.home.title} />
   <div class="container my-5 font-google-quicksand fw-600">
     <div class="mb-5 text-center">
-      <h1 class="fw-bold display-4">{hrefs.newsApi.home.title}</h1>
-      <div class="border-start text-start ps-5">
-        <p class="fs-4">{hrefs.newsApi.home.description}</p>
+      <h1 class="fw-bold display-4">{hrefs.gNews.home.title}</h1>
+      <div class="border-start text-start ps-sm-3">
+        <p class="fs-4">{hrefs.gNews.home.description}</p>
       </div>
     </div>
     <form on:submit|preventDefault={submit}>
@@ -137,15 +154,25 @@
             <option value="en" selected>English</option>
             <option value="ar">Arabic</option>
             <option value="zh">Chinese</option>
-            <option value="nl">Dutch</option> <option value="fr">French</option>
+            <option value="nl">Dutch</option>
+            <option value="fr">French</option>
             <option value="de">German</option>
+            <option value="el">Greek</option>
             <option value="he">Hebrew</option>
+            <option value="hi">Hindi</option>
             <option value="it">Italian</option>
+            <option value="ja">Japanese</option>
+            <option value="ml">Malayalam</option>
+            <option value="mr">Marathi</option>
             <option value="no">Norweigan</option>
             <option value="pt">Portugese</option>
+            <option value="ro">Romanian</option>
             <option value="ru">Russian</option>
             <option value="es">Spanish</option>
             <option value="sv">Swedish</option>
+            <option value="ta">Tamil</option>
+            <option value="te">Telugu</option>
+            <option value="uk">Ukranian</option>
           </select>
         </div>
         <div class="mb-3 col-md-6">
@@ -155,8 +182,7 @@
             id="language"
             bind:value={sortBy}
           >
-            <option value="relevancy" selected>Relevancy</option>
-            <option value="popularity">Popularity</option>
+            <option value="relevance" selected>Relevance</option>
             <option value="publishedAt"
               >Date (Most recent to most latest)</option
             >

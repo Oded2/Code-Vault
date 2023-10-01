@@ -120,12 +120,12 @@
         href={vaultRef["israeli-driver-test"].link}
         iconName={vaultRef["israeli-driver-test"].icon.name}
       />
-      <!-- <VaultCard
+      <VaultCard
         title={vaultRef.newsFinder.title}
         description={vaultRef.newsFinder.description}
         href={vaultRef.newsFinder.link}
         iconName={vaultRef.newsFinder.icon}
-      /> -->
+      />
     </div>
   </div>
 </main>

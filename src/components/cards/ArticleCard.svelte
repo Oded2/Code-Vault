@@ -5,18 +5,16 @@
 </script>
 
 <div class="card shadow">
-  {#if article.urlToImage}
+  {#if article.image}
     <div class="card-img-top overflow-hidden">
       <!-- svelte-ignore a11y-img-redundant-alt -->
-      <img src={article.urlToImage} alt="No image available" />
+      <img src={article.image} alt="No image available" />
     </div>
   {/if}
   <div class="card-header row">
-    <div class="col-12">
+    <div class="col-6">
       <span> {formatDateStr(article.publishedAt)}</span>
     </div>
-
-    <div class="col-6"><span>{article.author}</span></div>
     <div class="col-6"><span>{article.source.name}</span></div>
   </div>
   <div class="card-body" class:font-google-fredoka={dir == "rtl"} {dir}>

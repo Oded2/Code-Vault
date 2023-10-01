@@ -155,13 +155,13 @@
         icon="taxi"
         mainLink={hrefs["israeli-driver-test"]["home"]["link"]}
       />
-      <!-- <HomeCard
+      <HomeCard
         show={filter.html}
-        title={hrefs.newsApi.home.title}
-        description={hrefs.newsApi.home.description}
+        title={hrefs.gNews.home.title}
+        description={hrefs.gNews.home.description}
         icon="newspaper"
-        mainLink={hrefs.newsApi.home.link}
-      /> -->
+        mainLink={hrefs.gNews.home.link}
+      />
       <HomeCard
         show={filter.html}
         title={hrefs["fun-games"]["home"]["title"]}

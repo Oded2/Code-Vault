@@ -133,7 +133,7 @@
             "title": "Israeli Driver Theory"
         }
     },
-    "newsApi": {
+    "gNews": {
         "home": {
             "link": "/newsFinder",
             "title": "News Finder",
