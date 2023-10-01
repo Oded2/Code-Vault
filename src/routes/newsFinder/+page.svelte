@@ -47,7 +47,6 @@
     language ? newUrl.searchParams.append("language", language) : false;
     inProgress = true;
     newsData = await fetchData(newUrl);
-    console.log(newsData);
     inProgress = false;
   }
   async function saveToVault(object = {}) {
