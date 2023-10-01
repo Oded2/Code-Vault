@@ -25,11 +25,10 @@
     }
   });
   const today = new Date();
-  const minDate = new Date(today.valueOf() - 2592000000);
   let query = "",
     language = "en",
-    startDate = dateToStr(minDate),
-    endDate = dateToStr(today),
+    startDate,
+    endDate,
     sortBy = "relevance";
   let newsData;
   let inProgress = false;
@@ -41,12 +40,13 @@
     addParams(newUrl, {
       apikey: newsApi,
       q: query,
-      from: dateStrToISO(startDate),
-      to: dateStrToISO(endDate),
       sortby: sortBy,
       max: 9,
     });
-
+    startDate
+      ? newUrl.searchParams.append("from", dateStrToISO(startDate))
+      : false;
+    endDate ? newUrl.searchParams.append("to", dateStrToISO(endDate)) : false;
     language ? newUrl.searchParams.append("lang", language) : false;
     inProgress = true;
     newsData = await fetchData(newUrl);
@@ -100,6 +100,13 @@
     const seconds = String(date.getUTCSeconds()).padStart(2, "0");
     return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}Z`;
   }
+  function clearDates(type = "start") {
+    if (type == "start") {
+      startDate = null;
+    } else if (type == "end") {
+      endDate = null;
+    }
+  }
 </script>
 
 <main>
@@ -114,7 +121,11 @@
     <form on:submit|preventDefault={submit}>
       <div class="fs-2 row">
         <div class="mb-3 col-md-12">
-          <label for="query" class="form-label">Query</label>
+          <label for="query" class="form-label"
+            >Query <span title="This field is required" style="color:red"
+              >*</span
+            ></label
+          >
           <input
             type="text"
             id="query"
@@ -124,28 +135,39 @@
             bind:value={query}
           />
         </div>
-
         <div class="mb-3 col-md-6">
-          <label for="start" class="form-label">From</label>
-          <input
-            type="date"
-            id="start"
-            class="form-control fs-5"
-            bind:value={startDate}
-            min={dateToStr(minDate)}
-            max={dateToStr(today)}
-          />
+          <label for="start" class="form-label">From </label>
+          <div class="input-group">
+            <button
+              type="button"
+              class="btn btn-secondary input-group-text"
+              on:click={() => clearDates()}>Clear</button
+            >
+            <input
+              type="date"
+              id="start"
+              class="form-control fs-5"
+              bind:value={startDate}
+              max={dateToStr(today)}
+            />
+          </div>
         </div>
         <div class="mb-3 col-md-6">
           <label for="end" class="form-label">To</label>
-          <input
-            type="date"
-            id="end"
-            class="form-control fs-5"
-            bind:value={endDate}
-            min={dateToStr(minDate)}
-            max={dateToStr(today)}
-          />
+          <div class="input-group">
+            <button
+              type="button"
+              class="btn btn-secondary input-group-text"
+              on:click={() => clearDates("end")}>Clear</button
+            >
+            <input
+              type="date"
+              id="end"
+              class="form-control fs-5"
+              bind:value={endDate}
+              max={dateToStr(today)}
+            />
+          </div>
         </div>
         <div class="mb-3 col-md-6">
           <label for="language" class="form-label">Language</label>
