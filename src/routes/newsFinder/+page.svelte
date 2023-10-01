@@ -48,7 +48,6 @@
     });
 
     language ? newUrl.searchParams.append("lang", language) : false;
-    console.log(newUrl.href);
     inProgress = true;
     newsData = await fetchData(newUrl);
     console.log(newsData);
