@@ -36,7 +36,6 @@
   $: isRtl = language == "he" || language == "ar";
   async function submit() {
     const newUrl = new URL(url);
-
     addParams(newUrl, {
       apikey: newsApi,
       q: query,
