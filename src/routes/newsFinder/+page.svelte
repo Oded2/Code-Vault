@@ -46,7 +46,7 @@
     });
     language ? newUrl.searchParams.append("language", language) : false;
     inProgress = true;
-    newsData = await fetchData(newUrl);
+    newsData = await fetchData(newUrl.href);
     inProgress = false;
   }
   async function saveToVault(object = {}) {
