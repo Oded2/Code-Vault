@@ -8,7 +8,7 @@
   import { createSbClient } from "../hooks.client.js";
   import { onMount } from "svelte";
   export let data;
-  const api = data.api;
+  const api = data.sbApi;
   const sb = createSbClient(api);
   let currentSession;
   let showFilters = false;
