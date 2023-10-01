@@ -7,13 +7,17 @@
     createSbClient,
     dateToStr,
     fetchData,
+    maxLen,
+    showToast,
   } from "../../hooks.client.js";
   import ArticleCard from "../../components/cards/ArticleCard.svelte";
+  import ToastSetup from "../../components/setup/ToastSetup.svelte";
   export let data;
   const sbApi = data.sbApi;
   const newsApi = data.newsApi;
   const sb = createSbClient(sbApi);
   let userId;
+  let toast;
   onMount(async () => {
     const { data } = await sb.auth.getSession();
     if (data.session) {
@@ -43,11 +47,38 @@
     language ? newUrl.searchParams.append("language", language) : false;
     inProgress = true;
     newsData = await fetchData(newUrl);
+    console.log(newsData);
     inProgress = false;
   }
   async function saveToVault(object = {}) {
-    alert("Not ready yet!");
-    // TODO: Add function to save to vault
+    inProgress = true;
+    const currentData = await readFromVault();
+    inProgress = false;
+    currentData.push(object);
+    const { error } = await sb
+      .from("Vaults")
+      .update({ news: currentData })
+      .eq("user_id", userId);
+    if (error) {
+      toast = showToast("error", "Error", error.message);
+      return;
+    }
+    toast = showToast(
+      "success",
+      "Success",
+      `${maxLen(object.title, 20)} has been added to your personal vault.`
+    );
+  }
+  async function readFromVault() {
+    const { data, error } = await sb
+      .from("Vaults")
+      .select("news")
+      .eq("user_id", userId);
+    if (error) {
+      toast = showToast("error", "Error", error.message);
+      return;
+    }
+    return data[0].news;
   }
 </script>
 
@@ -56,6 +87,9 @@
   <div class="container my-5 font-google-quicksand fw-600">
     <div class="mb-5 text-center">
       <h1 class="fw-bold display-4">{hrefs.newsApi.home.title}</h1>
+      <div class="border-start text-start ps-5">
+        <p class="fs-4">{hrefs.newsApi.home.description}</p>
+      </div>
     </div>
     <form on:submit|preventDefault={submit}>
       <div class="fs-2 row">
@@ -141,16 +175,20 @@
     {#if newsData}
       <div class="row">
         {#each newsData.articles as article}
-          <ArticleCard {article} dir={isRtl ? "rtl" : "ltr"}>
-            <button
-              class="btn btn-secondary btn-lg fs-4 w-100 fw-bold"
-              disabled={!userId}
-              on:click={() => saveToVault(article)}
-              ><i class="fa-solid fa-vault" /> Save to Personal Vault</button
-            ></ArticleCard
-          >
+          <div class="col-md-6 col-xl-4 d-flex align-items-stretch mb-5">
+            <ArticleCard {article} dir={isRtl ? "rtl" : "ltr"}>
+              <button
+                class="btn btn-secondary btn-lg fs-4 w-100 fw-bold"
+                disabled={!userId || inProgress}
+                on:click={() => saveToVault(article)}
+                ><i class="fa-solid fa-vault" /> Save to Personal Vault</button
+              ></ArticleCard
+            >
+          </div>
         {/each}
       </div>
     {/if}
   </div>
 </main>
+
+<ToastSetup {toast} />

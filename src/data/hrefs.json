@@ -64,6 +64,12 @@
             "icon": {
                 "name": "taxi"
             }
+        },
+        "newsFinder": {
+            "link": "/vault/newsFinder",
+            "title": "News Finder",
+            "description": "See your saved news articles.",
+            "icon": "newspaper"
         }
     },
     "fun-projects": {
@@ -130,7 +136,8 @@
     "newsApi": {
         "home": {
             "link": "/newsFinder",
-            "title": "News Finder"
+            "title": "News Finder",
+            "description": "Search dozens of news articles in just a few clicks. Please note that some articles may lead false information, or contain unfiltered results."
         }
     },
     "email": {

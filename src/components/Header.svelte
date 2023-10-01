@@ -1,17 +1,20 @@
 <script>
   import { onMount } from "svelte";
-  import { page } from "$app/stores";
   import { createSbClient } from "../hooks.client.js";
   import hrefs from "../data/hrefs.json";
   import { goto } from "$app/navigation";
-  export let title = null;
+  export let title = null,
+    showTitle = true;
   export let directory = null;
   export let isHome = false;
   export let sbApi;
   export let isProtected = false,
     noAccount = false;
-  const newTitle = !title ? "Code Vault" : title + " - Code Vault";
-  const url = $page.url["href"];
+  const isPersonal = directory
+    ? directory.home.title == hrefs.vault.home.title
+    : false;
+  const suffix = isPersonal ? "Personal Vault" : "Code Vault";
+  const newTitle = !title || !showTitle ? suffix : title + ` - ${suffix}`;
   let userData;
   onMount(async () => {
     if (sbApi) {
@@ -45,15 +48,6 @@
   } else {
     breakpoint = "xl";
   }
-  const shareParams = {
-    twitter: {
-      text: 'Check out "' + newTitle + "\" from Oded's coding portfolio!",
-      url: url,
-    },
-    facebook: {
-      u: url,
-    },
-  };
 </script>
 
 <svelte:head>

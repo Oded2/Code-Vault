@@ -78,6 +78,7 @@
 <main class="full-background text-bg-light">
   <Header
     title={vaultRef.home.title}
+    showTitle={false}
     directory={vaultRef}
     sbApi={api}
     isProtected={true}
@@ -118,6 +119,12 @@
         description={vaultRef["israeli-driver-test"].description}
         href={vaultRef["israeli-driver-test"].link}
         iconName={vaultRef["israeli-driver-test"].icon.name}
+      />
+      <VaultCard
+        title={vaultRef.newsFinder.title}
+        description={vaultRef.newsFinder.description}
+        href={vaultRef.newsFinder.link}
+        iconName={vaultRef.newsFinder.icon}
       />
     </div>
   </div>

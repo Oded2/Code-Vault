@@ -158,7 +158,7 @@
       <HomeCard
         show={filter.html}
         title={hrefs.newsApi.home.title}
-        description="**WORK IN PROGRESS** Search news articles in many languages, finding dozens of articles in just a few seconds."
+        description={hrefs.newsApi.home.description}
         icon="newspaper"
         mainLink={hrefs.newsApi.home.link}
       />
