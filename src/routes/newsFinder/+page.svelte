@@ -35,6 +35,13 @@
   const url = "https://gnews.io/api/v4/search";
   $: isRtl = language == "he" || language == "ar";
   async function submit() {
+    if (query.length == 0) {
+      toast = showToast("error", "Error", "Query must be filled out.");
+      return;
+    }
+    if (!validateDates()) {
+      return;
+    }
     const newUrl = new URL(url);
     addParams(newUrl, {
       apikey: newsApi,
@@ -105,6 +112,38 @@
     } else if (type == "end") {
       endDate = null;
     }
+  }
+  function validateDates() {
+    if (!startDate && !endDate) {
+      return true;
+    }
+    const start = new Date(startDate).valueOf();
+    const end = new Date(endDate).valueOf();
+    if (start > end) {
+      toast = showToast(
+        "error",
+        "Invalid Dates",
+        "Start date cannot be after end date."
+      );
+      return false;
+    }
+    if (start > today.valueOf()) {
+      toast = showToast(
+        "error",
+        "Invalid Dates",
+        "Start date cannot be after today."
+      );
+      return false;
+    }
+    if (end > today.valueOf()) {
+      toast = showToast(
+        "error",
+        "Invalid Dates",
+        "End date cannot be afer today"
+      );
+      return false;
+    }
+    return true;
   }
 </script>
 
