@@ -170,6 +170,7 @@
             class="form-control fs-4"
             placeholder="Usually either one word or a phrase"
             required
+            autocomplete="off"
             bind:value={query}
           />
         </div>
