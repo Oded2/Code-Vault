@@ -27,6 +27,7 @@
   const today = new Date();
   let query = "",
     language = "en",
+    country,
     startDate,
     endDate,
     sortBy = "relevance";
@@ -54,6 +55,7 @@
       : false;
     endDate ? newUrl.searchParams.append("to", dateStrToISO(endDate)) : false;
     language ? newUrl.searchParams.append("lang", language) : false;
+    country ? newUrl.searchParams.append("country", country) : false;
     inProgress = true;
     newsData = await fetchData(newUrl);
     inProgress = false;
@@ -62,7 +64,7 @@
       ? (toast = showToast(
           "error",
           "No articles found",
-          "Try changing your query."
+          "Try changing your parameters."
         ))
       : false;
   }
@@ -208,7 +210,7 @@
             />
           </div>
         </div>
-        <div class="mb-3 col-md-6">
+        <div class="mb-3 col-md-4">
           <label for="language" class="form-label">Language</label>
           <select
             class="form-select form-select-lg"
@@ -240,11 +242,51 @@
             <option value="uk">Ukranian</option>
           </select>
         </div>
-        <div class="mb-3 col-md-6">
-          <label for="language" class="form-label">Sort By</label>
+        <div class="mb-3 col-md-4">
+          <label for="country" class="form-label">Country</label>
           <select
             class="form-select form-select-lg"
-            id="language"
+            id="country"
+            bind:value={country}
+          >
+            <option value={null} selected>Any</option>
+            <option value="au">Australia</option>
+            <option value="br">Brazil</option>
+            <option value="ca">Canada</option>
+            <option value="cn">China</option>
+            <option value="eg">Egypt</option>
+            <option value="fr">France</option>
+            <option value="de">Germany</option>
+            <option value="gr">Greece</option>
+            <option value="hk">Hong Kong</option>
+            <option value="in">India</option>
+            <option value="ie">Ireland</option>
+            <option value="il">Israel</option>
+            <option value="it">Italy</option>
+            <option value="jp">Japan</option>
+            <option value="nl">Netherlands</option>
+            <option value="no">Norway</option>
+            <option value="pk">Pakistan</option>
+            <option value="pe">Peru</option>
+            <option value="ph">Philippines</option>
+            <option value="pt">Portugal</option>
+            <option value="ro">Romania</option>
+            <option value="ru">Russia</option>
+            <option value="sg">Singapore</option>
+            <option value="es">Span</option>
+            <option value="se">Sweden</option>
+            <option value="ch">Switzerland</option>
+            <option value="tw">Taiwan</option>
+            <option value="ua">Ukraine</option>
+            <option value="gb">United Kingdom</option>
+            <option value="us">United States</option>
+          </select>
+        </div>
+        <div class="mb-3 col-md-4">
+          <label for="sort" class="form-label">Sort By</label>
+          <select
+            class="form-select form-select-lg"
+            id="sort"
             bind:value={sortBy}
           >
             <option value="relevance" selected>Relevance</option>
