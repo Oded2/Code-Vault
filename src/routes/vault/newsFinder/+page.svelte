@@ -51,6 +51,27 @@
       `${maxLen(article.title, 10)} has been deleted from your personal vault.`
     );
   }
+  async function deleteAll() {
+    if (
+      !confirm("Are you sure you want to this? This action cannot be undone.")
+    ) {
+      return;
+    }
+    const { error } = await sb
+      .from("Vaults")
+      .update({ news: [] })
+      .eq("user_id", userId);
+    if (error) {
+      toast = showToast("error", "Error", error.message);
+      return;
+    }
+    articles = [];
+    toast = showToast(
+      "success",
+      "Cleared Articles",
+      "All your saved articles have been deleted from your personal vault."
+    );
+  }
 </script>
 
 <main>
@@ -61,8 +82,13 @@
     isProtected={true}
   />
 
-  <div class="container font-google-quicksand fw-600 my-5">
+  <div class="container font-google-quicksand fw-600 mb-5 mt-3">
     {#if articles.length > 0}
+      <div class="mb-3 d-flex">
+        <button class="btn btn-outline-danger me-5" on:click={deleteAll}
+          ><i class="fa-solid fa-trash-can" /> Clear Articles</button
+        >
+      </div>
       <div class="row">
         {#each articles as article (article)}
           <div

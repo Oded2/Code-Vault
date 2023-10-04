@@ -118,12 +118,12 @@
     isProtected={true}
   />
   <div class="mt-3 mb-5 font-google-quicksand fw-600 container">
-    <div class="mb-3 d-flex">
-      <button class="btn btn-outline-danger me-5" on:click={deleteAll}
-        ><i class="fa-solid fa-trash-can" /> Clear Tests</button
-      >
-    </div>
     {#if isValid}
+      <div class="mb-3 d-flex">
+        <button class="btn btn-outline-danger me-5" on:click={deleteAll}
+          ><i class="fa-solid fa-trash-can" /> Clear Tests</button
+        >
+      </div>
       <div class="row">
         {#each dataArr as test (test)}
           <div

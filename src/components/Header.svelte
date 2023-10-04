@@ -36,7 +36,7 @@
     }
   });
 
-  let breakpoint;
+  let breakpoint = "xl";
   let pages = [];
   for (let i in directory) {
     pages.push(i);
@@ -44,9 +44,7 @@
   if (pages.length < 3) {
     breakpoint = "sm";
   } else if (pages.length < 4) {
-    breakpoint = "lg";
-  } else {
-    breakpoint = "xl";
+    breakpoint = "md";
   }
 </script>
 
