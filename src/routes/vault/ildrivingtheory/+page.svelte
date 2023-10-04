@@ -34,7 +34,7 @@
     return data.session.user.id;
   };
   async function readFromVault() {
-    const { data, error } = await sb
+    const { data } = await sb
       .from("Vaults")
       .select("ildriver")
       .eq("user_id", userId);
@@ -85,6 +85,24 @@
     );
     dataArr = dataArr;
   }
+  const deleteAll = async () => {
+    if (
+      !confirm(
+        "Are you sure you want to delete all your tests? There's no going back."
+      )
+    ) {
+      return;
+    }
+    const { error } = await sb
+      .from("Vaults")
+      .update({ ildriver: null })
+      .eq("user_id", userId);
+    if (error) {
+      toast = showToast("error", "Error", error.message);
+      return;
+    }
+    dataArr = [];
+  };
 </script>
 
 <main>
@@ -94,7 +112,12 @@
     sbApi={api}
     isProtected={true}
   />
-  <div class="my-5 font-google-quicksand fw-600 container">
+  <div class="mt-3 mb-5 font-google-quicksand fw-600 container">
+    <div class="mb-3 d-flex">
+      <button class="btn btn-outline-danger me-5" on:click={deleteAll}
+        ><i class="fa-solid fa-trash-can" /> Clear Tests</button
+      >
+    </div>
     {#if isValid}
       <div class="row">
         {#each dataArr as test (test)}
