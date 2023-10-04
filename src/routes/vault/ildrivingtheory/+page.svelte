@@ -102,6 +102,11 @@
       return;
     }
     dataArr = [];
+    toast = showToast(
+      "success",
+      "Test Results Cleared",
+      "All your tests have been deleted from your personal vault."
+    );
   };
 </script>
 
@@ -122,7 +127,7 @@
       <div class="row">
         {#each dataArr as test (test)}
           <div
-            class="col-sm-6 col-lg-4 mb-5"
+            class="col-sm-6 col-lg-4 mb-5 d-flex align-items-stretch"
             animate:flip={{ duration: 200 }}
             transition:fade={{ duration: 200 }}
           >
