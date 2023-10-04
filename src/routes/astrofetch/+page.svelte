@@ -370,25 +370,25 @@
           {#if isImage}
             <div class="h-100 d-flex justify-content-center">
               {#each astroData as currentItem, index}
-                <a
-                  class="h-100"
-                  href={addParamsString(hrefs.astrofetch.viewer.link, {
-                    title: currentItem["title"],
-                    url: currentItem["url"],
-                    explanation: currentItem["explanation"],
-                    date: formatDateStr(currentItem["date"]),
-                    copyright: currentItem["copyright"],
-                    rel: $page.url,
-                  })}
-                  target="_blank"
-                >
-                  <img
-                    src={currentItem["url"]}
-                    alt={currentItem["title"]}
-                    hidden={index != currentImg}
-                    class="img-fluid object-fit-contain h-100"
-                  /></a
-                >
+                {#if index == currentImg}
+                  <a
+                    class="h-100"
+                    href={addParamsString(hrefs.astrofetch.viewer.link, {
+                      title: currentItem["title"],
+                      url: currentItem["url"],
+                      explanation: currentItem["explanation"],
+                      date: formatDateStr(currentItem["date"]),
+                      copyright: currentItem["copyright"],
+                      rel: $page.url,
+                    })}
+                    target="_blank"
+                  >
+                    <img
+                      src={currentItem["url"]}
+                      alt={currentItem["title"]}
+                      class="img-fluid object-fit-contain h-100"
+                    /></a
+                  >{/if}
               {/each}
             </div>
           {:else if isVideo}
