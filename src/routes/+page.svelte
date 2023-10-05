@@ -169,6 +169,14 @@
         icon="gamepad"
         mainLink={hrefs["fun-games"]["home"]["link"]}
       />
+      <HomeCard
+        show={filter.html}
+        title="AeroLogger"
+        description="In progress flight logger website, made with the inspiration of Code Vault."
+        icon="plane"
+        mainLink="https://aerologger.netlify.app/"
+        sourceLink="https://github.com/Oded2/Aerologger"
+      />
 
       <HomeCard
         show={filter.python}
