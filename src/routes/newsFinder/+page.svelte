@@ -34,7 +34,6 @@
   let newsData;
   let inProgress = false;
   const url = "https://gnews.io/api/v4/search";
-  $: isRtl = language == "he" || language == "ar";
   async function submit() {
     if (query.length == 0) {
       toast = showToast("error", "Error", "Query must be filled out.");
@@ -308,7 +307,7 @@
       <div class="row">
         {#each newsData.articles as article}
           <div class="col-md-6 col-xl-4 d-flex align-items-stretch mb-5">
-            <ArticleCard {article} dir={isRtl ? "rtl" : "ltr"}>
+            <ArticleCard {article}>
               <button
                 class="btn btn-secondary btn-lg fs-4 w-100 fw-bold"
                 disabled={!userId || inProgress}

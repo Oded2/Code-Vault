@@ -1,7 +1,6 @@
 <script>
   import { formatDateStr } from "../../hooks.client.js";
   export let article = {};
-  export let dir = "ltr";
 </script>
 
 <div class="card shadow">
@@ -17,7 +16,7 @@
     </div>
     <div class="col-6"><span>{article.source.name}</span></div>
   </div>
-  <div class="card-body" class:font-google-fredoka={dir == "rtl"} {dir}>
+  <div class="card-body font-google-fredoka" dir="auto">
     <h3 class="fw-600">{article.title}</h3>
     <p class="fw-500 fs-5">{article.description}</p>
   </div>
