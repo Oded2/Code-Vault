@@ -49,14 +49,6 @@
             "link": "/vault",
             "title": "Personal Vault"
         },
-        "astrofetch": {
-            "link": "/vault/astrofetch",
-            "title": "AstroFetch",
-            "description": "See your favorite astrofetch images.",
-            "icon": {
-                "name": "user-astronaut"
-            }
-        },
         "israeli-driver-test": {
             "link": "/vault/ildrivingtheory",
             "title": "Israeli Driver Theory Results",
