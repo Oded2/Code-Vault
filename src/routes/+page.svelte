@@ -172,7 +172,7 @@
       <HomeCard
         show={filter.html}
         title="AeroLogger"
-        description="In progress flight logger website, made with the inspiration of Code Vault."
+        description="Flight logger website, made with the inspiration of Code Vault."
         icon="plane"
         mainLink="https://aerologger.netlify.app/"
         sourceLink="https://github.com/Oded2/Aerologger"
